@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tebak Kata!</title>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5; /* Latar belakang abu-abu terang */
+            margin: 0;
+            transition: background-color 0.5s ease;
+        }
+
+        .game-container {
+            text-align: center;
+            padding: 30px;
+            background-color: #ffffff; /* Kotak permainan berwarna putih */
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Bayangan yang lebih menonjol */
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: #2c3e50; /* Warna judul yang lebih gelap */
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 65px);
+            gap: 8px;
+            margin: 25px auto;
+            justify-content: center;
+        }
+
+        .tile {
+            width: 65px;
+            height: 65px;
+            border: 2px solid #d3d6da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+            transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .tile.correct {
+            background-color: #6aaa64; /* Hijau */
+            color: white;
+            border-color: #6aaa64;
+            animation: flip 0.6s ease forwards;
+        }
+
+        .tile.present {
+            background-color: #c9b458; /* Kuning */
+            color: white;
+            border-color: #c9b458;
+            animation: flip 0.6s ease forwards;
+        }
+
+        .tile.absent {
+            background-color: #787c7e; /* Abu-abu */
+            color: white;
+            border-color: #787c7e;
+            animation: flip 0.6s ease forwards;
+        }
+        
+        @keyframes flip {
+            0% { transform: rotateX(0deg); }
+            50% { transform: rotateX(90deg); }
+            100% { transform: rotateX(0deg); }
+        }
+
+        #keyboard {
+            margin-top: 30px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+
+        .key {
+            background-color: #d3d6da;
+            border: none;
+            padding: 12px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            min-width: 45px;
+            height: 55px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+            text-transform: uppercase;
+        }
+
+        .key:active {
+            transform: scale(0.95);
+        }
+
+        .key.correct {
+            background-color: #6aaa64;
+            color: white;
+        }
+
+        .key.present {
+            background-color: #c9b458;
+            color: white;
+        }
+
+        .key.absent {
+            background-color: #787c7e;
+            color: white;
+        }
+
+        #message-area {
+            margin-top: 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            height: 30px;
+            color: #34495e;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #play-again-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 1.3em;
+            cursor: pointer;
+            background-color: #3498db; /* Warna biru yang menarik */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            display: none;
+        }
+
+        #play-again-btn:hover {
+            background-color: #2980b9;
+        }
+
+        #play-again-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>TEBAK KATA!</h1>
+        <div id="game-board"></div>
+        <div id="keyboard"></div>
+        <div id="message-area"></div>
+        <button id="play-again-btn">Main Lagi</button>
+    </div>
+
+    <script>
+        const words = ["APPLE", "KATAH", "BUMAN", "KAMIL", "COBAI", "PIANO", "MAKAN"];
+        let correctWord = words[Math.floor(Math.random() * words.length)];
+        let guesses = [];
+        let currentGuess = "";
+        let currentRow = 0;
+        let gameOver = false;
+
+        const gameBoard = document.getElementById("game-board");
+        const keyboard = document.getElementById("keyboard");
+        const messageArea = document.getElementById("message-area");
+        const playAgainBtn = document.getElementById("play-again-btn");
+
+        function initBoard() {
+            gameBoard.innerHTML = '';
+            for (let i = 0; i < 5; i++) {
+                for (let j = 0; j < 5; j++) {
+                    const tile = document.createElement("div");
+                    tile.classList.add("tile");
+                    tile.id = `tile-${i}-${j}`;
+                    gameBoard.appendChild(tile);
+                }
+            }
+        }
+
+        function initKeyboard() {
+            keyboard.innerHTML = '';
+            const keys = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
+            keys.forEach(row => {
+                const rowDiv = document.createElement("div");
+                rowDiv.classList.add("keyboard-row");
+                [...row].forEach(key => {
+                    const keyButton = document.createElement("button");
+                    keyButton.classList.add("key");
+                    keyButton.textContent = key;
+                    keyButton.addEventListener("click", () => handleKeyPress({ key: key.toLowerCase() }));
+                    rowDiv.appendChild(keyButton);
+                });
+                keyboard.appendChild(rowDiv);
+            });
+
+            const lastRow = keyboard.lastElementChild;
+            const enterBtn = document.createElement("button");
+            enterBtn.classList.add("key");
+            enterBtn.textContent = "ENTER";
+            enterBtn.style.flexGrow = 1;
+            enterBtn.addEventListener("click", () => handleKeyPress({ key: "enter" }));
+            lastRow.insertBefore(enterBtn, lastRow.children[0]);
+
+            const backspaceBtn = document.createElement("button");
+            backspaceBtn.classList.add("key");
+            backspaceBtn.textContent = "DEL";
+            backspaceBtn.style.flexGrow = 1;
+            backspaceBtn.addEventListener("click", () => handleKeyPress({ key: "backspace" }));
+            lastRow.appendChild(backspaceBtn);
+        }
+
+        function handleKeyPress(e) {
+            if (gameOver) return;
+
+            const key = e.key;
+
+            if (key === "enter") {
+                if (currentGuess.length === 5) {
+                    checkGuess();
+                } else {
+                    showMessage("Tebakan harus 5 huruf!");
+                }
+            } else if (key === "backspace") {
+                currentGuess = currentGuess.slice(0, -1);
+                updateBoard();
+            } else if ("abcdefghijklmnopqrstuvwxyz".includes(key) && currentGuess.length < 5) {
+                currentGuess += key.toUpperCase();
+                updateBoard();
+            }
+        }
+
+        function updateBoard() {
+            for (let i = 0; i < 5; i++) {
+                const tile = document.getElementById(`tile-${currentRow}-${i}`);
+                tile.textContent = currentGuess[i] || "";
+            }
+        }
+
+        function checkGuess() {
+            const guess = currentGuess;
+            const correctLetters = correctWord.split("");
+            const guessLetters = guess.split("");
+
+            let guessStatus = Array(5).fill("absent");
+
+            for (let i = 0; i < 5; i++) {
+                if (guessLetters[i] === correctLetters[i]) {
+                    guessStatus[i] = "correct";
+                    correctLetters[i] = null;
+                }
+            }
+
+            for (let i = 0; i < 5; i++) {
+                if (guessStatus[i] === "absent" && correctLetters.includes(guessLetters[i])) {
+                    guessStatus[i] = "present";
+                    const index = correctLetters.indexOf(guessLetters[i]);
+                    correctLetters[index] = null;
+                }
+            }
+
+            for (let i = 0; i < 5; i++) {
+                const tile = document.getElementById(`tile-${currentRow}-${i}`);
+                setTimeout(() => {
+                    tile.classList.add(guessStatus[i]);
+                    updateKeyboard(guessLetters[i], guessStatus[i]);
+                }, i * 300);
+            }
+
+            setTimeout(() => {
+                if (guess === correctWord) {
+                    showMessage("Anda menang!", true);
+                } else if (currentRow === 4) {
+                    showMessage(`Anda kalah! Kata yang benar adalah ${correctWord}.`, true);
+                } else {
+                    currentRow++;
+                    currentGuess = "";
+                }
+            }, 5 * 300);
+        }
+
+        function updateKeyboard(letter, status) {
+            const keyButton = Array.from(keyboard.querySelectorAll(".key")).find(key => key.textContent === letter);
+            if (keyButton) {
+                if (status === "correct") {
+                    keyButton.classList.remove("present", "absent");
+                    keyButton.classList.add("correct");
+                } else if (status === "present" && !keyButton.classList.contains("correct")) {
+                    keyButton.classList.add("present");
+                } else if (status === "absent" && !keyButton.classList.contains("correct") && !keyButton.classList.contains("present")) {
+                    keyButton.classList.add("absent");
+                }
+            }
+        }
+
+        function showMessage(message, isGameOver = false) {
+            messageArea.textContent = message;
+            if (isGameOver) {
+                gameOver = true;
+                playAgainBtn.style.display = 'block';
+            }
+        }
+
+        function resetGame() {
+            correctWord = words[Math.floor(Math.random() * words.length)];
+            currentGuess = "";
+            currentRow = 0;
+            gameOver = false;
+            messageArea.textContent = "";
+            playAgainBtn.style.display = 'none';
+            initBoard();
+            initKeyboard();
+        }
+
+        playAgainBtn.addEventListener("click", resetGame);
+        document.addEventListener("keydown", handleKeyPress);
+
+        initBoard();
+        initKeyboard();
+    </script>
+</body>
+</html>
