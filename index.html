@@ -3,79 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengumuman Pemenang! 🎉</title>
+    <title>Grup A H A Y</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-        :root {
-            --primary-color: #dc3545; /* Merah */
-            --secondary-color: #007bff;
-            --winner-bg-1: #ffd700;
-            --winner-bg-2: #c0c0c0;
-            --winner-bg-3: #cd7f32;
-            --bg-light: #f8f9fa;
-            --text-dark: #333;
-            --navbar-bg: #dc3545; /* Merah */
-            --navbar-text: #fff; /* Putih */
-            --prize-color: #28a745; /* Hijau untuk hadiah */
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background-image: url('https://autoresbot.com/tmp_files/1b7dc486-208a-4098-b163-29210101b914.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            background: #2c2c2c;
+            color: #f0f0f0;
             margin: 0;
-            color: var(--text-dark);
-            text-align: center;
-            padding-top: 60px;
-            box-sizing: border-box;
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--navbar-bg);
-            padding: 15px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 100;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
         }
-
-        .navbar-title {
-            font-size: 2em;
-            font-weight: bold;
-            color: var(--navbar-text);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-            animation: wave 1s infinite alternate;
-        }
-
-        @keyframes wave {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-5px); }
-        }
-
         .container {
-            background-color: transparent;
+            background: #333;
+            background: linear-gradient(145deg, #444, #222);
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 800px;
-            width: 90%;
-            animation: fadeIn 1s forwards;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border: 2px solid #ffcc00; /* Border statis awal */
             position: relative;
-            margin-top: 20px;
+            transition: all 0.5s ease;
         }
 
+        /* Efek Border Menyala */
+        .container:before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            bottom: -5px;
+            left: -5px;
+            background: linear-gradient(to right, rgba(255, 204, 0, 0), #ffcc00, rgba(255, 204, 0, 0));
+            border-radius: 17px;
+            z-index: -1;
+            background-size: 200% 100%;
+            animation: moving-border 3s linear infinite;
+        }
+
+        @keyframes moving-border {
+            0% { background-position: 0 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .container:after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            bottom: -5px;
+            left: -5px;
+            background: linear-gradient(to bottom, rgba(255, 204, 0, 0), #ffcc00, rgba(255, 204, 0, 0));
+            border-radius: 17px;
+            z-index: -2;
+            background-size: 100% 200%;
+            animation: moving-border-vertical 3s linear infinite alternate;
+        }
+
+        @keyframes moving-border-vertical {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 200%; }
+        }
+        /* Akhir Efek Border Menyala */
+
+        h1 {
+            color: #ffcc00;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 5px;
+        }
+        p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #d4d4d4;
+        }
+        .privacy-note {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: -10px;
+            margin-bottom: 25px;
+        }
+        textarea {
+            width: 95%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ffcc00;
+            background: #444;
+            color: #f0f0f0;
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ffcc00;
+        }
+        button {
+            background-color: #ffcc00;
+            color: #333;
+            font-weight: bold;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        button:hover {
+            background-color: #ffd700;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        #statusMessage {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .show {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+        }
+        
+        #claimButton {
+            background-color: #ffd700;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #claimButton.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="contentContainer">
+        <h1>A H A Y</h1>
+        <p>Punya ide, inspirasi, pertanyaan, atau saran untuk grup? Sampaikan di sini, yuk!</p>
+        <p class="privacy-note">Tenang saja, pesan Anda akan **anonim** dan **privasi Anda tetap terjaga**. Kami tidak menyimpan informasi pribadi apa pun.</p>
+
+        <form id="ideaForm">
+            <div class="form-group">
+                <label for="adminRating">Bagaimana penilaianmu terhadap para admin?</label>
+                <textarea id="adminRating" placeholder="Berikan penilaianmu secara jujur..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="solution">Apa solusinya?</label>
+                <textarea id="solution" placeholder="Berikan saran solusi yang membangun..." required></textarea>
+            </div>
+
+            <button type="submit" id="submitButton">Kirim</button>
+        </form>
+        <div id="statusMessage"></div>
+    </div>
+
+    <div id="successContent" style="display: none;">
+        <h1 class="success-message">Terima Kasih!</h1>
+        <p class="success-message">Saran dan penilaian Anda sangat berarti bagi kami. Silakan klaim kejutan di bawah ini.</p>
+        
+        <a href="https://link.dana.id/danakaget?c=synfg6563&r=cAYM8h&orderId=20250818101214887715010300166998236567487" target="_blank">
+            <button id="claimButton">Klaim Dana Kaget</button>
+        </a>
+    </div>
+
+</div>
+
+<script>
+    // PERHATIAN: TOKEN BOT INI TERLIHAT PUBLIK DI KODE INI
+    // JANGAN GUNAKAN INI UNTUK APLIKASI PRODUKSI!
+    const TELEGRAM_BOT_TOKEN = '7863353249:AAGeLK7vgDRaqXrdL6dLLSmogSyySPjda7k';
+    const TELEGRAM_CHAT_ID = '-1002810451990';
+
+    const form = document.getElementById('ideaForm');
+    const adminRatingInput = document.getElementById('adminRating');
+    const solutionInput = document.getElementById('solution');
+    const submitButton = document.getElementById('submitButton');
+    const statusMessage = document.getElementById('statusMessage');
+    const contentContainer = document.getElementById('contentContainer');
+    const successContent = document.getElementById('successContent');
+    const claimButton = document.getElementById('claimButton');
+
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const adminRating = adminRatingInput.value.trim();
+        const solution = solutionInput.value.trim();
+
+        if (adminRating === '' || solution === '') {
+            statusMessage.style.color = 'red';
+            statusMessage.textContent = 'Semua kolom harus diisi!';
+            statusMessage.classList.add('show');
+            return;
+        }
+
+        statusMessage.style.color = '#ffcc00';
+        statusMessage.textContent = 'Mengirim pesan...';
+        statusMessage.classList.add('show');
+        submitButton.disabled = true;
+
+        const messageText = `<b>Penilaian Admin & Solusi Baru!</b>\n\n<b>Penilaian terhadap admin:</b>\n${adminRating}\n\n<b>Solusi yang disarankan:</b>\n${solution}`;
+        
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        const payload = {
+            chat_id: TELEGRAM_CHAT_ID,
+            text: messageText,
+            parse_mode: 'HTML'
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                contentContainer.style.display = 'none';
+                statusMessage.style.display = 'none';
+                successContent.style.display = 'block';
+
+                setTimeout(() => {
+                    document.querySelectorAll('.success-message').forEach(el => el.classList.add('show'));
+                    claimButton.classList.add('show');
+                }, 100);
+
+            } else {
+                statusMessage.style.color = 'red';
+                statusMessage.textContent = 'Gagal mengirim pesan. Silakan coba lagi.';
+                submitButton.disabled = false;
+            }
+        } catch (error) {
+            statusMessage.style.color = 'red';
+            statusMessage.textContent = 'Terjadi kesalahan saat mengirim pesan.';
+            console.error('Error:', error);
+            submitButton.disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
