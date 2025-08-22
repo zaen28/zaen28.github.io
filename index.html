@@ -3,272 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grup A H A Y</title>
+    <title>Tombol DANA Kaget</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-        
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #2c2c2c;
-            color: #f0f0f0;
-            margin: 0;
+            font-family: sans-serif;
+            background-color: #f0f2f5;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            background: #333;
-            background: linear-gradient(145deg, #444, #222);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 500px;
             text-align: center;
-            border: 2px solid #ffcc00; /* Border statis awal */
-            position: relative;
-            transition: all 0.5s ease;
         }
-
-        /* Efek Border Menyala */
-        .container:before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            bottom: -5px;
-            left: -5px;
-            background: linear-gradient(to right, rgba(255, 204, 0, 0), #ffcc00, rgba(255, 204, 0, 0));
-            border-radius: 17px;
-            z-index: -1;
-            background-size: 200% 100%;
-            animation: moving-border 3s linear infinite;
-        }
-
-        @keyframes moving-border {
-            0% { background-position: 0 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        .container:after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            bottom: -5px;
-            left: -5px;
-            background: linear-gradient(to bottom, rgba(255, 204, 0, 0), #ffcc00, rgba(255, 204, 0, 0));
-            border-radius: 17px;
-            z-index: -2;
-            background-size: 100% 200%;
-            animation: moving-border-vertical 3s linear infinite alternate;
-        }
-
-        @keyframes moving-border-vertical {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 200%; }
-        }
-        /* Akhir Efek Border Menyala */
-
         h1 {
-            color: #ffcc00;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            margin-bottom: 5px;
+            color: #1a73e8;
+            margin-bottom: 30px;
         }
-        p {
-            margin-bottom: 25px;
-            line-height: 1.6;
-            color: #d4d4d4;
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
         }
-        .privacy-note {
-            font-size: 0.8em;
-            color: #999;
-            margin-top: -10px;
-            margin-bottom: 25px;
-        }
-        textarea {
-            width: 95%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ffcc00;
-            background: #444;
-            color: #f0f0f0;
-            resize: vertical;
-            min-height: 120px;
-            margin-bottom: 20px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-        textarea:focus {
-            outline: none;
-            border-color: #ffd700;
-            box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
-        }
-        .form-group {
-            text-align: left;
-            margin-bottom: 25px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #ffcc00;
-        }
-        button {
-            background-color: #ffcc00;
-            color: #333;
-            font-weight: bold;
+        .dana-button {
+            background-color: #1a73e8;
+            color: white;
             padding: 15px 30px;
             border: none;
             border-radius: 8px;
-            cursor: pointer;
             font-size: 16px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        button:hover {
-            background-color: #ffd700;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        }
-        #statusMessage {
-            margin-top: 20px;
             font-weight: bold;
-            font-size: 1.1em;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
         }
-        .show {
-            opacity: 1 !important;
-            transform: translateY(0) scale(1) !important;
-        }
-        
-        #claimButton {
-            background-color: #ffd700;
-            margin-top: 30px;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        #claimButton.show {
-            opacity: 1;
-            transform: translateY(0);
+        .dana-button:hover {
+            background-color: #155bb5;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div id="contentContainer">
-        <h1>A H A Y</h1>
-        <p>Punya ide, inspirasi, pertanyaan, atau saran untuk grup? Sampaikan di sini, yuk!</p>
-        <p class="privacy-note">Tenang saja, pesan Anda akan **anonim** dan **privasi Anda tetap terjaga**. Kami tidak menyimpan informasi pribadi apa pun.</p>
-
-        <form id="ideaForm">
-            <div class="form-group">
-                <label for="adminRating">Bagaimana penilaianmu terhadap para admin?</label>
-                <textarea id="adminRating" placeholder="Berikan penilaianmu secara jujur..." required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="solution">Apa solusinya?</label>
-                <textarea id="solution" placeholder="Berikan saran solusi yang membangun..." required></textarea>
-            </div>
-
-            <button type="submit" id="submitButton">Kirim</button>
-        </form>
-        <div id="statusMessage"></div>
+    <h1>Kumpulan Link DANA Kaget</h1>
+    <div class="button-container">
+        <a href="https://link.dana.id/danakaget?c=s7z8cg2mt&r=jQUAl4&orderId=20250822101214158115010300166707036256194" class="dana-button">Tombol 1</a>
+        <a href="https://link.dana.id/danakaget?c=sdncfql5k&r=hKM12V&orderId=20250822101214713815010300166113836755301" class="dana-button">Tombol 2</a>
+        <a href="https://link.dana.id/danakaget?c=sny6vavpx&r=gcTY05&orderId=20250822101214715715010300166050538250720" class="dana-button">Tombol 3</a>
+        <a href="https://link.dana.id/danakaget?c=s89l3zmgt&r=dYsK3f&orderId=20250822101214288415010300166993937060481" class="dana-button">Tombol 4</a>
+        <a href="https://link.dana.id/danakaget?c=sfwfvsawd&r=fiZxH3&orderId=20250822101214184115010300166898638179422" class="dana-button">Tombol 5</a>
+        <a href="https://link.dana.id/danakaget?c=sx5smjg9w&r=kHGoKe&orderId=20250822101214747015010300166560237395848" class="dana-button">Tombol 6</a>
+        <a href="https://link.dana.id/danakaget?c=s4t2wwpss&r=hOc4OL&orderId=20250822101214383215010300166017937973945" class="dana-button">Tombol 7</a>
+        <a href="https://link.dana.id/danakaget?c=s9p787nuv&r=gtkdNu&orderId=20250822101214585815010300166261336920968" class="dana-button">Tombol 8</a>
+        <a href="https://link.dana.id/danakaget?c=swqnyvvzw&r=bf1ZDk&orderId=20250822101214385515010300166480137427762" class="dana-button">Tombol 9</a>
+        <a href="https://link.dana.id/danakaget?c=sq6mhm8v5&r=bVAXgE&orderId=20250822101214571915010300166103537643725" class="dana-button">Tombol 10</a>
+        <a href="https://link.dana.id/danakaget?c=sb93rlvqh&r=h4lvi5&orderId=20250822101214378515010300166253537061282" class="dana-button">Tombol 11</a>
+        <a href="https://link.dana.id/danakaget?c=s8vh7vnkd&r=cZw6wM&orderId=20250822101214055815010300166703936338410" class="dana-button">Tombol 12</a>
+        <a href="https://link.dana.id/danakaget?c=s62l9hcpq&r=bL3Hc3&orderId=20250822101214555215010300166353837054044" class="dana-button">Tombol 13</a>
+        <a href="https://link.dana.id/danakaget?c=sknbawqv8&r=jkw0NH&orderId=20250822101214537515010300166033537386372" class="dana-button">Tombol 14</a>
+        <a href="https://link.dana.id/danakaget?c=spmpd4a57&r=htQTsA&orderId=20250822101214359515010300166060036723257" class="dana-button">Tombol 15</a>
+        <a href="https://link.dana.id/danakaget?c=sxarygghe&r=dD5e9m&orderId=20250822101214741515010300166060436854817" class="dana-button">Tombol 16</a>
+        <a href="https://link.dana.id/danakaget?c=syfbsgzhy&r=dpOLum&orderId=20250822101214184415010300166368937132951" class="dana-button">Tombol 17</a>
+        <a href="https://link.dana.id/danakaget?c=sz83qy98a&r=jMHp9h&orderId=20250822101214729515010300166296736992234" class="dana-button">Tombol 18</a>
+        <a href="https://link.dana.id/danakaget?c=sxnlfd33q&r=jNQyv4&orderId=20250822101214825315010300166825338303875" class="dana-button">Tombol 19</a>
+        <a href="https://link.dana.id/danakaget?c=s65d5gl3a&r=chnMZV&orderId=20250822101214953315010300166611336853025" class="dana-button">Tombol 20</a>
+        <a href="https://link.dana.id/danakaget?c=she8qz8gb&r=ivxbAz&orderId=20250822101214719815010300166376937303532" class="dana-button">Tombol 21</a>
+        <a href="https://link.dana.id/danakaget?c=s6t8eedf4&r=hVnIsb&orderId=20250822101214055715010300166933737946612" class="dana-button">Tombol 22</a>
+        <a href="https://link.dana.id/danakaget?c=slyqyz9sc&r=kpUUAX&orderId=20250822101214594515010300166333036665592" class="dana-button">Tombol 23</a>
+        <a href="https://link.dana.id/danakaget?c=sygu586ss&r=dh1JbA&orderId=20250822101214548515010300166608537574937" class="dana-button">Tombol 24</a>
+        <a href="https://link.dana.id/danakaget?c=s2c6blt9l&r=gQMKG3&orderId=20250822101214759215010300166917936599025" class="dana-button">Tombol 25</a>
+        <a href="https://link.dana.id/danakaget?c=sexepdbx2&r=g6WCnO&orderId=20250822101214724215010300166023837460894" class="dana-button">Tombol 26</a>
+        <a href="https://link.dana.id/danakaget?c=sp3c76yqm&r=eSNdRE&orderId=20250822101214825715010300166321136818974" class="dana-button">Tombol 27</a>
+        <a href="https://link.dana.id/danakaget?c=srylgvjde&r=j06UVb&orderId=20250822101214537215010300166235436785319" class="dana-button">Tombol 28</a>
+        <a href="https://link.dana.id/danakaget?c=s53423sq9&r=ka30SQ&orderId=20250822101214781215010300166183837305725" class="dana-button">Tombol 29</a>
+        <a href="https://link.dana.id/danakaget?c=sgz6bu32k&r=foDjri&orderId=20250822101214555815010300166345835915076" class="dana-button">Tombol 30</a>
+        <a href="https://link.dana.id/danakaget?c=s8w8lvbr3&r=hVnIsb&orderId=20250822101214725715010300166933738009852" class="dana-button">Tombol 31</a>
+        <a href="https://link.dana.id/danakaget?c=sylm4es88&r=ejgaRk&orderId=20250822101214885315010300166962137515907" class="dana-button">Tombol 32</a>
+        <a href="https://link.dana.id/danakaget?c=s3xllp5mp&r=ilmrH0&orderId=20250822101214590215010300166349435925269" class="dana-button">Tombol 33</a>
+        <a href="https://link.dana.id/danakaget?c=sbrzlgvc2&r=j0wXvc&orderId=20250821101214577515010300166362336971121" class="dana-button">Tombol 34</a>
+        <a href="https://link.dana.id/danakaget?c=seqxu23h2&r=glnWuA&orderId=20250822101214554915010300166303537604595" class="dana-button">Tombol 35</a>
+        <a href="https://link.dana.id/danakaget?c=smdg69u73&r=hgJ7j0&orderId=20250822101214988515010300166269036877957" class="dana-button">Tombol 36</a>
+        <a href="https://link.dana.id/danakaget?c=s54y78anv&r=hgJ7j0&orderId=20250822101214754715010300166269036966331" class="dana-button">Tombol 37</a>
+        <a href="https://link.dana.id/danakaget?c=sr8p3qz7b&r=hgJ7j0&orderId=20250822101214358315010300166269036881776" class="dana-button">Tombol 38</a>
+        <a href="https://link.dana.id/danakaget?c=sny83nbhx&r=dYsK3f&orderId=20250822101214845815010300166993937095757" class="dana-button">Tombol 39</a>
     </div>
-
-    <div id="successContent" style="display: none;">
-        <h1 class="success-message">Terima Kasih!</h1>
-        <p class="success-message">Saran dan penilaian Anda sangat berarti bagi kami. Silakan klaim kejutan di bawah ini.</p>
-        
-        <a href="https://link.dana.id/danakaget?c=synfg6563&r=cAYM8h&orderId=20250818101214887715010300166998236567487" target="_blank">
-            <button id="claimButton">Klaim Dana Kaget</button>
-        </a>
-    </div>
-
-</div>
-
-<script>
-    // PERHATIAN: TOKEN BOT INI TERLIHAT PUBLIK DI KODE INI
-    // JANGAN GUNAKAN INI UNTUK APLIKASI PRODUKSI!
-    const TELEGRAM_BOT_TOKEN = '7863353249:AAGeLK7vgDRaqXrdL6dLLSmogSyySPjda7k';
-    const TELEGRAM_CHAT_ID = '-1002810451990';
-
-    const form = document.getElementById('ideaForm');
-    const adminRatingInput = document.getElementById('adminRating');
-    const solutionInput = document.getElementById('solution');
-    const submitButton = document.getElementById('submitButton');
-    const statusMessage = document.getElementById('statusMessage');
-    const contentContainer = document.getElementById('contentContainer');
-    const successContent = document.getElementById('successContent');
-    const claimButton = document.getElementById('claimButton');
-
-    form.addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        const adminRating = adminRatingInput.value.trim();
-        const solution = solutionInput.value.trim();
-
-        if (adminRating === '' || solution === '') {
-            statusMessage.style.color = 'red';
-            statusMessage.textContent = 'Semua kolom harus diisi!';
-            statusMessage.classList.add('show');
-            return;
-        }
-
-        statusMessage.style.color = '#ffcc00';
-        statusMessage.textContent = 'Mengirim pesan...';
-        statusMessage.classList.add('show');
-        submitButton.disabled = true;
-
-        const messageText = `<b>Penilaian Admin & Solusi Baru!</b>\n\n<b>Penilaian terhadap admin:</b>\n${adminRating}\n\n<b>Solusi yang disarankan:</b>\n${solution}`;
-        
-        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        const payload = {
-            chat_id: TELEGRAM_CHAT_ID,
-            text: messageText,
-            parse_mode: 'HTML'
-        };
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                contentContainer.style.display = 'none';
-                statusMessage.style.display = 'none';
-                successContent.style.display = 'block';
-
-                setTimeout(() => {
-                    document.querySelectorAll('.success-message').forEach(el => el.classList.add('show'));
-                    claimButton.classList.add('show');
-                }, 100);
-
-            } else {
-                statusMessage.style.color = 'red';
-                statusMessage.textContent = 'Gagal mengirim pesan. Silakan coba lagi.';
-                submitButton.disabled = false;
-            }
-        } catch (error) {
-            statusMessage.style.color = 'red';
-            statusMessage.textContent = 'Terjadi kesalahan saat mengirim pesan.';
-            console.error('Error:', error);
-            submitButton.disabled = false;
-        }
-    });
-</script>
 
 </body>
 </html>
