@@ -3,89 +3,364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tombol DANA Kaget</title>
+    <title>Dana Kaget</title>
     <style>
         body {
             font-family: sans-serif;
-            background-color: #f0f2f5;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #1a73e8;
-            margin-bottom: 30px;
-        }
-        .button-container {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            text-align: center;
+            flex-direction: column;
+            color: #fff;
         }
-        .dana-button {
-            background-color: #1a73e8;
-            color: white;
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            80% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        button {
             padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            min-width: 150px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-        .dana-button:hover {
-            background-color: #155bb5;
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: -1;
+        }
+
+        button:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #mau {
+            background-color: #28a745;
+            color: #fff;
+        }
+        #mau:hover {
+            background-color: #218838;
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        #tidak-mau {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        #tidak-mau:hover {
+            background-color: #c82333;
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .video-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            display: none;
+            background-color: rgba(0, 0, 0, 0.85);
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #video-player {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: none; /* Sembunyikan video saat loading */
+        }
+
+        .loading-overlay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .spinner {
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-top: 6px solid #28a745;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .whatsapp-container {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            color: #fff;
+            animation: slideInUp 0.8s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .whatsapp-container p {
+            font-size: 1.2em;
+        }
+
+        .whatsapp-container a {
+            color: #fff;
+            text-decoration: none;
+            background-color: #25D366;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 15px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .whatsapp-container a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #25D366;
         }
     </style>
 </head>
 <body>
 
-    <h1>Kumpulan Link DANA Kaget</h1>
-    <div class="button-container">
-        <a href="https://link.dana.id/danakaget?c=s7z8cg2mt&r=jQUAl4&orderId=20250822101214158115010300166707036256194" class="dana-button">Tombol 1</a>
-        <a href="https://link.dana.id/danakaget?c=sdncfql5k&r=hKM12V&orderId=20250822101214713815010300166113836755301" class="dana-button">Tombol 2</a>
-        <a href="https://link.dana.id/danakaget?c=sny6vavpx&r=gcTY05&orderId=20250822101214715715010300166050538250720" class="dana-button">Tombol 3</a>
-        <a href="https://link.dana.id/danakaget?c=s89l3zmgt&r=dYsK3f&orderId=20250822101214288415010300166993937060481" class="dana-button">Tombol 4</a>
-        <a href="https://link.dana.id/danakaget?c=sfwfvsawd&r=fiZxH3&orderId=20250822101214184115010300166898638179422" class="dana-button">Tombol 5</a>
-        <a href="https://link.dana.id/danakaget?c=sx5smjg9w&r=kHGoKe&orderId=20250822101214747015010300166560237395848" class="dana-button">Tombol 6</a>
-        <a href="https://link.dana.id/danakaget?c=s4t2wwpss&r=hOc4OL&orderId=20250822101214383215010300166017937973945" class="dana-button">Tombol 7</a>
-        <a href="https://link.dana.id/danakaget?c=s9p787nuv&r=gtkdNu&orderId=20250822101214585815010300166261336920968" class="dana-button">Tombol 8</a>
-        <a href="https://link.dana.id/danakaget?c=swqnyvvzw&r=bf1ZDk&orderId=20250822101214385515010300166480137427762" class="dana-button">Tombol 9</a>
-        <a href="https://link.dana.id/danakaget?c=sq6mhm8v5&r=bVAXgE&orderId=20250822101214571915010300166103537643725" class="dana-button">Tombol 10</a>
-        <a href="https://link.dana.id/danakaget?c=sb93rlvqh&r=h4lvi5&orderId=20250822101214378515010300166253537061282" class="dana-button">Tombol 11</a>
-        <a href="https://link.dana.id/danakaget?c=s8vh7vnkd&r=cZw6wM&orderId=20250822101214055815010300166703936338410" class="dana-button">Tombol 12</a>
-        <a href="https://link.dana.id/danakaget?c=s62l9hcpq&r=bL3Hc3&orderId=20250822101214555215010300166353837054044" class="dana-button">Tombol 13</a>
-        <a href="https://link.dana.id/danakaget?c=sknbawqv8&r=jkw0NH&orderId=20250822101214537515010300166033537386372" class="dana-button">Tombol 14</a>
-        <a href="https://link.dana.id/danakaget?c=spmpd4a57&r=htQTsA&orderId=20250822101214359515010300166060036723257" class="dana-button">Tombol 15</a>
-        <a href="https://link.dana.id/danakaget?c=sxarygghe&r=dD5e9m&orderId=20250822101214741515010300166060436854817" class="dana-button">Tombol 16</a>
-        <a href="https://link.dana.id/danakaget?c=syfbsgzhy&r=dpOLum&orderId=20250822101214184415010300166368937132951" class="dana-button">Tombol 17</a>
-        <a href="https://link.dana.id/danakaget?c=sz83qy98a&r=jMHp9h&orderId=20250822101214729515010300166296736992234" class="dana-button">Tombol 18</a>
-        <a href="https://link.dana.id/danakaget?c=sxnlfd33q&r=jNQyv4&orderId=20250822101214825315010300166825338303875" class="dana-button">Tombol 19</a>
-        <a href="https://link.dana.id/danakaget?c=s65d5gl3a&r=chnMZV&orderId=20250822101214953315010300166611336853025" class="dana-button">Tombol 20</a>
-        <a href="https://link.dana.id/danakaget?c=she8qz8gb&r=ivxbAz&orderId=20250822101214719815010300166376937303532" class="dana-button">Tombol 21</a>
-        <a href="https://link.dana.id/danakaget?c=s6t8eedf4&r=hVnIsb&orderId=20250822101214055715010300166933737946612" class="dana-button">Tombol 22</a>
-        <a href="https://link.dana.id/danakaget?c=slyqyz9sc&r=kpUUAX&orderId=20250822101214594515010300166333036665592" class="dana-button">Tombol 23</a>
-        <a href="https://link.dana.id/danakaget?c=sygu586ss&r=dh1JbA&orderId=20250822101214548515010300166608537574937" class="dana-button">Tombol 24</a>
-        <a href="https://link.dana.id/danakaget?c=s2c6blt9l&r=gQMKG3&orderId=20250822101214759215010300166917936599025" class="dana-button">Tombol 25</a>
-        <a href="https://link.dana.id/danakaget?c=sexepdbx2&r=g6WCnO&orderId=20250822101214724215010300166023837460894" class="dana-button">Tombol 26</a>
-        <a href="https://link.dana.id/danakaget?c=sp3c76yqm&r=eSNdRE&orderId=20250822101214825715010300166321136818974" class="dana-button">Tombol 27</a>
-        <a href="https://link.dana.id/danakaget?c=srylgvjde&r=j06UVb&orderId=20250822101214537215010300166235436785319" class="dana-button">Tombol 28</a>
-        <a href="https://link.dana.id/danakaget?c=s53423sq9&r=ka30SQ&orderId=20250822101214781215010300166183837305725" class="dana-button">Tombol 29</a>
-        <a href="https://link.dana.id/danakaget?c=sgz6bu32k&r=foDjri&orderId=20250822101214555815010300166345835915076" class="dana-button">Tombol 30</a>
-        <a href="https://link.dana.id/danakaget?c=s8w8lvbr3&r=hVnIsb&orderId=20250822101214725715010300166933738009852" class="dana-button">Tombol 31</a>
-        <a href="https://link.dana.id/danakaget?c=sylm4es88&r=ejgaRk&orderId=20250822101214885315010300166962137515907" class="dana-button">Tombol 32</a>
-        <a href="https://link.dana.id/danakaget?c=s3xllp5mp&r=ilmrH0&orderId=20250822101214590215010300166349435925269" class="dana-button">Tombol 33</a>
-        <a href="https://link.dana.id/danakaget?c=sbrzlgvc2&r=j0wXvc&orderId=20250821101214577515010300166362336971121" class="dana-button">Tombol 34</a>
-        <a href="https://link.dana.id/danakaget?c=seqxu23h2&r=glnWuA&orderId=20250822101214554915010300166303537604595" class="dana-button">Tombol 35</a>
-        <a href="https://link.dana.id/danakaget?c=smdg69u73&r=hgJ7j0&orderId=20250822101214988515010300166269036877957" class="dana-button">Tombol 36</a>
-        <a href="https://link.dana.id/danakaget?c=s54y78anv&r=hgJ7j0&orderId=20250822101214754715010300166269036966331" class="dana-button">Tombol 37</a>
-        <a href="https://link.dana.id/danakaget?c=sr8p3qz7b&r=hgJ7j0&orderId=20250822101214358315010300166269036881776" class="dana-button">Tombol 38</a>
-        <a href="https://link.dana.id/danakaget?c=sny83nbhx&r=dYsK3f&orderId=20250822101214845815010300166993937095757" class="dana-button">Tombol 39</a>
+    <div class="container">
+        <h1>Mau Dana Kaget?</h1>
+        <div class="buttons">
+            <button id="mau">Mau</button>
+            <button id="tidak-mau">Tidak Mau</button>
+        </div>
     </div>
+
+    <div class="video-container" id="videoPopup">
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <p class="info-message">Tunggu sebentar, sedang memuat video...</p>
+        </div>
+
+        <video id="video-player" controls preload="auto">
+            <source src="https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1756122216412-hhvegf.mp4" type="video/mp4">
+            Maaf, browser Anda tidak mendukung tag video.
+        </video>
+        <p class="info-message" id="waitMessage" style="display: none;">Tunggu video sampai selesai untuk mendapatkan link dana kaget!</p>
+
+        <div class="whatsapp-container" id="whatsappLink">
+            <p id="whatsappMessage"></p>
+            <a href="#" id="whatsappButton" target="_blank">Ambil Dana Kaget</a>
+        </div>
+    </div>
+
+    <script>
+        const videoPopup = document.getElementById('videoPopup');
+        const videoPlayer = document.getElementById('video-player');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const waitMessage = document.getElementById('waitMessage');
+        const whatsappLink = document.getElementById('whatsappLink');
+        const whatsappMessage = document.getElementById('whatsappMessage');
+        const whatsappButton = document.getElementById('whatsappButton');
+        const mauButton = document.getElementById('mau');
+        const tidakMauButton = document.getElementById('tidak-mau');
+
+        // Fungsi untuk mengacak pesan ucapan
+        function getRandomGreeting() {
+            const greetings = [
+                "Selamat malam!",
+                "Halo, selamat malam!",
+                "Hai, selamat malam!",
+                "Malam, semangat!"
+            ];
+            return greetings[Math.floor(Math.random() * greetings.length)];
+        }
+
+        // Event listener untuk tombol "Mau"
+        mauButton.addEventListener('click', () => {
+            document.body.style.overflow = 'hidden'; // Nonaktifkan scroll
+            videoPopup.style.display = 'flex';
+            loadingOverlay.style.display = 'flex'; // Tampilkan loading overlay
+            videoPlayer.load(); // Memuat ulang video
+        });
+
+        // Event saat video sudah siap untuk diputar
+        videoPlayer.addEventListener('loadeddata', () => {
+            loadingOverlay.style.display = 'none'; // Sembunyikan loading overlay
+            videoPlayer.style.display = 'block'; // Tampilkan video player
+            waitMessage.style.display = 'block'; // Tampilkan pesan tunggu
+            videoPlayer.play(); // Putar video
+        });
+
+        // Event listener saat video selesai
+        videoPlayer.addEventListener('ended', () => {
+            videoPlayer.style.display = 'none'; // Sembunyikan video
+            waitMessage.style.display = 'none'; // Sembunyikan pesan tunggu
+            whatsappLink.style.display = 'block'; // Tampilkan link WhatsApp
+            
+            // Atur pesan dan link WhatsApp
+            // GANTI LINK DANA KAGET DI BAWAH INI DENGAN LINK ASLI ANDA
+            const danaLink = "https://link.dana.id/danakaget?c=s366cl88u&r=cAYM8h&orderId=20250825101214222715010300166998237451307"; 
+            const whatsappNumber = "6285352229748";
+            const randomGreeting = getRandomGreeting();
+            whatsappMessage.innerText = `${randomGreeting}\n\nSelamat! Dana kagetnya sudah siap, klik tombol di bawah ini.`;
+            
+            const whatsappText = encodeURIComponent(`${randomGreeting} Ini link dana kagetnya: ${danaLink}`);
+            whatsappButton.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${whatsappText}`;
+        });
+
+        // Event listener untuk tombol "Tidak Mau"
+        tidakMauButton.addEventListener('click', () => {
+            const regretPageContent = `
+                <!DOCTYPE html>
+                <html lang="id">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Penyesalan</title>
+                    <style>
+                        body {
+                            font-family: sans-serif;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            margin: 0;
+                            background: linear-gradient(-45deg, #dc3545, #c82333);
+                            background-size: 400% 400%;
+                            animation: gradient-animation 15s ease infinite;
+                            text-align: center;
+                            color: #fff;
+                        }
+                        @keyframes gradient-animation {
+                            0% { background-position: 0% 50%; }
+                            50% { background-position: 100% 50%; }
+                            100% { background-position: 0% 50%; }
+                        }
+                        .regret-container {
+                            background-color: rgba(255, 255, 255, 0.9);
+                            padding: 40px;
+                            border-radius: 15px;
+                            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                            backdrop-filter: blur(10px);
+                            animation: bounceIn 1s ease-out;
+                            color: #333;
+                        }
+                        @keyframes bounceIn {
+                            0% { transform: scale(0.3); opacity: 0; }
+                            50% { transform: scale(1.1); opacity: 1; }
+                            80% { transform: scale(0.9); }
+                            100% { transform: scale(1); }
+                        }
+                        h1 {
+                            color: #dc3545;
+                            font-size: 2.5em;
+                        }
+                        p {
+                            font-size: 1.5em;
+                            margin: 10px 0;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="regret-container">
+                        <h1>Yah, Sayang Sekali!</h1>
+                        <p>Padahal dana kagetnya banyak banget lho...</p>
+                        <p>Pasti nyesel kan?</p>
+                    </div>
+                </body>
+                </html>
+            `;
+            const newWindow = window.open('', '_self');
+            newWindow.document.write(regretPageContent);
+            newWindow.document.close();
+        });
+
+        // Menutup popup video jika diklik di luar video
+        videoPopup.addEventListener('click', (e) => {
+            if (e.target === videoPopup) {
+                videoPlayer.pause();
+                videoPopup.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Aktifkan kembali scroll
+                whatsappLink.style.display = 'none'; // Sembunyikan kembali link WA
+                videoPlayer.style.display = 'block'; // Tampilkan kembali video
+                videoPlayer.currentTime = 0; // Kembalikan ke awal
+                waitMessage.style.display = 'none'; // Sembunyikan pesan tunggu
+            }
+        });
+    </script>
 
 </body>
 </html>
