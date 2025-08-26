@@ -1,366 +1,487 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dana Kaget</title>
+    <title>Halaman Pembayaran</title>
+    
+    <meta property="og:title" content="Nara Zaen - Layanan Tukar Saldo Terpercaya">
+    <meta property="og:description" content="Tukar dan convert saldo e-wallet serta bank dengan mudah dan cepat. Layanan profesional dan terpercaya.">
+    <meta property="og:image" content="https://autoresbot.com/tmp_files/66ecf1c5-3be1-4513-a76c-6f2ca2cac38b.jpg">
+    <meta property="og:url" content="URL_ANDA_DI_SINI">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nara Zaen - Layanan Tukar Saldo Terpercaya">
+    <meta name="twitter:description" content="Tukar dan convert saldo e-wallet serta bank dengan mudah dan cepat. Layanan profesional dan terpercaya.">
+    <meta name="twitter:image" content="https://autoresbot.com/tmp_files/66ecf1c5-3be1-4513-a76c-6f2ca2cac38b.jpg">
+
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient-animation 15s ease infinite;
-            text-align: center;
-            flex-direction: column;
-            color: #fff;
+            height: 60px;
+            background-color: #0d0d0d;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            padding: 0 20px;
+            z-index: 1000;
         }
 
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            animation: bounceIn 1s ease-out;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.1); opacity: 1; }
-            80% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-
-        h1 {
-            color: #333;
-            font-size: 2.5em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .buttons {
-            margin-top: 30px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
+        .navbar-brand {
+            font-size: 2em;
             font-weight: bold;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            color: #d4af37;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+            animation: pulse-brand 3s infinite;
         }
 
-        button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transition: all 0.6s ease;
-            transform: translate(-50%, -50%) scale(0);
-            z-index: -1;
+        @keyframes pulse-brand {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
         }
 
-        button:hover::before {
-            transform: translate(-50%, -50%) scale(1);
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 80px 20px 40px;
+            text-align: center;
         }
-
-        #mau {
-            background-color: #28a745;
-            color: #fff;
+        
+        /* Konten utama yang memuat semua elemen di tengah halaman */
+        .container {
+            max-width: 650px;
+            width: 90%;
+            background-color: #1e1e1e;
+            padding: 40px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.1);
         }
-        #mau:hover {
-            background-color: #218838;
-            transform: translateY(-5px) scale(1.05);
-        }
-
-        #tidak-mau {
-            background-color: #dc3545;
-            color: #fff;
-        }
-        #tidak-mau:hover {
-            background-color: #c82333;
-            transform: translateY(-5px) scale(1.05);
-        }
-
-        .video-container {
+        
+        /* Konten yang muncul sebagai overlay di tengah */
+        .container-overlay {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1000;
-            display: none;
-            background-color: rgba(0, 0, 0, 0.85);
-            width: 100%;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            animation: fadeIn 0.5s ease-out;
+            max-width: 650px;
+            width: 90%;
+            transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+            background-color: #1e1e1e;
+            padding: 40px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            z-index: 100;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .welcome-text h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInText 1s ease-in-out forwards;
+        }
+        
+        .welcome-text p {
+            font-size: 1.1em;
+            color: #b0b0b0;
+            margin-top: 0;
+            opacity: 0;
+            animation: fadeInText 1s ease-in-out 0.5s forwards;
         }
 
-        #video-player {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            display: none; /* Sembunyikan video saat loading */
+        @keyframes fadeInText {
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .loading-overlay {
+        .payment-options {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInOptions 1s ease-in-out 1.2s forwards;
+        }
+
+        @keyframes fadeInOptions {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .payment-button {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            padding: 15px;
+            font-size: 1em;
+            font-weight: 600;
+            text-decoration: none;
+            color: #e0e0e0;
+            background-color: #2a2a2a;
+            border-radius: 12px;
+            transition: all 0.4s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .spinner {
-            border: 6px solid rgba(255, 255, 255, 0.3);
-            border-top: 6px solid #28a745;
-            border-radius: 50%;
+        .payment-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            background-color: #383838;
+        }
+
+        .payment-button p {
+            margin-top: 10px;
+            margin-bottom: 0;
+            font-size: 0.9em;
+            color: #b0b0b0;
+        }
+
+        .icon {
             width: 50px;
             height: 50px;
-            animation: spin 1s linear infinite;
+            object-fit: contain;
+            transition: transform 0.3s ease;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .info-message {
-            margin-top: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px #000;
-        }
-
-        .whatsapp-container {
-            margin-top: 20px;
-            text-align: center;
-            display: none;
-            color: #fff;
-            animation: slideInUp 0.8s ease-out;
+        .payment-button:hover .icon {
+            transform: scale(1.1);
         }
         
-        @keyframes slideInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .whatsapp-container p {
-            font-size: 1.2em;
-        }
-
-        .whatsapp-container a {
-            color: #fff;
-            text-decoration: none;
-            background-color: #25D366;
-            padding: 15px 30px;
+        .animated-info {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #d4af37;
+            white-space: nowrap;
+            overflow: hidden;
+            width: calc(100% - 40px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 15px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: 10px;
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
         }
-        .whatsapp-container a:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #25D366;
+        
+        .animated-info p {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll-right-to-left 15s linear infinite;
+            margin: 0;
+        }
+
+        @keyframes scroll-right-to-left {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Gaya untuk halaman detail pembayaran */
+        .payment-detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .payment-detail h2 {
+            font-size: 2em;
+            color: #d4af37;
+        }
+
+        .payment-detail p {
+            color: #b0b0b0;
+            max-width: 400px;
+        }
+
+        .send-button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #d4af37, #e0c86a);
+            color: #1e1e1e;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .send-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .back-button {
+            background-color: transparent;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            margin-top: 30px;
+            padding: 12px 25px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .back-button:hover {
+            background-color: #d4af37;
+            color: #121212;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Gaya untuk QRIS */
+        .qris-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+        
+        .qris-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            border: 2px solid #d4af37;
+        }
+        
+        .qris-button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .qris-button {
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .qris-button.save {
+            background-color: #d4af37;
+            color: #1e1e1e;
+        }
+        
+        .qris-button.save:hover {
+            background-color: #e0c86a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .qris-button.back {
+            background-color: transparent;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+        
+        .qris-button.back:hover {
+            background-color: #d4af37;
+            color: #1e1e1e;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #0d0d0d;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 1000;
+        }
+
+        .footer-text {
+            white-space: nowrap;
+            color: #aaa;
+            font-size: 0.9em;
+            padding-left: 100%;
+            animation: scroll-text 50s linear infinite;
+        }
+
+        @keyframes scroll-text {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .footer a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Mau Dana Kaget?</h1>
-        <div class="buttons">
-            <button id="mau">Mau</button>
-            <button id="tidak-mau">Tidak Mau</button>
+<div class="navbar">
+    <span class="navbar-brand"><div class="animated-info">
+                <p>✨ selamat datang di website Nara Zaen✨ Convert Saldo ✨️ Tukar Saldo</p>
+            </div></span>
+</div>
+
+<div class="main-content">
+    <div id="main-container" class="container">
+        <div id="initial-content">
+            
+            <h1>Pilih Metode Payment</h1> 
+            <p> note : akun non premium hanya bisa menggunakan fitur QRIS ya </p>
+            <div id="payment-options" class="payment-options">
+                <button class="payment-button" data-type="app" data-link="https://link.dana.id/minta?full_url=https://qr.dana.id/v1/281012012024102099149080" data-text="Dana">
+                    <img src="https://autoresbot.com/tmp_files/4c8af561-3065-44dc-aa9c-d4d45b4625a6.jpg" alt="Dana Icon" class="icon">
+                    <p>Dana</p>
+                </button>
+                
+                <button id="qris-button" class="payment-button" data-type="qris">
+                    <img src="https://autoresbot.com/tmp_files/5e1153c8-2ed3-4872-945c-adac8035479d.jpg" alt="QRIS Icon" class="icon">
+                    <p>QRIS</p>
+                </button>
+            </div>
+            <div class="animated-info">
+                <p>✨Tukar Saldo atau Convert Saldo Bisa menggunakan akun non-premium dengan scan QRIS✨ Pembayaran QRIS bisa dari semua e-wallet & bank ✨</p>
+            </div>
         </div>
     </div>
+    
+    <div id="payment-detail-content" class="container-overlay" style="display: none;"></div>
 
-    <div class="video-container" id="videoPopup">
-        <div class="loading-overlay" id="loadingOverlay">
-            <div class="spinner"></div>
-            <p class="info-message">Tunggu sebentar, sedang memuat video...</p>
-        </div>
-
-        <video id="video-player" controls preload="auto">
-            <source src="https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1756122216412-hhvegf.mp4" type="video/mp4">
-            Maaf, browser Anda tidak mendukung tag video.
-        </video>
-        <p class="info-message" id="waitMessage" style="display: none;">Tunggu video sampai selesai untuk mendapatkan link dana kaget!</p>
-
-        <div class="whatsapp-container" id="whatsappLink">
-            <p id="whatsappMessage"></p>
-            <a href="#" id="whatsappButton" target="_blank">Ambil Dana Kaget</a>
+    <div id="qris-content" class="container-overlay" style="display: none;">
+        <div class="qris-container">
+            <h2>Pembayaran via QRIS</h2>
+            <p>Pindai kode QR di bawah ini dengan aplikasi pembayaran Anda.</p>
+            <img id="qris-image-display" src="https://autoresbot.com/tmp_files/06e314d3-f397-4391-97ff-2057bf2a33b5.jpg" alt="QRIS Code" class="qris-image">
+            <div class="qris-button-group">
+                <button id="save-qris" class="qris-button save">Simpan Gambar QRIS</button>
+                <button id="back-from-qris" class="qris-button back">Kembali</button>
+            </div>
         </div>
     </div>
+</div>
 
-    <script>
-        const videoPopup = document.getElementById('videoPopup');
-        const videoPlayer = document.getElementById('video-player');
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        const waitMessage = document.getElementById('waitMessage');
-        const whatsappLink = document.getElementById('whatsappLink');
-        const whatsappMessage = document.getElementById('whatsappMessage');
-        const whatsappButton = document.getElementById('whatsappButton');
-        const mauButton = document.getElementById('mau');
-        const tidakMauButton = document.getElementById('tidak-mau');
+<div class="footer">
+    <div class="footer-text">
+        <p>E-wallet: OVO, GoPay, DANA, ShopeePay, LinkAja, Jenius, DOKU, Sakuku, JakOne Mobile, i.Saku, Octo Mobile, Paytren, SpeedCash, Bayarind, BRImo, Permata Mobile X, T-Cash, T-Money, Mandiri e-cash. Bank: Bank Rakyat Indonesia (BRI), Bank Mandiri, Bank Negara Indonesia (BNI), Bank Central Asia (BCA), Bank Tabungan Negara (BTN), Bank Syariah Indonesia (BSI), Bank CIMB Niaga, Bank Danamon, Bank Permata, Bank OCBC NISP, Bank Mega, Bank Sinarmas, Bank BTPN, Bank Jago, Bank Allo, Bank Muamalat, Bank Panin, Bank Artha Graha, Bank Ganesha, Bank Maybank Indonesia, Bank UOB Indonesia, Bank J Trust Indonesia, Bank of India Indonesia, Bank BNP Paribas Indonesia, Bank Mizuho Indonesia, Bank Woori Saudara, Bank KEB Hana Indonesia, Bank Maspion, Bank Mestika Dharma, Bank QNB Indonesia, Bank Pembangunan Daerah (BPD) seperti Bank DKI, Bank Jabar Banten (BJB), Bank Jateng, Bank Jatim, Bank BPD Bali, dan lain-lain.
+</p>
+    </div>
+</div>
 
-        // Fungsi untuk mengacak pesan ucapan
-        function getRandomGreeting() {
-            const greetings = [
-                "Selamat malam!",
-                "Halo, selamat malam!",
-                "Hai, selamat malam!",
-                "Malam, semangat!"
-            ];
-            return greetings[Math.floor(Math.random() * greetings.length)];
-        }
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mainContainer = document.getElementById('main-container');
+        const paymentDetailContent = document.getElementById('payment-detail-content');
+        const qrisContent = document.getElementById('qris-content');
+        
+        const paymentButtons = document.querySelectorAll('.payment-button');
+        const backFromQrisButton = document.getElementById('back-from-qris');
+        const saveQrisButton = document.getElementById('save-qris');
+        const qrisImage = document.getElementById('qris-image-display');
 
-        // Event listener untuk tombol "Mau"
-        mauButton.addEventListener('click', () => {
-            document.body.style.overflow = 'hidden'; // Nonaktifkan scroll
-            videoPopup.style.display = 'flex';
-            loadingOverlay.style.display = 'flex'; // Tampilkan loading overlay
-            videoPlayer.load(); // Memuat ulang video
-        });
+        const showOverlay = (overlayElement) => {
+            mainContainer.style.display = 'none';
+            overlayElement.style.display = 'block';
+            setTimeout(() => {
+                overlayElement.style.opacity = '1';
+                overlayElement.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 50);
+        };
 
-        // Event saat video sudah siap untuk diputar
-        videoPlayer.addEventListener('loadeddata', () => {
-            loadingOverlay.style.display = 'none'; // Sembunyikan loading overlay
-            videoPlayer.style.display = 'block'; // Tampilkan video player
-            waitMessage.style.display = 'block'; // Tampilkan pesan tunggu
-            videoPlayer.play(); // Putar video
-        });
+        const hideOverlay = (overlayElement) => {
+            overlayElement.style.opacity = '0';
+            overlayElement.style.transform = 'translate(-50%, -50%) scale(0.9)';
+            setTimeout(() => {
+                overlayElement.style.display = 'none';
+                mainContainer.style.display = 'block';
+            }, 600); 
+        };
 
-        // Event listener saat video selesai
-        videoPlayer.addEventListener('ended', () => {
-            videoPlayer.style.display = 'none'; // Sembunyikan video
-            waitMessage.style.display = 'none'; // Sembunyikan pesan tunggu
-            whatsappLink.style.display = 'block'; // Tampilkan link WhatsApp
-            
-            // Atur pesan dan link WhatsApp
-            // GANTI LINK DANA KAGET DI BAWAH INI DENGAN LINK ASLI ANDA
-            const danaLink = "https://link.dana.id/danakaget?c=s366cl88u&r=cAYM8h&orderId=20250825101214222715010300166998237451307"; 
-            const whatsappNumber = "6285352229748";
-            const randomGreeting = getRandomGreeting();
-            whatsappMessage.innerText = `${randomGreeting}\n\nSelamat! Dana kagetnya sudah siap, klik tombol di bawah ini.`;
-            
-            const whatsappText = encodeURIComponent(`${randomGreeting} Ini link dana kagetnya: ${danaLink}`);
-            whatsappButton.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${whatsappText}`;
-        });
-
-        // Event listener untuk tombol "Tidak Mau"
-        tidakMauButton.addEventListener('click', () => {
-            const regretPageContent = `
-                <!DOCTYPE html>
-                <html lang="id">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Penyesalan</title>
-                    <style>
-                        body {
-                            font-family: sans-serif;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            height: 100vh;
-                            margin: 0;
-                            background: linear-gradient(-45deg, #dc3545, #c82333);
-                            background-size: 400% 400%;
-                            animation: gradient-animation 15s ease infinite;
-                            text-align: center;
-                            color: #fff;
-                        }
-                        @keyframes gradient-animation {
-                            0% { background-position: 0% 50%; }
-                            50% { background-position: 100% 50%; }
-                            100% { background-position: 0% 50%; }
-                        }
-                        .regret-container {
-                            background-color: rgba(255, 255, 255, 0.9);
-                            padding: 40px;
-                            border-radius: 15px;
-                            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-                            backdrop-filter: blur(10px);
-                            animation: bounceIn 1s ease-out;
-                            color: #333;
-                        }
-                        @keyframes bounceIn {
-                            0% { transform: scale(0.3); opacity: 0; }
-                            50% { transform: scale(1.1); opacity: 1; }
-                            80% { transform: scale(0.9); }
-                            100% { transform: scale(1); }
-                        }
-                        h1 {
-                            color: #dc3545;
-                            font-size: 2.5em;
-                        }
-                        p {
-                            font-size: 1.5em;
-                            margin: 10px 0;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="regret-container">
-                        <h1>Yah, Sayang Sekali!</h1>
-                        <p>Padahal dana kagetnya banyak banget lho...</p>
-                        <p>Pasti nyesel kan?</p>
-                    </div>
-                </body>
-                </html>
+        const showPaymentDetail = (appName, appLink) => {
+            paymentDetailContent.innerHTML = `
+                <div class="payment-detail">
+                    <h2>Kirim melalui ${appName}</h2>
+                    <p>Silakan klik tombol "Kirim" di bawah ini untuk melanjutkan pembayaran secara otomatis ke aplikasi ${appName}.</p>
+                    <a href="${appLink}" class="send-button" target="_blank">Kirim</a>
+                    <button class="back-button" id="back-from-detail">Kembali</button>
+                </div>
             `;
-            const newWindow = window.open('', '_self');
-            newWindow.document.write(regretPageContent);
-            newWindow.document.close();
+            showOverlay(paymentDetailContent);
+
+            document.getElementById('back-from-detail').addEventListener('click', () => {
+                hideOverlay(paymentDetailContent);
+            });
+        };
+
+        paymentButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const dataType = button.getAttribute('data-type');
+                if (dataType === 'qris') {
+                    showOverlay(qrisContent);
+                } else {
+                    const appName = button.getAttribute('data-text');
+                    const appLink = button.getAttribute('data-link');
+                    showPaymentDetail(appName, appLink);
+                }
+            });
         });
 
-        // Menutup popup video jika diklik di luar video
-        videoPopup.addEventListener('click', (e) => {
-            if (e.target === videoPopup) {
-                videoPlayer.pause();
-                videoPopup.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Aktifkan kembali scroll
-                whatsappLink.style.display = 'none'; // Sembunyikan kembali link WA
-                videoPlayer.style.display = 'block'; // Tampilkan kembali video
-                videoPlayer.currentTime = 0; // Kembalikan ke awal
-                waitMessage.style.display = 'none'; // Sembunyikan pesan tunggu
-            }
+        backFromQrisButton.addEventListener('click', () => {
+            hideOverlay(qrisContent);
         });
-    </script>
+
+        saveQrisButton.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.href = qrisImage.src;
+            link.download = 'qris_nara_zaen.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    });
+</script>
 
 </body>
 </html>
