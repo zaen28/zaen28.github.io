@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAKALAH PROJEK IPAS PEMBUATAN SABUN</title>
+
+    <meta property="og:title" content="Makalah Projek IPAS: Pembuatan Sabun Cair">
+    <meta property="og:description" content="Makalah ini menjelaskan proses pembuatan sabun cair sebagai projek IPAS oleh siswa SMK Negeri 2 Jakarta.">
+    <meta property="og:image" content="https://f.top4top.io/p_3525mmddo0.png">
+    <meta property="og:url" content="https://id-id.facebook.com/business/tools/facebook-pages">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Makalah Projek IPAS: Pembuatan Sabun Cair">
+    <meta name="twitter:description" content="Makalah ini menjelaskan proses pembuatan sabun cair sebagai projek IPAS oleh siswa SMK Negeri 2 Jakarta.">
+    <meta name="twitter:image" content="https://f.top4top.io/p_3525mmddo0.png">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Merriweather', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #004d40;
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 80px auto 20px auto;
+            background-color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            min-height: calc(100vh - 100px);
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .section-wrapper {
+            position: relative;
+            height: 100%;
+            min-height: calc(100vh - 180px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .section {
+            width: 100%;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateX(100%);
+            text-align: center;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 60px;
+            box-sizing: border-box;
+        }
+
+        .section.active {
+            opacity: 1;
+            position: relative;
+            transform: translateX(0);
+        }
+
+        .section.prev {
+            transform: translateX(-100%);
+        }
+
+        .section.transition-next {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        .section.transition-prev {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        
+        .section-content {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: justify;
+        }
+
+        h1, h2, h3, h4 {
+            text-align: center;
+            color: #004d40;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .title-page h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        .title-page h2 {
+            font-size: 1.8em;
+            margin-top: 0;
+        }
+
+        .title-page h3 {
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-top: 30px;
+        }
+
+        .title-card {
+            border: 2px solid #004d40;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            width: 80%;
+            max-width: 400px;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .logo-main {
+            display: block;
+            max-width: 150px;
+            height: auto;
+            animation: bounceIn 1.5s ease;
+            margin: 0 auto 20px auto;
+        }
+
+        .author-list {
+            list-style-type: decimal;
+            padding-left: 20px;
+            margin: 0;
+            text-align: left;
+        }
+
+        .author-list li {
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+
+        .page-details {
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .page-details p {
+            margin: 5px 0;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .nav-button {
+            padding: 12px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            min-width: 120px;
+            box-sizing: border-box;
+        }
+
+        .nav-button.next {
+            background-color: #00796b;
+            color: #fff;
+        }
+
+        .nav-button.back {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .page-number {
+            text-align: right;
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        .content-body {
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .content-body p, .content-body ul, .content-body ol {
+            margin-bottom: 15px;
+        }
+
+        .content-body strong {
+            color: #004d40;
+        }
+
+        .content-list li {
+            margin-left: 20px;
+        }
+
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-8px); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="navbar-brand">
+        <img src="https://f.top4top.io/p_3525mmddo0.png" alt="Logo Sekolah">
+        SMK NEGERI 2 JAKARTA
+    </div>
+</div>
+
+<div class="container">
+    <div class="section-wrapper">
+        <div id="page1" class="section active title-page">
+            <div class="section-content" style="text-align: center;">
+                <h1>MAKALAH</h1>
+                <h2>PROJEK IPAS PEMBUATAN SABUN</h2>
+                <h3>DISUSUN OLEH :</h3>
+                <img src="https://f.top4top.io/p_3525mmddo0.png" alt="Logo Sekolah" class="logo-main">
+                <div class="title-card">
+                    <ul class="author-list">
+                        <li>Zahra Khoirunnisa Andhika</li>
+                        <li>Arista Aulian Shalona</li>
+                        <li>Nailla Mu'jizatul Mubin</li>
+                        <li>Almira Safitri</li>
+                        <li>Raihana zakya indriyati</li>
+                        <li>Ali anshar siddiq</li>
+                    </ul>
+                </div>
+                <div class="page-details">
+                    <p>MATA PELAJARAN : IPAS</p>
+                    <p>KELOMPOK : 3</p>
+                    <p>SMK NEGERI 2 JAKARTA, 2025</p>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="nav-button next" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="page2" class="section">
+            <div class="section-content content-body">
+                <h3>KATA PENGANTAR</h3>
+                <p>Puji syukur kehadirat Tuhan Yang Maha Esa karena berkat rahmat dan karunia-Nya, penulis dapat menyelesaikan makalah ini dengan baik. Makalah ini disusun sebagai salah satu tugas Project Ilmu Pengetahuan Alam dan Sosial (IPAS) dengan tema “Pembuatan Sabun”.</p>
+                <p>Pembuatan sabun ini dilakukan sebagai bentuk penerapan pengetahuan yang kami pelajari dalam mata pelajaran IPAS, terutama dalam memahami reaksi kimia, sifat bahan, serta manfaatnya dalam kehidupan sehari-hari. Selain sebagai pembelajaran, projek ini juga bertujuan untuk melatih keterampilan, kerja sama tim, dan kreativitas kami.</p>
+                <p>Kami menyadari bahwa dalam penyusunan makalah ini masih terdapat kekurangan, baik dari segi penulisan maupun isi. Untuk itu, kami sangat mengharapkan kritik dan saran demi penyempurnaan karya kami di masa mendatang.</p>
+                <p>Ucapan terima kasih kami sampaikan kepada guru pembimbing, teman-teman kelompok, dan semua pihak yang telah membantu hingga projek ini dapat terselesaikan dengan baik. Semoga makalah ini dapat bermanfaat dan menambah wawasan bagi pembaca.</p>
+                <p style="text-align: right; margin-top: 40px;">Jakarta, Agustus 2025</p>
+                <p style="text-align: right;">Kelompok 3</p>
+            </div>
+            <div class="page-number">Halaman i</div>
+            <div class="button-container">
+                <button class="nav-button back" onclick="prevPage()">Back</button>
+                <button class="nav-button next" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="page3" class="section">
+            <div class="section-content content-body">
+                <h3>Daftar Isi</h3>
+                <p><strong>Halaman</strong></p>
+                <p>Kata Pengantar…………………………………………......i</p>
+                <p>Daftar Isi……………………………………………………..ii</p>
+                <p><strong>BAB 1 Pendahuluan</strong>…………………………………….….1</p>
+                <ul class="content-list">
+                    <li>1.1 Latar Belakang……………………………………….…1</li>
+                    <li>1.2 Rumusan Masalah………………………………….….1</li>
+                    <li>1.3Tujuan Penulisan………………………………….…….1</li>
+                </ul>
+                <p><strong>BAB 2 Pembahasan</strong></p>
+                <ul class="content-list">
+                    <li>2.1 Pengertian Sabun…………………………………………………….2</li>
+                    <li>2.1 Tujuan Pembuatan Sabun ……………………………..………2</li>
+                    <li>2.2 Zat Yang Terkandung Dalam Sabun………………………….2</li>
+                    <li>2.3. Perubahan Zat Dalam Sabun……………………………….…2</li>
+                    <li>2.2 Pembuatan Sabun ………………………………….3</li>
+                    <ul class="content-list">
+                        <li>2.1 Bahan Bahan Yang Digunakan ………………...3</li>
+                        <li>2.2 Proses Pembuatan Sabun ……………………..3</li>
+                        <li>2.3 Manfaat Pembuatan Sabun……………………..3</li>
+                    </ul>
+                    <li>2.3 PENGELUARAN</li>
+                    <ul class="content-list">
+                        <li>2.1 Anggaran Pembuatan Sabun…………………4</li>
+                    </ul>
+                </ul>
+                <p><strong>BAB 3 Penutup</strong></p>
+                <ul class="content-list">
+                    <li>3.1 Kesimpulan………………………………………….6</li>
+                    <li>3.2 Saran…………………………………………………6</li>
+                </ul>
+                <p>Daftar Pustaka………………………………………………..7</p>
+            </div>
+            <div class="page-number">Halaman ii</div>
+            <div class="button-container">
+                <button class="nav-button back" onclick="prevPage()">Back</button>
+                <button class="nav-button next" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="page4" class="section">
+            <div class="section-content content-body">
+                <h3>BAB I</h3>
+                <h4>PENDAHULUAN</h4>
+                <p><strong>A. LATAR BELAKANG :</strong></p>
+                <p>Sabun merupakan salah satu kebutuhan pokok yang digunakan setiap hari untuk menjaga kebersihan dan kesehatan. Di pasaran tersedia berbagai jenis sabun dengan beragam bahan, namun tidak semua aman bagi kulit karena mengandung zat kimia tertentu. Oleh karena itu, pembuatan sabun secara mandiri dengan bahan yang aman dan alami menjadi alternatif yang menarik.</p>
+                <p>Melalui projek IPAS ini, kami mencoba membuat sabun sendiri dengan bahan yang lebih aman dan mudah diperoleh. Selain untuk belajar proses pembuatannya, kegiatan ini juga melatih keterampilan, kerja sama tim, serta kesadaran akan pentingnya menjaga kebersihan secara sehat dan ramah lingkungan.</p>
+                <p><strong>B. RUMUSAN MASALAH :</strong></p>
+                <p>1. Bagaimana karakteristik fisik sabun (warna, bau, tekstur, viskositas, dll.) yang dihasilkan?</p>
+                <p><strong>C. TUJUAN PENULISAN :</strong></p>
+                <p>Kebersihan merupakan salah satu faktor penting dalam menjaga kesehatan. Salah satu cara paling sederhana untuk menjaga kebersihan adalah dengan mencuci tangan dan tubuh menggunakan sabun. Sabun bekerja dengan mengangkat kotoran, minyak, dan kuman dari permukaan kulit, sehingga risiko penyakit dapat berkurang.</p>
+                <p>Seiring perkembangan teknologi, sabun tidak hanya dibuat dari bahan-bahan alami seperti minyak dan soda kaustik, tetapi juga memanfaatkan bahan modern seperti Texapon yang memiliki daya pembersih tinggi dan mampu menghasilkan busa melimpah. Penggunaan texapon umum dijumpai pada sabun cair, sampo, dan produk pembersih lainnya.</p>
+                <p>Projek IPAS ini bertujuan untuk mempelajari proses pembuatan sabun cair menggunakan texapon sebagai bahan utama, memahami fungsi dari setiap bahan yang digunakan, serta melatih keterampilan dalam meracik produk pembersih yang aman dan bermanfaat. Melalui kegiatan ini, diharapkan siswa dapat menerapkan pengetahuan kimia dan sains secara langsung dalam kehidupan sehari-hari, sekaligus meningkatkan kesadaran akan pentingnya menjaga kebersihan.</p>
+            </div>
+            <div class="page-number">Halaman 1</div>
+            <div class="button-container">
+                <button class="nav-button back" onclick="prevPage()">Back</button>
+                <button class="nav-button next" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="page5" class="section">
+            <div class="section-content content-body">
+                <h3>BAB II</h3>
+                <h4>PENJELASAN</h4>
+                <p><strong>D. PENGERTIAN SABUN :</strong></p>
+                <p>Sabun adalah produk kebersihan yang digunakan untuk membersihkan tubuh, pakaian, atau permukaan lainnya dari kotoran, debu, dan bakteri. Sabun dibuat dari campuran minyak atau lemak dengan alkali, yang kemudian mengalami reaksi kimia yang disebut saponifikasi.</p>
+                <p><strong>E. TUJUAN PEMBUATAN SABUN :</strong></p>
+                <ol class="content-list">
+                    <li>Membuat produk kebersihan : Sabun dibuat untuk membersihkan tubuh dan pakaian dari kotoran dan bakteri.</li>
+                    <li>Meningkatkan kebersihan dan kesehatan : Sabun membantu menjaga kebersihan dan kesehatan tubuh dan lingkungan.</li>
+                    <li>Membuat produk yang aman dan efektif : Pembuatan sabun bertujuan untuk menciptakan produk yang aman digunakan dan efektif dalam membersihkan.</li>
+                    <li>Meningkatkan kualitas hidup : Sabun dapat membantu meningkatkan kualitas hidup dengan menjaga kebersihan dan kesehatan tubuh.</li>
+                    <li>Memenuhi kebutuhan masyarakat : Pembuatan sabun bertujuan untuk memenuhi kebutuhan masyarakat akan produk kebersihan yang aman dan efektif.</li>
+                </ol>
+                <p>Dengan demikian, tujuan pembuatan sabun adalah untuk menciptakan produk kebersihan yang aman, efektif, dan dapat meningkatkan kebersihan dan kesehatan tubuh.</p>
+                <p><strong>F. ZAT YANG TERKANDUNG DALAM SABUN :</strong></p>
+                <ol class="content-list">
+                    <li><strong>Texapon</strong><br>
+                        Jenis: Surfaktan anionik.<br>
+                        Fungsi: Sebagai bahan pembersih utama dan penghasil busa yang melimpah. Texapon bekerja menurunkan tegangan permukaan air sehingga kotoran dan minyak dapat terangkat.
+                    </li>
+                    <li><strong>Garam Dapur</strong><br>
+                        Jenis: Senyawa ionik dari natrium dan klorida.<br>
+                        Fungsi: Sebagai pengental larutan sabun cair, membantu mengatur viskositas (kekentalan) dan menstabilkan busa.
+                    </li>
+                    <li><strong>Pewangi</strong><br>
+                        Jenis: Campuran senyawa aroma alami atau sintetis.<br>
+                        Fungsi: Memberikan aroma yang menyenangkan pada sabun, sehingga lebih menarik digunakan.
+                    </li>
+                    <li><strong>Pewarna</strong><br>
+                        Jenis: Zat pewarna alami atau sintetis yang larut dalam air.<br>
+                        Fungsi: Memberikan warna pada sabun agar tampilannya menarik.
+                    </li>
+                </ol>
+            </div>
+            <div class="page-number">Halaman 2</div>
+            <div class="button-container">
+                <button class="nav-button back" onclick="prevPage()">Back</button>
+                <button class="nav-button next" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="page6" class="section">
+            <div class="section-content content-body">
+                <p><strong>G. PERUBAHAN ZAT DALAM SABUN</strong></p>
+                <p>Saponifikasi adalah proses kimia yang mengubah minyak atau lemak menjadi sabun melalui reaksi dengan alkali. Proses ini menghasilkan sabun dan gliserin, yang memiliki sifat yang berbeda dari bahan dasarnya. Perubahan zat dalam sabun dipengaruhi oleh jenis minyak atau lemak, konsentrasi alkali, suhu, dan waktu reaksi.</p>
+                <p><strong>H. BAHAN BAHAN YANG DI GUNAKAN</strong></p>
+                <ul class="content-list">
+                    <li>1. Teaxapon</li>
+                    <li>2. Biang Pewangi</li>
+                    <li>3. Garam</li>
+                    <li>4. Pewarna Makanan</li>
+                    <li>5. Botol 3</li>
+                    <li>6. Sarung Tangan</li>
+                    <li>7. Wadah</li>
+                    <li>8. Alat pengaduk</li>
+                </ul>
+                <p><strong>PROSES PEMBUATAN SABUN</strong></p>
+                <ol class="content-list">
+                    <li>Siapkan alat { wadah, pengaduk/spatula dan juga botol plastik} dan bahan { teaxapon, garam, air, pewarna dan pewangi }</li>
+                    <li>Masukkan garam 2 sendok kedalam wadah yang telah disiapkan</li>
+                    <li>Lalu, masukkan teaxapon dengan perbandingan 1:1 ke dalam wadah yang sudah berisi garam</li>
+                    <li>Kemudian aduk garam dan teaxapon hingga campuran menjadi berwarna putih</li>
+                    <li>Setelah campuran menjadi berwarna putih, masukkan perlahan air, lalu aduk hingga tercampur dan bertekstur cair</li>
+                    <li>Kemudian jika tekstur sudah mirip dengan sabun, masukkan pewarna dan biang pewangi</li>
+                    <li>Jika sudah, masukkan campuran yang telah menjadi sabun itu kedalam botol plastik</li>
+                    <li>Diamkan dan endapkan hingga 2-3hari didalam botol plastik</li>
+                    <li>Terakhir, sabun siap digunakan</li>
+                </ol>
+            </div>
+            <div class="page-number">Halaman 3</div>
+            <div class="button-container">
+                <button class="nav-button back" onclick="prevPage()">Back</button>
+                <button class="nav-button next" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="page7" class="section">
+            <div class="section-content content-body">
+                <p><strong>I. MANFAAT PEMBUATAN SABUN</strong></p>
+                <ol class="content-list">
+                    <li>Membersihkan tubuh dan pakaian : Sabun digunakan untuk menghilangkan kotoran, debu, dan bakteri dari permukaan kulit dan pakaian.</li>
+                    <li>Melembutkan kulit : Sabun dapat melembutkan kulit dan membuatnya terasa lebih halus.</li>
+                    <li>Menghilangkan bau tidak sedap : Sabun dapat menghilangkan bau tidak sedap dan membuat tubuh atau pakaian terasa lebih segar.</li>
+                    <li>Meningkatkan kebersihan dan kesehatan: Sabun digunakan untuk menjaga kebersihan dan kesehatan tubuh dan lingkungan.</li>
+                    <li>Membuat produk yang aman dan efektif : Tujuan pembuatan sabun juga adalah untuk menciptakan produk yang aman digunakan dan efektif dalam membersihkan.</li>
+                </ol>
+                <p>sabun menjadi salah satu produk kebersihan yang penting dalam kehidupan sehari-hari.</p>
+            </div>
+            <div class="page-number">Halaman 4</div>
+            <div class="button-container">
+                <button class="nav-button back" onclick="prevPage()">Back</button>
+                <button class="nav-button next" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="page8" class="section">
+            <div class="section-content content-body">
+                <h3>BAB III</h3>
+                <h4>PENUTUPAN</h4>
+                <p><strong>K. KESIMPULAN</strong></p>
+                <p>Pembuatan sabun cair yang telah dilakukan dengan menggunakan bahan-bahan seperti Texapon, garam, air, pewarna, dan pewangi telah berhasil menghasilkan sabun cair yang berkualitas baik. Proses pembuatan yang sistematis dan efektif memungkinkan sabun cair memiliki tekstur yang cair dan kemampuan membersihkan yang baik.</p>
+                <p><strong>L. SARAN</strong></p>
+                <ul class="content-list">
+                    <li>Perlu dilakukan penelitian lebih lanjut untuk meningkatkan kualitas sabun cair.</li>
+                    <li>Pembuatan sabun cair dapat dijadikan sebagai peluang bisnis yang menjanjikan dengan meningkatkan skala produksi dan pemasaran yang efektif.</li>
+                </ul>
+            </div>
+            <div class="page-number">Halaman 6</div>
+            <div class="button-container">
+                <button class="nav-button back" onclick="prevPage()">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentPage = 1;
+    const totalPages = 8;
+    const sections = document.querySelectorAll('.section');
+
+    function showPage(pageNumber, direction) {
+        const oldPage = document.querySelector('.section.active');
+        const newPage = document.getElementById('page' + pageNumber);
+
+        if (oldPage) {
+            oldPage.classList.remove('active');
+            oldPage.classList.add(direction === 'next' ? 'transition-next' : 'transition-prev');
+            oldPage.addEventListener('transitionend', () => {
+                oldPage.classList.remove('transition-next', 'transition-prev');
+            }, { once: true });
+        }
+        
+        if (newPage) {
+            newPage.classList.remove('transition-next', 'transition-prev', 'prev');
+            newPage.classList.add('active');
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextPage() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage, 'next');
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage, 'prev');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        showPage(currentPage, 'next');
+    });
+</script>
+
+</body>
+</html>
