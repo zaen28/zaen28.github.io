@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Hisanah Daniah Dwi Ilhami - Website SMKN 2 Jakarta</title>
+    
+    <meta name="description" content="Website pribadi Hisanah Daniah Dwi Ilhami untuk tugas SMKN 2 Jakarta, menampilkan logo animasi, hobi, dan hal-hal yang disukai.">
+    
+    <meta property="og:title" content="Hisanah Daniah Dwi Ilhami - Portofolio Web Tugas">
+    <meta property="og:description" content="Lihat website tugas sekolah saya yang berisi logo bergerak interaktif, daftar hobi, dan hal-hal menarik lainnya!">
+     <meta property="og:image" content="https://autoresbot.com/tmp_files/a650ba3a-ee03-4a4c-aca2-9b38ea05c848.jpg"> <meta property="og:image:alt" content="Logo SMKN 2 Jakarta">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hisanah Daniah Dwi Ilhami - Portofolio Web Tugas">
+    <meta name="twitter:description" content="Lihat website tugas sekolah saya yang berisi logo bergerak interaktif, daftar hobi, dan hal-hal menarik lainnya!">
+    <meta name="twitter:image" content="https://autoresbot.com/tmp_files/a650ba3a-ee03-4a4c-aca2-9b38ea05c848.jpg"> <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        #loading-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Kontainer Utama yang Disembunyikan Awalnya */
+        #main-site-content {
+            display: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border-bottom: 3px solid #1a73e8;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+        }
+
+        .navbar-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Menu Button */
+        .menu-button {
+            font-size: 2em;
+            cursor: pointer;
+            color: #fff;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .menu-button:hover {
+            transform: scale(1.1);
+            background-color: #0056b3;
+        }
+
+        /* Dropdown Menu (Full-height sidebar) */
+        .dropdown-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.5s ease-in-out;
+        }
+        
+        @media (min-width: 600px) {
+            .dropdown-menu {
+                width: 400px;
+            }
+        }
+
+        .dropdown-menu.show {
+            right: 0;
+        }
+
+        .dropdown-menu-inner {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 80%;
+            box-sizing: border-box;
+        }
+
+        /* Header menu */
+        .menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .menu-header img {
+            height: 50px;
+        }
+
+        .menu-header h3 {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #1a73e8;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+        
+        .dropdown-menu ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        /* Tombol menu utama */
+        .dropdown-menu li a {
+            font-size: 1.8em;
+            text-decoration: none;
+            padding: 10px 30px;
+            color: #fff;
+            background-color: #34a853;
+            border: 2px solid #238a3d;
+            border-radius: 8px;
+            display: block;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #238a3d;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content */
+        .main-container {
+            padding-top: 80px;
+            padding-bottom: 50px;
+            min-height: calc(100vh - 80px - 50px);
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
+
+        .content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.7s ease;
+            text-align: center;
+            animation: fadeInFromTop 1s ease-out;
+        }
+
+        .content.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .content-box {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 20px auto;
+        }
+
+        h1, h2, h3 {
+            color: #1a73e8;
+            border-bottom: 2px solid #1a73e8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Konten Logo Animasi */
+        .animated-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            height: 250px;
+            position: relative;
+        }
+        
+        .animated-logo {
+            width: 150px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Kelas animasi baru */
+        .animated-logo.moving-straight {
+            animation: moveLogoStraight 5s linear infinite alternate;
+        }
+        .animated-logo.moving-diagonal {
+            animation: moveLogoDiagonal 5s linear infinite alternate;
+        }
+        .animated-logo.moving-rotate {
+            animation: moveLogoRotate 5s linear infinite alternate;
+        }
+        .animated-logo.moving-bounce {
+            animation: moveLogoBounce 5s ease-in-out infinite alternate;
+        }
+        .animated-logo.moving-pendulum {
+            animation: moveLogoPendulum 4s ease-in-out infinite alternate;
+        }
+        .animated-logo.moving-zoom {
+            animation: moveLogoZoom 4s ease-in-out infinite alternate;
+        }
+        .animated-logo.moving-spin-bounce {
+            animation: moveLogoSpinBounce 6s ease-in-out infinite;
+        }
+        .animated-logo.moving-diagonal-flip {
+            animation: moveLogoDiagonalFlip 5s linear infinite alternate;
+        }
+
+        .animated-logo.moving-pulse {
+            animation: moveLogoPulse 3s ease-in-out infinite;
+        }
+        
+        .animated-logo.moving-skew {
+            animation: moveLogoSkew 4s linear infinite alternate;
+        }
+
+        /* Kontrol animasi di bawah kontainer */
+        .animation-controls {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .animation-button, .animation-selector {
+            padding: 10px 20px;
+            background-color: #fbbc05;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .animation-button:hover, .animation-selector:hover {
+            background-color: #e3a700;
+            transform: translateY(-2px);
+        }
+
+        /* Daftar Hobi CSS */
+        .hobi-list {
+            text-align: left;
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        .hobi-list li {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            list-style-type: '👉 ';
+        }
+        
+        .social-bar-content {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .social-bar-content a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.4em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .social-bar-content a:hover {
+            transform: scale(1.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Gambar logo medsos */
+        .social-bar-content img {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+        }
+        
+        .social-bar-content .tiktok img {
+            height: 35px;
+            width: 35px;
+            border-radius: 0;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #1a73e8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 1000;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .running-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: run-left-to-right 20s linear infinite;
+        }
+
+        /* Keyframes */
+        @keyframes fadeInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes moveLogoStraight {
+            0% { transform: translate(-150px, -50%); }
+            100% { transform: translate(150px, -50%); }
+        }
+
+        @keyframes moveLogoDiagonal {
+            0% { transform: translate(-150px, -100%) rotate(0deg); }
+            50% { transform: translate(150px, 0%) rotate(180deg); }
+            100% { transform: translate(-150px, 100%) rotate(360deg); }
+        }
+
+        @keyframes moveLogoRotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+            50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.2); }
+            100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+        }
+
+        @keyframes moveLogoBounce {
+            0%, 100% { transform: translate(-50%, -100px); }
+            50% { transform: translate(-50%, 100px); }
+        }
+        
+        @keyframes moveLogoPendulum {
+            0%, 100% { transform: translate(-50%, -50%) rotate(-45deg); transform-origin: top center; }
+            50% { transform: translate(-50%, -50%) rotate(45deg); transform-origin: top center; }
+        }
+        
+        @keyframes moveLogoZoom {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.5); }
+        }
+        
+        @keyframes moveLogoSpinBounce {
+            0%, 100% { transform: translate(-50%, -100px) rotate(0deg); }
+            50% { transform: translate(-50%, 100px) rotate(180deg); }
+        }
+        
+        @keyframes moveLogoDiagonalFlip {
+            0% { transform: translate(-150px, -100%) scaleX(1); }
+            100% { transform: translate(150px, 100%) scaleX(-1); }
+        }
+
+        @keyframes moveLogoPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        @keyframes moveLogoSkew {
+            0%, 100% { transform: translate(-50%, -50%) skewX(0deg); }
+            50% { transform: translate(-50%, -50%) skewX(30deg); }
+        }
+
+        @keyframes run-left-to-right {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="loading-screen">
+        <video id="loading-video" src="https://d.top4top.io/m_3534olmfp0.mp4" autoplay muted playsinline></video>
+    </div>
+
+    <div id="main-site-content">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <img src="https://autoresbot.com/tmp_files/a650ba3a-ee03-4a4c-aca2-9b38ea05c848.jpg" alt="Logo SMKN 2 Jakarta">
+                <span class="navbar-title">SMKN 2 JAKARTA</span>
+            </div>
+            <div class="navbar-menu">
+                <button class="menu-button" onclick="toggleMenu()">☰</button>
+            </div>
+        </nav>
+
+        <div class="dropdown-menu" id="menuOptions">
+            <button class="close-btn" onclick="toggleMenu()">×</button>
+            <div class="dropdown-menu-inner">
+                <div class="menu-header">
+                    <img src="https://autoresbot.com/tmp_files/a650ba3a-ee03-4a4c-aca2-9b38ea05c848.jpg" alt="Logo SMKN 2 Jakarta">
+                    <h3>SMKN 2 JAKARTA</h3>
+                </div>
+                <ul>
+                    <li><a href="#" onclick="showContent('tugas1')">Tugas Tag Logo Bergerak</a></li>
+                    <li><a href="#" onclick="showContent('hal-suka')">4 hal yang saya suka</a></li>
+                    <li><a href="#" onclick="showContent('daftar-hobi')">Daftar Hobi Saya</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <div id="tugas1-content" class="content">
+                <div class="content-box">
+                    <h2>Tugas Tag Logo Bergerak</h2>
+                    <div class="animated-logo-container">
+                        <img id="logo-animate" class="animated-logo" src="https://autoresbot.com/tmp_files/a650ba3a-ee03-4a4c-aca2-9b38ea05c848.jpg" alt="Logo SMKN 2 Jakarta">
+                    </div>
+                </div>
+                <div class="animation-controls">
+                    <select class="animation-selector" id="animationSelector" onchange="changeAnimation()">
+                        <option value="moving-straight">Gerak Lurus (Kiri ke Kanan)</option>
+                        <option value="moving-diagonal">Gerak Diagonal</option>
+                        <option value="moving-rotate">Berputar (di tempat)</option>
+                        <option value="moving-bounce">Memantul (Atas ke Bawah)</option>
+                        <option value="moving-pendulum">Pendulum (Ayunan)</option>
+                        <option value="moving-zoom">Zoom (Pembesaran)</option>
+                        <option value="moving-spin-bounce">Berputar & Memantul</option>
+                        <option value="moving-diagonal-flip">Diagonal & Membalik</option>
+                        <option value="moving-pulse">Berdenyut</option>
+                        <option value="moving-skew">Miring</option>
+                    </select>
+                    <button class="animation-button" onclick="toggleAnimation()">Mulai/Berhenti</button>
+                </div>
+            </div>
+
+            <div id="hal-suka-content" class="content">
+                <div class="content-box">
+                    <h2>4 hal yang saya suka</h2>
+                    <ul class="hobi-list">
+                        <li>Makan</li>
+                        <li>Kucing</li>
+                        <li>Duit</li>
+                        <li>Tidur</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="daftar-hobi-content" class="content">
+                <div class="content-box">
+                    <h2>Daftar Hobi Saya</h2>
+                    <ul class="hobi-list">
+                        <li>Catwalk</li>
+                        <li>Make up</li>
+                        <li>Bikin TikTok</li>
+                        <li>Jadi model make up</li>
+                    </ul>
+                    <div class="social-bar-content">
+                        <a href="https://www.instagram.com/serigalakecil2305?igsh=d2hsc2MydjlhYWlo" target="_blank">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="Instagram">
+                        </a>
+                        <a href="https://www.tiktok.com/@xyca_bi?_t=ZS-8zRexIYLJ3N&_r=1" target="_blank" class="tiktok">
+                            <img src="https://autoresbot.com/tmp_files/dd7b5dce-a58b-42d9-8e24-68b24c28256d.jpg" alt="TikTok">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <span class="running-text">Web ini dibuat untuk tugas sekolah. Dibuat oleh Hisanah Daniah Dwi Ilhami. Copyright © 2025.</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const loadingScreen = document.getElementById('loading-screen');
+            const video = document.getElementById('loading-video');
+            const mainContent = document.getElementById('main-site-content');
+
+            video.addEventListener('ended', () => {
+                loadingScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+            });
+        });
+
+        function toggleMenu() {
+            const menu = document.getElementById('menuOptions');
+            menu.classList.toggle('show');
+        }
+
+        function showContent(contentId) {
+            const allContent = document.querySelectorAll('.content');
+            allContent.forEach(content => {
+                content.classList.remove('show');
+            });
+            
+            const selectedContent = document.getElementById(contentId + '-content');
+            if (selectedContent) {
+                selectedContent.classList.add('show');
+                document.querySelector('.main-container').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+
+            const logo = document.getElementById('logo-animate');
+            const button = document.querySelector('.animation-button');
+            const selector = document.getElementById('animationSelector');
+
+            // Logika untuk menangani tampilan animasi
+            if (contentId === 'tugas1') {
+                // Terapkan animasi default saat konten ditampilkan
+                const defaultAnimation = selector.value;
+                logo.className = 'animated-logo ' + defaultAnimation;
+                logo.style.animationPlayState = 'running';
+                isAnimating = true;
+                button.textContent = 'Berhenti';
+            } else {
+                // Hentikan animasi saat konten lain dipilih
+                logo.style.animationPlayState = 'paused';
+                isAnimating = false;
+                button.textContent = 'Mulai';
+                logo.className = 'animated-logo'; // Hapus kelas animasi
+            }
+
+            toggleMenu();
+        }
+
+        let isAnimating = true; // Setel ke true secara default karena video akan menampilkan konten "tugas1"
+        const animationSelector = document.getElementById('animationSelector');
+        const logo = document.getElementById('logo-animate');
+        const button = document.querySelector('.animation-button');
+        
+        // Fungsi untuk mengontrol tombol Mulai/Berhenti
+        function toggleAnimation() {
+            if (isAnimating) {
+                logo.style.animationPlayState = 'paused';
+                button.textContent = 'Mulai';
+            } else {
+                logo.style.animationPlayState = 'running';
+                button.textContent = 'Berhenti';
+            }
+            isAnimating = !isAnimating;
+        }
+
+        // Fungsi untuk mengubah jenis animasi
+        function changeAnimation() {
+            const newAnimation = animationSelector.value;
+            // Hapus semua kelas animasi yang mungkin ada
+            const allAnimationClasses = ['moving-straight', 'moving-diagonal', 'moving-rotate', 'moving-bounce', 'moving-pendulum', 'moving-zoom', 'moving-spin-bounce', 'moving-diagonal-flip', 'moving-pulse', 'moving-skew'];
+            logo.classList.remove(...allAnimationClasses);
+            
+            // Tambahkan kelas animasi baru
+            logo.classList.add(newAnimation);
+            
+            // Otomatis mulai animasi baru
+            logo.style.animationPlayState = 'running';
+            button.textContent = 'Berhenti';
+            isAnimating = true;
+        }
+
+        // Setel animasi default saat halaman pertama kali dimuat setelah video
+        window.addEventListener('load', () => {
+            const defaultAnimation = animationSelector.value;
+            logo.className = 'animated-logo ' + defaultAnimation;
+            logo.style.animationPlayState = 'running';
+        });
+
+    </script>
+
+</body>
+</html>
