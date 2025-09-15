@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ringkasan & Detail Keuangan Kredit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .summary-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #e9ecef;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+        .summary-info p {
+            font-size: 1.2em;
+            margin: 15px 0;
+            color: #555;
+        }
+        .summary-info strong {
+            color: #333;
+        }
+        .keuntungan {
+            color: #28a745;
+            font-weight: bold;
+        }
+        #showDetailsBtn {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        #showDetailsBtn:hover {
+            background-color: #0056b3;
+        }
+        .details-container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: none; /* Awalnya disembunyikan */
+        }
+        .details-container h2 {
+            text-align: center;
+            color: #007BFF;
+            margin-top: 0;
+        }
+        .loan-info {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .loan-info p {
+            margin: 5px 0;
+        }
+        .info-keuntungan-terbayar {
+            color: #28a745;
+            font-weight: bold;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ccc;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .status-lunas {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .status-belum {
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="summary-container">
+        <h1>Ringkasan Keuangan Kredit</h1>
+        <div class="summary-info">
+            <p><strong>Total Uang Keluar (Modal Pinjaman):</strong> <span id="totalUangKeluar"></span></p>
+            <p><strong>Total Keuntungan Terbayar:</strong> <span id="totalKeuntungan" class="keuntungan"></span></p>
+            <p><strong>Uang Masih Dipinjam:</strong> <span id="uangDipinjam"></span></p>
+        </div>
+        <button id="showDetailsBtn">Tampilkan Detail Cicilan</button>
+    </div>
+
+    <div class="details-container" id="detailsContainer">
+        </div>
+
+    <script>
+        const dataPinjaman = [
+            { id: 1, pokok: 1500000, tenor: 5, tanggalAwal: 13, bulanAwal: 5, tahunAwal: 2025 },
+            { id: 2, pokok: 500000, tenor: 2, tanggalAwal: 20, bulanAwal: 5, tahunAwal: 2025 },
+            { id: 3, pokok: 700000, tenor: 1, tanggalAwal: 22, bulanAwal: 5, tahunAwal: 2025 },
+            { id: 4, pokok: 500000, tenor: 1, tanggalAwal: 5, bulanAwal: 6, tahunAwal: 2025 },
+            { id: 5, pokok: 1000000, tenor: 1, tanggalAwal: 5, bulanAwal: 6, tahunAwal: 2025 },
+            { id: 6, pokok: 500000, tenor: 1, tanggalAwal: 12, bulanAwal: 6, tahunAwal: 2025 },
+            { id: 7, pokok: 300000, tenor: 1, tanggalAwal: 12, bulanAwal: 6, tahunAwal: 2025 },
+            { id: 8, pokok: 1200000, tenor: 5, tanggalAwal: 20, bulanAwal: 6, tahunAwal: 2025 },
+            { id: 9, pokok: 500000, tenor: 2, tanggalAwal: 21, bulanAwal: 6, tahunAwal: 2025 },
+            { id: 10, pokok: 500000, tenor: 1, tanggalAwal: 21, bulanAwal: 6, tahunAwal: 2025 },
+            { id: 11, pokok: 500000, tenor: 2, tanggalAwal: 5, bulanAwal: 7, tahunAwal: 2025 },
+            { id: 12, pokok: 1000000, tenor: 3, tanggalAwal: 11, bulanAwal: 7, tahunAwal: 2025 },
+            { id: 13, pokok: 1000000, tenor: 1, tanggalAwal: 13, bulanAwal: 7, tahunAwal: 2025 },
+            { id: 14, pokok: 1000000, tenor: 5, tanggalAwal: 14, bulanAwal: 7, tahunAwal: 2025 },
+            { id: 15, pokok: 500000, tenor: 1, tanggalAwal: 15, bulanAwal: 7, tahunAwal: 2025 },
+            { id: 16, pokok: 300000, tenor: 1, tanggalAwal: 3, bulanAwal: 7, tahunAwal: 2025 },
+            { id: 17, pokok: 500000, tenor: 1, tanggalAwal: 5, bulanAwal: 7, tahunAwal: 2025 },
+            { id: 18, pokok: 1000000, tenor: 5, tanggalAwal: 12, bulanAwal: 8, tahunAwal: 2025 },
+            { id: 19, pokok: 1500000, tenor: 5, tanggalAwal: 12, bulanAwal: 8, tahunAwal: 2025 },
+            { id: 20, pokok: 1500000, tenor: 1, tanggalAwal: 14, bulanAwal: 8, tahunAwal: 2025 }
+        ];
+
+        let totalUangKeluar = 0;
+        let totalKeuntunganBerjalan = 0;
+        let totalPokokKembali = 0;
+        const detailsContainer = document.getElementById('detailsContainer');
+
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
+        }
+
+        const today = new Date();
+
+        // Hitung total di awal
+        dataPinjaman.forEach((pinjaman) => {
+            const bungaDinamis = pinjaman.tenor > 1 ? 0.30 : 0.15;
+            const cicilanBunga = pinjaman.tenor > 0 ? (pinjaman.pokok * bungaDinamis) / pinjaman.tenor : 0;
+            const cicilanPokok = pinjaman.tenor > 0 ? pinjaman.pokok / pinjaman.tenor : 0;
+            
+            totalUangKeluar += pinjaman.pokok;
+            
+            for (let i = 0; i < pinjaman.tenor; i++) {
+                let jatuhTempo = new Date(pinjaman.tahunAwal, pinjaman.bulanAwal + i + 1, pinjaman.tanggalAwal);
+                if (jatuhTempo < today) {
+                    totalKeuntunganBerjalan += cicilanBunga;
+                    totalPokokKembali += cicilanPokok;
+                }
+            }
+        });
+        
+        document.getElementById('totalUangKeluar').textContent = formatRupiah(totalUangKeluar);
+        document.getElementById('totalKeuntungan').textContent = formatRupiah(totalKeuntunganBerjalan);
+        document.getElementById('uangDipinjam').textContent = formatRupiah(totalUangKeluar - totalPokokKembali);
+
+        // Fungsi untuk menampilkan detail cicilan
+        document.getElementById('showDetailsBtn').addEventListener('click', () => {
+            if (detailsContainer.style.display === 'none' || detailsContainer.innerHTML === '') {
+                detailsContainer.style.display = 'block';
+                detailsContainer.innerHTML = ''; // Kosongkan container sebelum mengisi
+                
+                dataPinjaman.forEach((pinjaman) => {
+                    const bungaDinamis = pinjaman.tenor > 1 ? 0.30 : 0.15;
+                    const totalCicilanBulanan = pinjaman.tenor > 0 ? (pinjaman.pokok * (1 + bungaDinamis)) / pinjaman.tenor : 0;
+                    let keuntunganTerbayarIndividu = 0;
+                    let pokokTerbayarIndividu = 0;
+
+                    for (let i = 0; i < pinjaman.tenor; i++) {
+                        let jatuhTempo = new Date(pinjaman.tahunAwal, pinjaman.bulanAwal + i + 1, pinjaman.tanggalAwal);
+                        if (jatuhTempo < today) {
+                            keuntunganTerbayarIndividu += (pinjaman.pokok * bungaDinamis) / pinjaman.tenor;
+                            pokokTerbayarIndividu += pinjaman.pokok / pinjaman.tenor;
+                        }
+                    }
+
+                    const sisaPokok = pinjaman.pokok - pokokTerbayarIndividu;
+
+                    const loanDiv = document.createElement('div');
+                    loanDiv.className = 'loan-container';
+                    loanDiv.innerHTML = `
+                        <h2>Data Pinjaman #${pinjaman.id}</h2>
+                        <div class="loan-info">
+                            <p><strong>Pokok Pinjaman:</strong> ${formatRupiah(pinjaman.pokok)}</p>
+                            <p><strong>Tenor:</strong> ${pinjaman.tenor} bulan</p>
+                            <p class="info-keuntungan-terbayar"><strong>Keuntungan Terbayar:</strong> ${formatRupiah(keuntunganTerbayarIndividu)}</p>
+                            <p><strong>Sisa Pokok:</strong> ${formatRupiah(sisaPokok)}</p>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bulan Cicilan</th>
+                                    <th>Tanggal Jatuh Tempo</th>
+                                    <th>Pembayaran Bulanan</th>
+                                    <th>Status Pembayaran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <hr>
+                    `;
+                    
+                    const tableBody = loanDiv.querySelector('tbody');
+                    for (let i = 0; i < pinjaman.tenor; i++) {
+                        let jatuhTempo = new Date(pinjaman.tahunAwal, pinjaman.bulanAwal + i + 1, pinjaman.tanggalAwal);
+                        
+                        const status = jatuhTempo < today ? 'Lunas' : 'Belum Lunas';
+                        const statusClass = jatuhTempo < today ? 'status-lunas' : 'status-belum';
+                        
+                        const newRow = document.createElement('tr');
+                        newRow.innerHTML = `
+                            <td>Bulan ke-${i + 1}</td>
+                            <td>${jatuhTempo.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</td>
+                            <td>${formatRupiah(totalCicilanBulanan)}</td>
+                            <td class="${statusClass}">${status}</td>
+                        `;
+                        tableBody.appendChild(newRow);
+                    }
+                    detailsContainer.appendChild(loanDiv);
+                });
+            } else {
+                detailsContainer.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
