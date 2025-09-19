@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misi Like & Klaim Dana Kaget</title>
+    
+    <style>
+        /* CSS DARI style.css */
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1f014b, #2b0266, #ff0050);
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .mission-card, .claim-card, .tutorial-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+
+        .mission-card.hidden, .claim-card.hidden, .tutorial-card.hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+            height: 0;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mission-header, .claim-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tiktok-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .claim-icon {
+            font-size: 3em;
+            animation: bounce 1s infinite;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .action-button {
+            background: linear-gradient(45deg, #ff0050, #ff8c00);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 0, 80, 0.4);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50px;
+            text-decoration: none; /* Menghilangkan garis bawah dari tautan */
+        }
+
+        .action-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 0, 80, 0.6);
+        }
+
+        .action-button:active {
+            transform: translateY(0);
+        }
+        
+        /* Font size khusus untuk teks loading */
+        .loading-text {
+            font-size: 7px;
+            white-space: pre; /* Mempertahankan spasi */
+        }
+
+        .status-message {
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #4CAF50;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .status-message.show {
+            opacity: 1;
+            display: block;
+        }
+
+        .check-mark {
+            display: none;
+            width: 25px;
+            height: 25px;
+            background-color: #4CAF50;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 10px;
+            font-weight: bold;
+            animation: check-fade-in 0.5s ease forwards;
+        }
+        
+        .check-mark.show {
+            display: inline-block;
+        }
+
+        .claim-button {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            box-shadow: 0 5px 15px rgba(0, 198, 255, 0.4);
+        }
+
+        .claim-button:hover {
+            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.6);
+        }
+
+        .claim-icon-inside {
+            margin-left: 10px;
+            animation: rocket-launch 0.8s ease-in-out infinite alternate;
+        }
+        
+        .tutorial-card .step {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .tutorial-card .step-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: #ff0050;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .tutorial-card .step-text {
+            font-size: 0.9em;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes check-fade-in {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes rocket-launch {
+            from { transform: translateY(0) rotate(0); }
+            to { transform: translateY(-5px) rotate(-15deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Selesaikan Misi & Dapatkan Hadiah!</h1>
+        <div class="mission-card">
+            <div class="mission-header">
+                <img src="https://www.tiktok.com/favicon.ico" alt="TikTok Icon" class="tiktok-icon">
+                <h2>Like Video TikTok</h2>
+            </div>
+            <p>Klik tombol di bawah untuk menyukai video dan menyelesaikan misi.</p>
+            <button id="likeButton" class="action-button">
+                <span id="buttonText" class="button-text">LIKE SEKARANG</span>
+            </button>
+            <div id="statusMessage" class="status-message"></div>
+        </div>
+        
+        <div class="claim-card hidden">
+            <div class="claim-header">
+                <span class="claim-icon">🎉</span>
+                <h2>Misi Selesai!</h2>
+            </div>
+            <p>Selamat! Kamu telah menyelesaikan misi. Klik tombol di bawah untuk klaim hadiahmu.</p>
+            <a id="claimButton" class="action-button claim-button" href="https://link.dana.id/danakaget?c=shm44fe6e&r=cAYM8h&orderId=20250919101214247715010300166998241091083" target="_blank">
+                <span class="button-text">KLAIM DANA KAGET</span>
+                <div class="claim-icon-inside">🚀</div>
+            </a>
+        </div>
+        
+        <div class="tutorial-card hidden">
+            <div class="tutorial-header">
+                <h2>⚠️ Perhatian! ⚠️</h2>
+            </div>
+            <p>selain link web yg di bagikanan selain oleh nara zaen itu bukan web ku ya</p>
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-text">segera klaim dana kaget nya</span>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-text">Semoga kamu beruntung</span>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-text">Dana Kaget hanya bisa diklaim oleh <b>200 orang pertama</b>. Jadi, rebutan! ya</span>
+            </div>
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-text">Selamat mencoba!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const likeButton = document.getElementById('likeButton');
+            const buttonText = document.getElementById('buttonText');
+            const missionCard = document.querySelector('.mission-card');
+            const claimCard = document.querySelector('.claim-card');
+            const tutorialCard = document.querySelector('.tutorial-card');
+            const claimButton = document.getElementById('claimButton');
+
+            likeButton.addEventListener('click', () => {
+                const tiktokUrl = 'https://vt.tiktok.com/ZSDyv5evv/';
+                const loadingText = 'Sedang mengecek';
+                const loadingSymbols = ['◧', '◧ ◧', '◧ ◧ ◧', '◧ ◧ ◧ ◧'];
+                let symbolIndex = 0;
+                let intervalId;
+
+                // Nonaktifkan tombol
+                likeButton.disabled = true;
+
+                // Buka link TikTok di tab baru
+                window.open(tiktokUrl, '_blank');
+
+                // Ubah font size dan tambahkan kelas khusus untuk loading
+                buttonText.classList.add('loading-text');
+
+                // Mulai animasi loading
+                function startLoadingAnimation() {
+                    buttonText.textContent = loadingText + ' ' + loadingSymbols[symbolIndex];
+                    symbolIndex = (symbolIndex + 1) % loadingSymbols.length;
+                }
+                
+                // Mulai interval setiap 500ms
+                intervalId = setInterval(startLoadingAnimation, 500);
+
+                // Set timer untuk proses 20 detik
+                setTimeout(() => {
+                    clearInterval(intervalId); // Hentikan animasi loading
+                    
+                    // Hapus kelas loading-text dan atur font kembali normal
+                    buttonText.classList.remove('loading-text');
+                    
+                    // Ganti teks tombol menjadi "Berhasil ✅"
+                    buttonText.innerHTML = 'Berhasil ✅';
+                    likeButton.style.background = '#4CAF50'; // Ubah warna tombol
+                    
+                    // Tunggu 1 detik untuk efek "Berhasil ✅"
+                    setTimeout(() => {
+                        // Animasi transisi ke kartu klaim dan tutorial
+                        missionCard.classList.add('hidden');
+                        setTimeout(() => {
+                            missionCard.style.display = 'none'; // Sembunyikan kartu misi
+                            claimCard.style.display = 'block'; // Tampilkan kartu klaim
+                            tutorialCard.style.display = 'block'; // Tampilkan kartu tutorial
+                            setTimeout(() => {
+                                claimCard.classList.remove('hidden');
+                                tutorialCard.classList.remove('hidden');
+                            }, 50); // Delay kecil untuk animasi
+                        }, 500); // Waktu transisi kartu misi
+                    }, 1000); // Waktu tampilan "Berhasil ✅" (1 detik)
+                    
+                }, 20000); // Simulasi 20 detik proses
+            });
+
+            // Ganti URL ini dengan link Dana Kaget Anda yang valid
+            const danaKagetLink = 'https://link.dana.id/kaget?c=-';
+            claimButton.href = danaKagetLink;
+        });
+    </script>
+</body>
+</html>
