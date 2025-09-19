@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misi Like & Klaim Dana Kaget</title>
-    
+
     <style>
         /* CSS DARI style.css */
         body {
@@ -50,7 +50,7 @@
             padding: 0;
             margin: 0;
         }
-        
+
         .mission-header, .claim-header {
             display: flex;
             justify-content: center;
@@ -111,7 +111,7 @@
         .action-button:active {
             transform: translateY(0);
         }
-        
+
         /* Font size khusus untuk teks loading */
         .loading-text {
             font-size: 7px;
@@ -146,7 +146,7 @@
             font-weight: bold;
             animation: check-fade-in 0.5s ease forwards;
         }
-        
+
         .check-mark.show {
             display: inline-block;
         }
@@ -164,7 +164,7 @@
             margin-left: 10px;
             animation: rocket-launch 0.8s ease-in-out infinite alternate;
         }
-        
+
         .tutorial-card .step {
             display: flex;
             align-items: center;
@@ -221,7 +221,7 @@
             </button>
             <div id="statusMessage" class="status-message"></div>
         </div>
-        
+
         <div class="claim-card hidden">
             <div class="claim-header">
                 <span class="claim-icon">🎉</span>
@@ -233,7 +233,7 @@
                 <div class="claim-icon-inside">🚀</div>
             </a>
         </div>
-        
+
         <div class="tutorial-card hidden">
             <div class="tutorial-header">
                 <h2>⚠️ Perhatian! ⚠️</h2>
@@ -265,7 +265,6 @@
             const missionCard = document.querySelector('.mission-card');
             const claimCard = document.querySelector('.claim-card');
             const tutorialCard = document.querySelector('.tutorial-card');
-            const claimButton = document.getElementById('claimButton');
 
             likeButton.addEventListener('click', () => {
                 const tiktokUrl = 'https://vt.tiktok.com/ZSDyv5evv/';
@@ -288,21 +287,21 @@
                     buttonText.textContent = loadingText + ' ' + loadingSymbols[symbolIndex];
                     symbolIndex = (symbolIndex + 1) % loadingSymbols.length;
                 }
-                
+
                 // Mulai interval setiap 500ms
                 intervalId = setInterval(startLoadingAnimation, 500);
 
                 // Set timer untuk proses 20 detik
                 setTimeout(() => {
                     clearInterval(intervalId); // Hentikan animasi loading
-                    
+
                     // Hapus kelas loading-text dan atur font kembali normal
                     buttonText.classList.remove('loading-text');
-                    
+
                     // Ganti teks tombol menjadi "Berhasil ✅"
                     buttonText.innerHTML = 'Berhasil ✅';
                     likeButton.style.background = '#4CAF50'; // Ubah warna tombol
-                    
+
                     // Tunggu 1 detik untuk efek "Berhasil ✅"
                     setTimeout(() => {
                         // Animasi transisi ke kartu klaim dan tutorial
@@ -317,13 +316,9 @@
                             }, 50); // Delay kecil untuk animasi
                         }, 500); // Waktu transisi kartu misi
                     }, 1000); // Waktu tampilan "Berhasil ✅" (1 detik)
-                    
+
                 }, 20000); // Simulasi 20 detik proses
             });
-
-            // Ganti URL ini dengan link Dana Kaget Anda yang valid
-            const danaKagetLink = 'https://link.dana.id/kaget?c=-';
-            claimButton.href = danaKagetLink;
         });
     </script>
 </body>
