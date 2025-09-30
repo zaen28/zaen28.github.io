@@ -3,1047 +3,638 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Datang! - Cahaya Daget</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>NZK PREMIUM</title>
+    
+    <meta property="og:title" content="🎤 NARA ZAEN KAROKE: Karaoke Online Tanpa Iklan 100% GRATIS! 🎶" />
+    <meta property="og:description" content="Langsung nyanyi sepuasnya! Cukup ketik judul lagu favoritmu, nikmati musik bebas iklan tanpa jeda. Server Stabil & Cepat." />
+    <meta property="og:image" content="https://autoresbot.com/tmp_files/1ea18aab-7b3d-4f59-ab66-4ca8f3051b00.jpg" />
+    <meta property="og:url" content="https://zaen28.github.io">
+    <meta property="og:type" content="website" />
+    <meta property="og:image:width" content="600" /> 
+    <meta property="og:image:height" content="315" />
+    <meta name="twitter:card" content="summary_large_image">
     <style>
-:root {
-    /* Definisi Warna untuk Tema Cahaya Daget */
-    --light-primary: #87CEEB; /* SkyBlue - Warna biru muda */
-    --light-secondary: #BA55D3; /* MediumOrchid - Warna ungu */
-    --light-background: #0A001F; /* Dark background for night sky effect */
-    --light-light: #F0F8FF; /* AliceBlue - Warna sangat terang */
-    --light-dark: #20B2AA; /* LightSeaGreen - Warna hijau kebiruan untuk teks */
-    --light-accent: #FF69B4; /* HotPink - Untuk aksen yang menyala */
-    --shadow-light: rgba(135, 206, 235, 0.4); /* Bayangan biru transparan */
-    --text-color: #F0E68C; /* Warna kuning keemasan untuk teks */
-    --success-bg: #E8F5E9;
-    --success-text: #388E3C;
-    --error-bg: #FFEBEE;
-    --error-text: #D32F2F;
-}
+        /* URL Gambar Baru */
+        :root {
+            --new-bg-image: url('https://autoresbot.com/tmp_files/1ea18aab-7b3d-4f59-ab66-4ca8f3051b00.jpg');
+            --dark-transparent: rgba(0, 0, 0, 0.7);
+        }
 
-body {
-    margin: 0;
-    overflow-x: hidden;
-    font-family: 'Quicksand', sans-serif;
-    background-color: var(--light-background);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    text-align: center;
-    color: var(--text-color);
-    line-height: 1.6;
-    position: relative;
-}
+        /* CSS Dasar */
+        body { 
+            margin: 0; 
+            font-family: Arial, sans-serif; 
+            height: 100vh; 
+            overflow: hidden; 
+            /* Background web utama */
+            background-image: var(--new-bg-image);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Gaya Navbar (Fixed) dan Lain-lain (Tidak Berubah) */
+        
+        #welcomeOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--new-bg-image); 
+            background-size: cover; background-position: center; color: white;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 5000; transition: opacity 1s ease; backdrop-filter: blur(8px);
+        }
+        #welcome-logo {
+            width: 100px; height: 100px; background-image: var(--new-bg-image);
+            background-size: cover; background-position: center; border-radius: 50%;
+            border: 4px solid white; margin-bottom: 20px; box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        #welcomeOverlay h1, #welcomeOverlay p {
+            padding-left: 10px; padding-right: 10px; box-sizing: border-box; max-width: 90%; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        #openButton {
+            background-color: rgba(0, 123, 255, 0.6); color: white; border: 2px solid white;
+            padding: 15px 30px; border-radius: 10px; cursor: pointer; font-size: 1.5em;
+            font-weight: bold; transition: background-color 0.3s, transform 0.3s;
+            backdrop-filter: blur(2px); z-index: 5010; 
+        }
+        #openButton:hover {
+            background-color: rgba(0, 123, 255, 0.8); transform: scale(1.05);
+        }
+        .navbar { 
+            background-color: var(--dark-transparent); padding: 10px 20px; display: flex; 
+            justify-content: space-between; align-items: center; color: white; position: fixed; 
+            top: 0; left: 0; width: 100%; z-index: 4500; box-sizing: border-box; height: 55px; 
+            backdrop-filter: blur(2px);
+        }
+        .navbar-brand { display: flex; align-items: center; font-size: 1.4em; text-decoration: none; color: white; cursor: pointer; }
+        .logo-placeholder { 
+            width: 35px; height: 35px; background-image: var(--new-bg-image);
+            background-size: cover; background-position: center; border-radius: 50%; 
+            margin-right: 8px; display: inline-block; 
+        }
+        .brand-text { font-weight: 600; }
+        .menu-button { display: none; }
+        .running-text-bar { 
+            position: fixed; top: 55px; left: 0; width: 100%; height: 25px; 
+            background-color: rgba(0, 123, 255, 0.8); color: white; line-height: 25px; 
+            overflow: hidden; z-index: 2000; font-size: 0.8em; padding: 0 10px; 
+            backdrop-filter: blur(1px);
+        }
+        #home-page { 
+            position: fixed; top: 80px; left: 0; width: 100%; height: calc(100% - 80px); 
+            display: flex; flex-direction: column; align-items: center; text-align: center; 
+            color: white; padding: 0 10px; background-color: transparent; z-index: 1; 
+            overflow: hidden; box-sizing: border-box;
+        }
+        #video-input-area {
+            width: 100%; display: flex; flex-direction: column; align-items: center;
+            padding-top: 15px; flex-shrink: 0; 
+        }
+        #scrollable-content {
+            width: 100%; max-width: 720px; overflow-y: auto; flex-grow: 1; padding-bottom: 20px; 
+        }
+        .cooldown-alert {
+            max-width: 700px; width: 95%; background-color: #388e3c; color: white;
+            padding: 10px; border-radius: 5px; font-weight: bold; margin: 0 auto 15px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        /* KONTENER HASIL API */
+        #result-info-container {
+            max-width: 700px; width: 95%; background-color: var(--dark-transparent);
+            padding: 15px; border-radius: 8px; margin: 0 auto 10px; text-align: left;
+            border-left: 5px solid #ffc107; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+        #result-info-container h3 {
+            margin: 0 0 5px 0; color: #ffc107; font-size: 1.1em;
+        }
+        #result-info-container p {
+            margin: 0; font-size: 0.9em; color: #ccc;
+        }
+        /* Kontainer Solusi VPN */
+        .vpn-solution-container {
+            max-width: 700px; 
+            width: 95%; 
+            background-color: rgba(220, 53, 69, 0.9); /* Merah semi-transparan */
+            color: white;
+            padding: 15px; 
+            border-radius: 8px; 
+            font-size: 0.95em; 
+            line-height: 1.5; 
+            margin: 10px auto 20px; /* Jarak atas/bawah */
+            text-align: center; 
+            border: 2px solid #ffc107; /* Garis kuning */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: none; 
+        }
+        .vpn-solution-container h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #ffc107; /* Kuning */
+            font-size: 1.2em;
+        }
+        .vpn-solution-container p {
+            margin-bottom: 15px;
+        }
+        
+        /* Gaya Tombol Download VPN Baru */
+        .vpn-solution-container a {
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+            margin: 15px auto 0; 
+            
+            background-color: #4CAF50; 
+            color: white; 
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.3s;
+            border: 2px solid white;
+        }
+        .vpn-solution-container a:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .vpn-solution-container a span {
+            margin-right: 8px;
+            font-size: 1.3em;
+        }
+        /* Akhir Gaya Tombol Download VPN Baru */
+        
+        /* KONTENER BERITA - Gaya Umum */
+        .news-section-container {
+            max-width: 700px; 
+            width: 95%; 
+            background-color: rgba(0, 0, 0, 0.85); 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin: 10px auto 30px; 
+            text-align: left; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .news-section-container h2 {
+            color: #007bff; 
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+        .news-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .news-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 5px;
+            transition: color 0.2s;
+        }
+        .news-item a:hover {
+            color: #007bff;
+        }
+        .news-source {
+            font-size: 0.8em;
+            color: #ccc;
+        }
+        #news-loading-placeholder {
+            text-align: center;
+            color: #ccc;
+            padding: 20px;
+        }
+        /* Gaya khusus untuk border kontainer berita */
+        #antara-news-container { border-top: 3px solid #dc3545; /* Merah untuk Antara */ }
+        #cnbc-news-container { border-top: 3px solid #ffc107; /* Kuning untuk CNBC */ }
+        
+        .rules-container { 
+            max-width: 700px; width: 95%; background-color: rgba(34, 34, 34, 0.9); 
+            padding: 20px; border-radius: 8px; font-size: 1em; line-height: 1.6; 
+            margin-top: 5px; text-align: left; border: 1px solid #444; color: #fff;
+            margin-left: auto; margin-right: auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .rules-container h2 {
+            margin-top: 0; color: white; text-align: center; margin-bottom: 15px;
+        }
+        .rules-container h2 span { color: #ffc107; }
+        .youtube-input-container {
+            max-width: 700px; width: 95%; margin: 0 auto 10px; padding: 15px;
+            background-color: var(--dark-transparent); border-radius: 8px;
+            border-bottom: 5px solid #dc3545; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            text-align: center; flex-shrink: 0; color: #fff;
+        }
+        .input-group { display: flex; margin-bottom: 0; }
+        .youtube-input-container input[type="text"] { width: 80%; }
 
-.star {
-    position: absolute;
-    background-color: #fff;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle 2s infinite ease-in-out alternate;
-}
-.star.s1 { width: 2px; height: 2px; top: 10%; left: 20%; animation-delay: 0.5s; }
-.star.s2 { width: 3px; height: 3px; top: 30%; right: 15%; animation-delay: 1.2s; }
-.star.s3 { width: 1.5px; height: 1.5px; bottom: 50%; left: 40%; animation-delay: 2s; }
-.star.s4 { width: 2.5px; height: 2.5px; top: 25%; left: 60%; animation-delay: 0.8s; }
-.star.s5 { width: 4px; height: 4px; bottom: 10%; right: 25%; animation-delay: 1.5s; }
+        /* TOMBOL KAROKE (Merah dan Animasi Cooldown Kuning) */
+        .youtube-input-container button {
+            width: 20%; 
+            background-color: #dc3545; /* Merah terang default */
+            color: white;
+            border: 1px solid #c82333;
+            font-weight: bold;
+            transition: background-color 0.2s, opacity 0.2s;
+        }
 
-@keyframes twinkle {
-    from { transform: scale(0.5); opacity: 0.5; }
-    to { transform: scale(1.2); opacity: 1; }
-}
+        .youtube-input-container button:hover:not(:disabled) {
+            background-color: #c82333;
+        }
 
-#welcome-screen {
-    background-image: url(https://autoresbot.com/tmp_files/752f8066-261b-44f9-9ebe-3b41a667db5c.jpg); /* Keep the logo image */
-    background-size: cover;
-    background-position: center;
-    padding: 40px 20px;
-    border-radius: 20px;
-    box-shadow: 0 8px 16px var(--shadow-light);
-    animation: fadeIn 1.2s ease-in-out;
-    z-index: 2;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(0, 0, 30, 0.85); /* Slightly opaque dark background */
-    max-width: 90%;
-    box-sizing: border-box;
-}
-
-#welcome-logo {
-    width: 100px;
-    height: auto;
-    margin-bottom: 20px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px var(--shadow-light);
-}
-
-h1, h2, h3 {
-    color: var(--light-light);
-    font-weight: 700;
-    text-shadow: 0 0 5px var(--light-primary), 0 0 10px var(--light-primary), 0 0 15px var(--light-primary);
-    font-size: 1.8em;
-    margin-bottom: 10px;
-}
-
-h2 { font-size: 1.6em; }
-h3 { font-size: 1.3em; }
-
-p, ul, li {
-    color: var(--text-color);
-    font-size: 0.95em;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-30px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-#enter-button {
-    background-color: var(--light-primary);
-    color: var(--light-background);
-    padding: 15px 30px;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 25px;
-    box-shadow: 0 4px 8px var(--shadow-light);
-    font-weight: 600;
-    width: 80%;
-    max-width: 250px;
-}
-
-#enter-button:hover {
-    background-color: var(--light-accent);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 6px 12px var(--shadow-light);
-}
-
-#main-content {
-    display: none;
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    background-color: var(--light-background);
-}
-
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 8px 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    box-sizing: border-box;
-}
-
-.navbar-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin: 0 5px;
-    background-color: var(--light-accent);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    animation: blink 1.2s infinite alternate;
-    box-shadow: 0 2px 5px var(--shadow-light);
-}
-.navbar-logo img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-}
-@keyframes blink {
-    from { opacity: 1; }
-    to { opacity: 0.6; }
-}
-
-.navbar video {
-    width: auto;
-    max-height: 50px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.navbar #mute-toggle {
-    color: var(--light-primary);
-    font-size: 1.5em;
-    margin: 0 5px;
-}
-
-.content {
-    margin-top: 80px;
-    padding: 20px;
-    text-align: left;
-    position: relative;
-    padding-bottom: 120px;
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(0, 0, 25, 0.8);
-    border-radius: 15px;
-    box-shadow: 0 6px 15px var(--shadow-light);
-    box-sizing: border-box;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-ul li {
-    position: relative;
-    padding-left: 25px;
-    margin-bottom: 8px;
-    color: var(--text-color);
-}
-ul li::before {
-    content: '✨';
-    position: absolute;
-    left: 0;
-    color: var(--light-primary);
-    font-size: 1.1em;
-    line-height: 1.2;
-}
-
-.telegram-form-container, .dana-code-form-container, .admin-selection-container {
-    background-color: rgba(0, 0, 25, 0.95);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px var(--shadow-light);
-    max-width: 90%;
-    width: 320px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1001;
-    display: none;
-    animation: popIn 0.4s ease-out forwards;
-    border: 2px solid var(--light-accent);
-    box-sizing: border-box;
-    flex-direction: column;
-    justify-content: space-between;
-    max-height: 130vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-@keyframes popIn {
-    from { opacity: 0; transform: translate(-50%, -40%) scale(0.8); }
-    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-
-.telegram-form-container h3, .dana-code-form-container h3, .admin-selection-container h3 {
-    margin-top: 0;
-    color: var(--light-primary);
-    text-shadow: 0 0 5px var(--light-primary);
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.2em;
-}
-
-.telegram-form-container form, .dana-code-form-container form {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.telegram-form-container label, .dana-code-form-container label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--text-color);
-    font-size: 0.9em;
-}
-
-.telegram-form-container input, .dana-code-form-container input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid var(--light-primary);
-    border-radius: 8px;
-    box-sizing: border-box;
-    background-color: #1a0a33; /* Darker input background */
-    color: var(--text-color);
-    font-size: 0.9em;
-}
-
-.telegram-form-container small, .dana-code-form-container small {
-    color: var(--text-color);
-    opacity: 0.8;
-    display: block;
-    margin-top: -10px;
-    margin-bottom: 10px;
-    font-size: 0.75em;
-    line-height: 1.4;
-}
-
-.telegram-form-container button[type="submit"], .dana-code-form-container button[type="submit"] {
-    background-color: var(--light-primary);
-    color: var(--light-background);
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
-    font-weight: 600;
-    box-shadow: 0 4px 8px var(--shadow-light);
-    margin-top: auto;
-}
-
-.telegram-form-container button[type="submit"]:hover, .dana-code-form-container button[type="submit"]:hover {
-    background-color: var(--light-accent);
-    transform: translateY(-2px);
-}
-
-#form-message, #dana-form-message {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 600;
-    display: none;
-    text-align: center;
-    font-size: 0.9em;
-}
-#form-message.success, #dana-form-message.success {
-    background-color: var(--success-bg);
-    color: var(--success-text);
-    border: 1px solid var(--success-text);
-}
-#form-message.error, #dana-form-message.error {
-    background-color: var(--error-bg);
-    color: var(--error-text);
-    border: 1px solid var(--error-text);
-}
-
-#join-group-wa-button, #show-dana-form-button, #claim-daget-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--light-primary);
-    color: var(--light-dark);
-    padding: 15px 25px;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.1em;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 6px 12px var(--shadow-light);
-    transition: all 0.3s ease;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-    left: auto;
-}
-#show-dana-form-button {
-    background-color: var(--light-accent);
-    color: white;
-    bottom: 80px;
-}
-#claim-daget-button {
-    background-color: var(--light-light);
-    color: var(--light-background);
-    display: none;
-    text-shadow: none;
-}
-#join-group-wa-button::before {
-    content: '✨';
-    font-size: 1.2em;
-}
-#show-dana-form-button::before {
-    content: '💫';
-    font-size: 1.2em;
-}
-#claim-daget-button::before {
-    content: '🚀';
-    font-size: 1.2em;
-}
-#join-group-wa-button:hover {
-    background-color: var(--light-accent);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 16px var(--shadow-light);
-}
-#show-dana-form-button:hover {
-    background-color: var(--light-primary);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 16px var(--shadow-light);
-}
-#claim-daget-button:hover {
-    background-color: var(--light-primary);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 16px var(--shadow-light);
-}
-.close-button {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: transparent;
-    border: none;
-    font-size: 1.8em;
-    color: transparent;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-}
-.close-button::before {
-    content: '❌';
-    color: var(--error-text);
-    font-size: 1em;
-    position: absolute;
-}
-.close-button:hover {
-    transform: rotate(90deg);
-}
-
-.join-group-form-container {
-    background-color: rgba(0, 0, 25, 0.95);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px var(--shadow-light);
-    max-width: 90%;
-    width: 320px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1001;
-    display: none;
-    animation: popIn 0.4s ease-out forwards;
-    border: 2px solid var(--light-accent);
-    box-sizing: border-box;
-    flex-direction: column;
-    justify-content: space-between;
-    max-height: 90vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.join-group-form-container .container-form-steps {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.join-group-form-container h2 {
-    color: var(--light-primary);
-    text-shadow: 0 0 5px var(--light-primary);
-    margin-bottom: 25px;
-    font-weight: 700;
-    font-size: 1.5em;
-}
-
-.join-group-form-container label {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--text-color);
-    font-size: 0.9em;
-    font-weight: 600;
-    text-align: left;
-}
-.join-group-form-container input, .join-group-form-container textarea {
-    padding: 12px 15px;
-    border: 1px solid var(--light-accent);
-    border-radius: 8px;
-    margin-bottom: 20px;
-    width: calc(100% - 32px);
-    box-sizing: border-box;
-    font-size: 1em;
-    background-color: #1a0a33;
-    color: var(--text-color);
-}
-.join-group-form-container input:focus, .join-group-form-container textarea:focus {
-    outline: none;
-    border-color: var(--light-primary);
-    box-shadow: 0 0 5px var(--shadow-light);
-}
-
-.join-group-form-container button {
-    background-color: var(--light-primary);
-    color: var(--light-background);
-    border: none;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease;
-    padding: 12px 15px;
-    border-radius: 8px;
-    width: 100%;
-    font-weight: 600;
-    box-shadow: 0 4px 8px var(--shadow-light);
-}
-
-.join-group-form-container button:hover {
-    background-color: var(--light-accent);
-    transform: translateY(-2px);
-}
-.join-group-form-container #countdown {
-    font-size: 1.2em;
-    margin-top: 10px;
-    color: var(--error-text);
-    font-weight: 700;
-}
-.join-group-form-container #quote-container {
-    min-height: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.join-group-form-container #quote {
-    font-style: italic;
-    color: var(--text-color);
-    margin-top: 15px;
-    margin-bottom: 20px;
-    font-size: 0.95em;
-    opacity: 0.8;
-}
-.join-group-form-container .error-message {
-    color: var(--error-text);
-    margin-top: -15px;
-    margin-bottom: 10px;
-    font-size: 0.85em;
-    display: none;
-    text-align: left;
-}
-.join-group-form-container #thank-you-page #send-countdown {
-    font-size: 1.1em;
-    margin-top: 15px;
-    color: var(--success-text);
-    font-weight: 600;
-}
-.join-group-form-container #thank-you-page #thank-you-quote {
-    font-style: italic;
-    color: var(--text-color);
-    margin-top: 10px;
-    margin-bottom: 20px;
-    font-size: 0.9em;
-    opacity: 0.8;
-}
-.join-group-form-container .form-section {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    text-align: center;
-}
-.join-group-form-container .form-section.active {
-    display: flex;
-}
-.admin-selection-container {
-    text-align: center;
-}
-.admin-selection-container .admin-button {
-    background-color: var(--light-primary);
-    color: var(--light-background);
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    margin-bottom: 15px;
-    font-weight: 600;
-    box-shadow: 0 4px 8px var(--shadow-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-.admin-selection-container .admin-button:hover {
-    background-color: var(--light-accent);
-    transform: translateY(-2px);
-}
-.admin-selection-container .admin-button:last-child {
-    margin-bottom: 0;
-}
-
-@media (max-width: 400px) {
-    .navbar-logo { width: 35px; height: 35px; }
-    .navbar video { max-height: 45px; }
-    .navbar #mute-toggle { font-size: 1.4em; }
-    h1 { font-size: 1.6em; }
-    h2 { font-size: 1.4em; }
-    h3 { font-size: 1.1em; }
-    p, ul, li { font-size: 0.9em; }
-    #enter-button { padding: 12px 25px; font-size: 1em; }
-    .content { padding: 15px; }
-    .telegram-form-container, .dana-code-form-container, .join-group-form-container, .admin-selection-container { padding: 20px; max-height: 85vh; }
-    .telegram-form-container h3, .dana-code-form-container h3, .join-group-form-container h2, .admin-selection-container h3 { font-size: 1.1em; }
-    .telegram-form-container input, .dana-code-form-container input, .join-group-form-container input, .join-group-form-container textarea { padding: 8px; margin-bottom: 12px; }
-    .telegram-form-container small, .dana-code-form-container small { font-size: 0.7em; }
-    .telegram-form-container button[type="submit"], .dana-code-form-container button[type="submit"], .join-group-form-container button, .admin-selection-container .admin-button { padding: 10px 15px; font-size: 0.9em; }
-    #join-group-wa-button, #show-dana-form-button, #claim-daget-button { padding: 12px 20px; font-size: 1em; }
-}
-
+        /* Gaya Tombol Saat Disabled (Cooldown) */
+        .youtube-input-container button:disabled {
+            background-color: rgba(255, 193, 7, 0.5); /* Kuning semi-transparan */
+            color: #212529;
+            cursor: not-allowed;
+            animation: cooldown-flash 0.5s infinite alternate; 
+        }
+        
+        @keyframes cooldown-flash {
+            0% {
+                background-color: rgba(255, 193, 7, 0.5); /* Kuning transparan */
+                color: #212529;
+                opacity: 1;
+            }
+            50% {
+                background-color: transparent; /* Transparan total */
+                color: #fff;
+                opacity: 0.8;
+            }
+            100% {
+                background-color: rgba(255, 193, 7, 0.5); /* Kembali ke Kuning transparan */
+                color: #212529;
+                opacity: 1;
+            }
+        }
+        /* KONTENER VIDEO */
+        #video-output-container {
+            margin-top: 0; max-width: 700px; width: 95%; aspect-ratio: 16 / 9; 
+            background-color: rgba(0, 0, 0, 0.9); display: flex;
+            justify-content: center; align-items: center; border-radius: 8px;
+            overflow: hidden; position: relative; flex-shrink: 0;
+            margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        #video-player {
+            width: 100%; height: 100%; display: none; border: none; transition: opacity 0.5s;
+        }
+        .message-box {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #fff; padding: 15px; background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 5px; animation: fadeIn 0.5s; text-align: center; 
+            line-height: 1.5; max-width: 80%; z-index: 3000; display: block; 
+        }
+        /* Loading Spinner */
+        .loading-video {
+            border: 4px solid rgba(255, 255, 255, 0.3); border-top: 4px solid #dc3545;
+            border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Live Info */
+        #channel-live-info {
+            position: absolute; top: 10px; left: 10px; display: flex; align-items: center;
+            z-index: 3500; user-select: none; opacity: 0; transition: opacity 0.5s ease; 
+        }
+        .live-tag {
+            background-color: #ff0000; color: white; padding: 2px 6px; border-radius: 3px;
+            font-size: 0.7em; font-weight: bold; margin-right: 5px; animation: pulse 1.5s infinite; 
+        }
+        .channel-name {
+            background-color: rgba(0, 0, 0, 0.7); color: white; padding: 3px 8px; border-radius: 3px;
+            font-size: 0.8em; font-weight: bold;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+        
     </style>
 </head>
 <body>
-    <div class="star s1"></div>
-    <div class="star s2"></div>
-    <div class="star s3"></div>
-    <div class="star s4"></div>
-    <div class="star s5"></div>
 
-    <div id="welcome-screen">
-        <img id="welcome-logo" src="https://autoresbot.com/tmp_files/752f8066-261b-44f9-9ebe-3b41a667db5c.jpg" alt="Logo Cahaya Daget">
-        <h1>Cahaya Daget</h1>
-        <p>Gabung dengan komunitas yang bersinar!</p>
-        <button id="enter-button">MASUK</button>
+    <div id="welcomeOverlay">
+        <div id="welcome-logo"></div> 
+        <h1 style="margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Selamat Datang di NARA ZAEN KAROKE!</h1>
+        <p style="margin-bottom: 30px; font-size: 1.1em; max-width: 80%; text-align: center;">
+            Nikmati **Karaoke Online Tanpa Iklan**! Cukup cari judul lagu favoritmu di bawah dan langsung nyanyi!
+        </p>
+        <button id="openButton" onclick="openWebsite()">
+            Mulai Karaoke
+        </button>
     </div>
-    <div id="main-content">
-        <div class="navbar">
-            <div class="navbar-logo">
-                <img src="https://autoresbot.com/tmp_files/752f8066-261b-44f9-9ebe-3b41a667db5c.jpg" alt="Logo Kiri">
-            </div>
-            <button id="mute-toggle" style="background:none; border:none; color:white; font-size:1.8em; cursor:pointer; margin-left: 15px;">🔊</button>
-            <video id="background-video" preload="auto" loop muted playsinline>
-                <source src="https://cloudkuimages.guru/uploads/videos/6832cfac56ca4.mp4" type="video/mp4">
-                Browser Anda tidak mendukung tag video.
-            </video>
-            <h3 style="color:var(--light-primary); margin-left:15px;">✨</h3>
-            <div class="navbar-logo">
-                <img src="https://autoresbot.com/tmp_files/752f8066-261b-44f9-9ebe-3b41a667db5c.jpg" alt="Logo Kanan">
-            </div>
+
+    <nav class="navbar">
+        <a class="navbar-brand">
+            <div class="logo-placeholder"></div>
+            <span class="brand-text">NARA ZAEN KAROKE</span>
+        </a>
+        
+        <div class="navbar-right">
+            <button class="menu-button">
+                &#9776;
+            </button>
         </div>
-        <div class="content">
-            <h2>SELAMAT DATANG DI GROUP CAHAYA DAGET 💫</h2>
-            <p>Selamat Datang di Grup Kami! 🎉 Mari kita berpetualang dan berbagi keceriaan bersama dalam suasana yang hangat dan penuh kebersamaan.</p>
-            <h3>Aturan Utama: 🚨</h3>
-            <ul>
-                <li>Dilarang Promosi 🚫</li>
-                <li>Dilarang Tag Story WhatsApp 🚫</li>
-                <li>Hormati Anggota Lain 🤝</li>
-                <li>Jangan Spam 🚫</li>
-                <li>Dilarang pake bahasa vulgar 🚫</li>
-                <li><strong>Foto/Vid/Vn 1x lihat</strong></li>
-            </ul>
-            <h3>Keuntungan Bergabung: 🎁</h3>
-            <ul>
-                <li>Dana Kaget Setiap Hari 🎉</li>
-                <li>Informasi Penting & Menarik 📢</li>
-                <li>Komunitas Solid & Ramah 👫</li>
-            </ul>
-            <h3>Mari Ajak Berbagi Kebaikan: 🤝</h3>
-            <ul>
-                <li>Saling berbagi dana kaget dengan anggota lain, karena berbagi itu indah!</li>
-                <li>Jangan lupa ucapkan terima kasih kepada pemberi dana kaget 🙏, minimal berikan react ♥️ sebagai bentuk apresiasi.</li>
-            </ul>
-            <p>Mari kita jaga grup ini nyaman dan aman untuk semua! 🌈 Jika ada pertanyaan atau butuh bantuan, jangan ragu hubungi admin kami yang siap sedia.</p><br>
-<br><br><br><br><br><br>
-            <button id="show-dana-form-button">DAGET</button>
-            <button id="join-group-wa-button">JOIN GROUP WA</button>
-            <a id="claim-daget-button" href="#" target="_blank" style="display:none; text-decoration:none;">KLAIM DAGET</a>
-            <div class="join-group-form-container" id="join-group-form-container">
-                <button class="close-button" id="close-join-form-button"></button>
-                <div class="container-form-steps">
-                    <div id="main-page" class="form-section active">
-                        <h2>Hai! Apakah kamu sudah membaca peraturan kami dengan seksama?</h2>
-                        <button id="ready-button">Siap!</button>
-                    </div>
-                    <div id="quote-page" class="form-section">
-                        <p id="countdown"></p>
-                        <div id="quote-container">
-                            <p id="quote"></p>
-                        </div>
-                        <button id="next-from-quote-button" style="display: none;">Selanjutnya</button>
-                    </div>
-                    <div id="name-input" class="form-section">
-                        <h2>Mohon isi data dirimu ya</h2>
-                        <label for="name">Nama Lengkap:</label><br>
-                        <input type="text" id="name" placeholder="Tuliskan nama lengkapmu di sini" required><br>
-                        <p class="error-message" id="name-error">Mohon isi nama lengkapmu.</p>
-                        <button class="next-step-button" data-next="phone-input">Lanjut</button>
-                    </div>
-                    <div id="phone-input" class="form-section">
-                        <h2>Nomor WhatsApp aktifmu berapa ya?</h2>
-                        <label for="whatsapp">Nomor WhatsApp (diawali 62):</label><br>
-                        <input type="tel" id="whatsapp" placeholder="Contoh: 6281234567890" required><br>
-                        <p class="error-message" id="whatsapp-error">Sepertinya nomor WhatsApp-mu kurang tepat.</p>
-                        <button class="next-step-button" data-next="inviter-name-input">Lanjut lagi</button>
-                    </div>
-                    <div id="inviter-name-input" class="form-section">
-                        <h2>Siapa teman baik yang mengajakmu bergabung?</h2>
-                        <label for="inviter-name">Nama Teman Pengundang:</label><br>
-                        <input type="text" id="inviter-name" placeholder="Nama temanmu" required><br>
-                        <p class="error-message" id="inviter-name-error">Jangan lupa tulis nama temanmu ya.</p>
-                        <button class="next-step-button" data-next="inviter-whatsapp-input">Selanjutnya</button>
-                    </div>
-                    <div id="inviter-whatsapp-input" class="form-section">
-                        <h2>Boleh tahu nomor WhatsApp temanmu?</h2>
-                        <label for="inviter-whatsapp">Nomor WhatsApp Teman (diawali 62):</label><br>
-                        <input type="tel" id="inviter-whatsapp" placeholder="Nomor WhatsApp temanmu" required><br>
-                        <p class="error-message" id="inviter-whatsapp-error">Nomor WhatsApp temanmu sepertinya kurang tepat.</p>
-                        <button class="next-step-button" data-next="message-input">Selanjutnya</button>
-                    </div>
-                    <div id="message-input" class="form-section">
-                        <h2>Ada pesan tambahan untuk admin?</h2>
-                        <label for="additional-message">WAJIB PASTE LINK DAGET DISINI MINIMAL 1p 6 slot</label><br>
-                        <textarea id="additional-message" rows="4" placeholder="PASTE DAGET KAMU DISINI"></textarea><br>
-                        <button id="send-data-button">Kirim Data & Pilih Admin</button>
-                    </div>
-                    <div id="thank-you-page" class="form-section">
-                        <h2>Terima Kasih! 🎉</h2>
-                        <p>Data Anda berhasil dikirimkan.</p>
-                        <p id="send-countdown">Anda akan diarahkan ke WhatsApp admin dalam 5 detik...</p>
-                        <p id="thank-you-quote"></p>
-                    </div>
+    </nav>
+    
+    <div class="running-text-bar">
+        <marquee behavior="scroll" direction="left" scrollamount="6">
+            Selamat datang di website karaoke tanpa iklan NARA ZAEN KAROKE. Ketik judul lagu favoritmu dan nikmati musiknya! 🎤🎶
+        </marquee>
+    </div>
+
+    <section id="home-page">
+        
+        <div id="video-input-area">
+            <div id="video-output-container">
+                <div id="channel-live-info">
+                    <span class="live-tag">LIVE</span>
+                    <span class="channel-name">ZAEN PLAY</span>
+                </div>
+                <div class="loading-video" id="loading-video"></div>
+                <p class="message-box" id="video-message">Hi 👋,<br>mau nyanyi apa?</p>
+                <video id="video-player" controls autoplay loop playsinline style="display: none;">
+                    </video>
+            </div>
+            <div id="result-info-container">
+                <h3 id="result-title"></h3>
+                <p id="result-channel"></p>
+            </div>
+            <div class="youtube-input-container">
+                <div class="input-group">
+                    <input type="text" id="youtubeUrl" placeholder="ketik judul lagu disini, cth: Bintang di Surga" required>
+                    <button id="watchButton" onclick="fetchYouTubeVideo()">KAROKE</button>
                 </div>
             </div>
-            <div class="dana-code-form-container" id="dana-code-form-popup">
-                <button class="close-button" id="close-dana-form-button"></button> <br><br>
-                <h3>NARA ZAEN</h3>
-                <p>kode untuk kamu : s2x9kzmf9&r </p>
-                <form id="dana-code-form">
-                    <label for="dana_code">Masukin Kode:</label>
-                    <input type="text" id="dana_code" name="dana_code" required placeholder="paste disini">
-                    <small>Masukkan kode unik Dana Kaget yang Anda miliki.</small>
-                    <button type="submit">BUAT LINK KLAIM</button>
-                    <div id="dana-form-message"></div>
-                </form>
+        </div>
+        
+        <div id="scrollable-content">
+            <div class="cooldown-alert">
+                tombol KAROKE terkunci 60 detik setiap pencarian
             </div>
-            <div class="admin-selection-container" id="admin-selection-popup">
-                <button class="close-button" id="close-admin-selection-button"></button>
-                <h3>Pilih Admin untuk Mengirim Data</h3>
-                <div id="admin-buttons-container">
+            
+            <div class="vpn-solution-container">
+
+                <p>Jika video tidak muncul (error) dan Anda sudah menunggu, artinya **IP Anda kemungkinan terblokir.**</p>
+                <p>Gunakan Browser VPN ini untuk melewati blokir dan kembali berkaraoke:</p>
+                <a href="https://play.google.com/store/apps/details?id=com.pawxy.browser" target="_blank" rel="noopener noreferrer">
+                    <span>
+                        &#128249; 
+                    </span>
+                    DOWNLOAD BROWSER ANTI BLOKIR
+                </a>
+            </div>
+            <div id="news-loading-placeholder">
+
+            </div>
+            
+            <div id="antara-news-container" class="news-section-container" style="display: none;">
+                <h2>📰 Berita Terbaru dari ANTARA</h2>
+                <div id="antara-news-content">
                     </div>
             </div>
-        </div>
-    </div>
+            
+            <div id="cnbc-news-container" class="news-section-container" style="display: none;">
+                <h2>📈 Berita Terbaru dari CNBC Indonesia</h2>
+                <div id="cnbc-news-content">
+                    </div>
+            </div>
+            </div>
+            
+    </section>
+
     <script>
-        const enterButton = document.getElementById('enter-button');
-        const welcomeScreen = document.getElementById('welcome-screen');
-        const mainContent = document.getElementById('main-content');
-        const backgroundVideo = document.getElementById('background-video');
-        const muteToggleButton = document.getElementById('mute-toggle');
-        const joinGroupWaButton = document.getElementById('join-group-wa-button');
-        const showDanaFormButton = document.getElementById('show-dana-form-button');
-        const danaCodeFormPopup = document.getElementById('dana-code-form-popup');
-        const closeDanaFormButton = document.getElementById('close-dana-form-button');
-        const danaCodeForm = document.getElementById('dana-code-form');
-        const danaFormMessage = document.getElementById('dana-form-message');
-        const claimDagetButton = document.getElementById('claim-daget-button');
-        let countdownInterval;
-        const initialCountdownTime = 30;
-        const joinGroupFormContainer = document.getElementById('join-group-form-container');
-        const closeJoinFormButton = document.getElementById('close-join-form-button');
-        const mainPage = document.getElementById('main-page');
-        const readyButton = document.getElementById('ready-button');
-        const quotePage = document.getElementById('quote-page');
-        const countdownDisplay = document.getElementById('countdown');
-        const quoteDisplay = document.getElementById('quote');
-        const nextFromQuoteButton = document.getElementById('next-from-quote-button');
-        const nameInputSection = document.getElementById('name-input');
-        const phoneInputSection = document.getElementById('phone-input');
-        const inviterNameInputSection = document.getElementById('inviter-name-input');
-        const inviterWhatsappInputSection = document.getElementById('inviter-whatsapp-input');
-        const messageInputSection = document.getElementById('message-input');
-        const additionalMessageTextarea = document.getElementById('additional-message');
-        const sendDataButton = document.getElementById('send-data-button');
-        const adminSelectionPopup = document.getElementById('admin-selection-popup');
-        const closeAdminSelectionButton = document.getElementById('close-admin-selection-button');
-        const adminButtonsContainer = document.getElementById('admin-buttons-container');
-        const thankYouPage = document.getElementById('thank-you-page');
-        let formCountdownInterval;
-        const friendshipQuote = "Teman sejati itu seperti bintang, kamu tidak selalu melihatnya, tapi kamu tahu mereka selalu ada di sana.";
-        const thankYouQuote = "Terima kasih telah bergabung! Semangat berpetualang di Cahaya Daget!";
-        const admins = [
-            { name: "DERIA", number: "6282122548846" },
-            { name: "RIZKY", number: "6283189668641" },
-            { name: "CAHYA", number: "6285974923298" },
-            { name: "ZAEN", number: "6285711374861" }
-        ];
+        // FUNGSI UNTUK MENGAMBIL BERITA (ANTARA & CNBC)
+        async function fetchNews() {
+            const ANTARA_API = 'https://api.deline.my.id/berita/antara';
+            const CNBC_API = 'https://api.deline.my.id/berita/cnbc';
+            
+            const antaraContentDiv = document.getElementById('antara-news-content');
+            const cnbcContentDiv = document.getElementById('cnbc-news-content');
+            const antaraContainer = document.getElementById('antara-news-container');
+            const cnbcContainer = document.getElementById('cnbc-news-container');
+            const loadingPlaceholder = document.getElementById('news-loading-placeholder');
 
-        function startJoinButtonCountdown() {
-            let timeLeft = initialCountdownTime;
-            joinGroupWaButton.disabled = true;
-            joinGroupWaButton.textContent = `Tunggu (${timeLeft}s)`;
-            joinGroupWaButton.style.backgroundColor = '#cccccc';
-            joinGroupWaButton.style.cursor = 'not-allowed';
-            countdownInterval = setInterval(() => {
-                timeLeft--;
-                if (timeLeft >= 0) {
-                    joinGroupWaButton.textContent = `Tunggu (${timeLeft}s)`;
+            // 1. Sembunyikan placeholder loading segera setelah fungsi dipanggil
+            loadingPlaceholder.style.display = 'none';
+
+            // 2. Tampilkan pesan memuat di dalam kontainer masing-masing (opsional, tapi bagus untuk indikasi)
+            antaraContentDiv.innerHTML = '<p style="text-align: center; color: #aaa;">Memuat berita Antara...</p>';
+            cnbcContentDiv.innerHTML = '<p style="text-align: center; color: #aaa;">Memuat berita CNBC...</p>';
+
+            try {
+                const [antaraResponse, cnbcResponse] = await Promise.all([
+                    fetch(ANTARA_API).catch(() => null),
+                    fetch(CNBC_API).catch(() => null)
+                ]);
+                
+                const [antaraData, cnbcData] = await Promise.all([
+                    antaraResponse ? antaraResponse.json().catch(() => ({ status: false })) : { status: false },
+                    cnbcResponse ? cnbcResponse.json().catch(() => ({ status: false })) : { status: false }
+                ]);
+                
+                // --- FUNGSI UTILITY UNTUK MERENDER BERITA ---
+                function renderNews(containerElement, dataArray, sourceName, maxItems = 8) {
+                    if (dataArray.length > 0) {
+                        const limitedNews = dataArray.slice(0, maxItems); 
+                        let newsHtml = '';
+                        limitedNews.forEach(item => {
+                            newsHtml += `
+                                <div class="news-item">
+                                    <a href="${item.link}" target="_blank" rel="noopener noreferrer" title="${item.title}">
+                                        ${item.title}
+                                    </a>
+                                    <div class="news-source">
+                                        ${sourceName} | ${item.date || ''}
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        containerElement.innerHTML = newsHtml;
+                        // Tampilkan kontainer jika berhasil
+                        containerElement.parentElement.style.display = 'block'; 
+                    } else {
+                        containerElement.innerHTML = `<p style="text-align: center; color: #f00;">Gagal memuat berita dari ${sourceName}.</p>`;
+                    }
                 }
-                if (timeLeft < 0) {
-                    clearInterval(countdownInterval);
-                    joinGroupWaButton.textContent = 'JOIN GROUP WA';
-                    joinGroupWaButton.disabled = false;
-                    joinGroupWaButton.style.backgroundColor = 'var(--light-primary)';
-                    joinGroupWaButton.style.cursor = 'pointer';
-                    joinGroupWaButton.innerHTML = '✨ JOIN GROUP WA';
+                
+                // --- PROSES ANTARA ---
+                let antaraNews = [];
+                if (antaraData.status && Array.isArray(antaraData.data)) {
+                    antaraNews = antaraData.data.map(item => ({
+                        title: item.title, link: item.link, date: item.date || ''
+                    }));
                 }
-            }, 1000);
+                renderNews(antaraContentDiv, antaraNews, 'ANTARA');
+
+                // --- PROSES CNBC ---
+                let cnbcNews = [];
+                if (cnbcData.status && Array.isArray(cnbcData.data)) {
+                    cnbcNews = cnbcData.data.map(item => ({
+                        title: item.title, link: item.link, date: item.date || ''
+                    }));
+                }
+                renderNews(cnbcContentDiv, cnbcNews, 'CNBC Indonesia');
+
+                // Jika kedua-duanya gagal, tampilkan placeholder error
+                if (antaraNews.length === 0 && cnbcNews.length === 0) {
+                    loadingPlaceholder.style.display = 'block';
+                    loadingPlaceholder.innerHTML = '<p style="color: #f00;">❌ Gagal memuat berita dari semua sumber setelah 20 detik.</p>';
+                }
+
+
+            } catch (error) {
+                console.error('Error fetching news concurrently:', error);
+                loadingPlaceholder.style.display = 'block';
+                loadingPlaceholder.innerHTML = '<p style="color: #f00;">❌ Terjadi kesalahan saat mengambil berita.</p>';
+            }
         }
+        
+        // FUNGSI UTAMA: Fetch dan Putar Video YouTube (Tidak ada perubahan di sini)
+        async function fetchYouTubeVideo() {
+            const COOLDOWN_TIME = 60; 
+            const API_URL = 'https://api.deline.my.id/downloader/ytplay';
+            const youtubeUrlInput = document.getElementById('youtubeUrl');
+            const videoPlayer = document.getElementById('video-player');
+            const loadingSpinner = document.getElementById('loading-video');
+            const messageBox = document.getElementById('video-message');
+            const watchButton = document.getElementById('watchButton');
+            const liveInfo = document.getElementById('channel-live-info'); 
+            
+            // Elemen untuk hasil API dan VPN
+            const resultInfoContainer = document.getElementById('result-info-container');
+            const resultTitle = document.getElementById('result-title');
+            const resultChannel = document.getElementById('result-channel');
+            const vpnContainer = document.querySelector('.vpn-solution-container'); 
 
-        enterButton.addEventListener('click', () => {
-            welcomeScreen.style.display = 'none';
-            mainContent.style.display = 'block';
-            document.body.style.overflow = 'auto';
-            backgroundVideo.play().then(() => {
-                backgroundVideo.muted = false;
-                muteToggleButton.textContent = '🔊';
-            }).catch(error => {
-                console.error("Video autoplay atau unmute dicegah:", error);
-                alert("Video mungkin tidak dapat otomatis terputar dengan suara karena kebijakan browser. Silakan klik ikon speaker di navbar untuk mengaktifkan suara.");
-                backgroundVideo.play().catch(() => {});
-                backgroundVideo.muted = true;
-                muteToggleButton.textContent = '🔇';
-            });
-            startJoinButtonCountdown();
-        });
+            const input = youtubeUrlInput.value.trim();
 
-        muteToggleButton.addEventListener('click', () => {
-            if (backgroundVideo.muted) {
-                backgroundVideo.muted = false;
-                muteToggleButton.textContent = '🔊';
-            } else {
-                backgroundVideo.muted = true;
-                muteToggleButton.textContent = '🔇';
-            }
-        });
-
-        window.addEventListener('load', () => {
-            backgroundVideo.load();
-        });
-
-        joinGroupWaButton.addEventListener('click', () => {
-            if (!joinGroupWaButton.disabled) {
-                joinGroupFormContainer.style.display = 'flex';
-                danaCodeFormPopup.style.display = 'none';
-                claimDagetButton.style.display = 'none';
-                adminSelectionPopup.style.display = 'none';
-                document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
-                mainPage.classList.add('active');
-                clearInterval(formCountdownInterval);
-                document.getElementById('name').value = '';
-                document.getElementById('whatsapp').value = '';
-                document.getElementById('inviter-name').value = '';
-                document.getElementById('inviter-whatsapp').value = '';
-                additionalMessageTextarea.value = '';
-                document.querySelectorAll('.error-message').forEach(err => err.style.display = 'none');
-                nextFromQuoteButton.style.display = 'none';
-            }
-        });
-
-        showDanaFormButton.addEventListener('click', () => {
-            danaCodeFormPopup.style.display = 'flex';
-            joinGroupFormContainer.style.display = 'none';
-            claimDagetButton.style.display = 'none';
-            adminSelectionPopup.style.display = 'none';
-            danaFormMessage.style.display = 'none';
-            danaCodeForm.reset();
-        });
-
-        closeJoinFormButton.addEventListener('click', () => {
-            joinGroupFormContainer.style.display = 'none';
-        });
-
-        closeDanaFormButton.addEventListener('click', () => {
-            danaCodeFormPopup.style.display = 'none';
-            claimDagetButton.style.display = 'none';
-        });
-
-        closeAdminSelectionButton.addEventListener('click', () => {
-            adminSelectionPopup.style.display = 'none';
-        });
-
-        danaCodeForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            danaFormMessage.style.display = 'none';
-            danaFormMessage.className = '';
-            const danaCode = document.getElementById('dana_code').value.trim();
-            if (!danaCode) {
-                danaFormMessage.textContent = 'Kode DANA Kaget wajib diisi.';
-                danaFormMessage.className = 'error';
-                danaFormMessage.style.display = 'block';
+            if (!input) {
+                alert('Mohon masukkan Judul atau kata kunci video!');
                 return;
             }
-            const danaKagetLink = `https://link.dana.id/kaget?c=${danaCode}`;
-            claimDagetButton.href = danaKagetLink;
-            claimDagetButton.style.display = 'flex';
-            danaCodeFormPopup.style.display = 'none';
-            danaFormMessage.textContent = 'Link DANA Kaget berhasil dibuat!';
-            danaFormMessage.className = 'success';
-            danaFormMessage.style.display = 'block';
-        });
 
-        readyButton.addEventListener('click', () => {
-            mainPage.classList.remove('active');
-            quotePage.classList.add('active');
-            quoteDisplay.textContent = friendshipQuote;
-            let countdown = 5;
-            countdownDisplay.textContent = `Siap dimulai dalam ${countdown} detik...`;
-            nextFromQuoteButton.style.display = 'none';
-            formCountdownInterval = setInterval(() => {
+            // Kata kunci yang akan ditambahkan ke kueri API tanpa muncul di input pengguna.
+            const hiddenKeyword = " karaoke request"; 
+            const finalQuery = input + hiddenKeyword; 
+
+            // --- 1. Mulai Cooldown Tombol Tonton (60 Detik) ---
+            watchButton.disabled = true;
+            vpnContainer.style.display = 'none'; 
+            
+            watchButton.textContent = `Menunggu (${COOLDOWN_TIME}s)`;
+            let countdown = COOLDOWN_TIME;
+            const interval = setInterval(() => {
                 countdown--;
-                if (countdown > 0) {
-                    countdownDisplay.textContent = `Siap dimulai dalam ${countdown} detik...`;
+                if (countdown >= 0) {
+                    watchButton.textContent = `Menunggu (${countdown}s)`;
                 } else {
-                    clearInterval(formCountdownInterval);
-                    countdownDisplay.textContent = 'Siap!';
-                    nextFromQuoteButton.style.display = 'block';
-                }
-            }, 1000);
-        });
-
-        nextFromQuoteButton.addEventListener('click', () => {
-            nextStep('name-input');
-        });
-
-        document.querySelectorAll('.next-step-button').forEach(button => {
-            button.addEventListener('click', (event) => {
-                const nextSectionId = event.target.dataset.next;
-                nextStep(nextSectionId);
-            });
-        });
-
-        function nextStep(nextSectionId) {
-            let currentSection;
-            let isValid = true;
-            if (nameInputSection.classList.contains('active')) {
-                currentSection = nameInputSection;
-                const name = document.getElementById('name').value.trim();
-                const nameError = document.getElementById('name-error');
-                if (name === '') {
-                    nameError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    nameError.style.display = 'none';
-                }
-            } else if (phoneInputSection.classList.contains('active')) {
-                currentSection = phoneInputSection;
-                const whatsapp = document.getElementById('whatsapp').value.trim();
-                const whatsappError = document.getElementById('whatsapp-error');
-                if (!whatsapp.startsWith('62') || whatsapp.length < 10 || !/^\d+$/.test(whatsapp)) {
-                    whatsappError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    whatsappError.style.display = 'none';
-                }
-            } else if (inviterNameInputSection.classList.contains('active')) {
-                currentSection = inviterNameInputSection;
-                const inviterName = document.getElementById('inviter-name').value.trim();
-                const inviterNameError = document.getElementById('inviter-name-error');
-                if (inviterName === '') {
-                    inviterNameError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    inviterNameError.style.display = 'none';
-                }
-            } else if (inviterWhatsappInputSection.classList.contains('active')) {
-                currentSection = inviterWhatsappInputSection;
-                const inviterWhatsapp = document.getElementById('inviter-whatsapp').value.trim();
-                const inviterWhatsappError = document.getElementById('inviter-whatsapp-error');
-                if (!inviterWhatsapp.startsWith('62') || inviterWhatsapp.length < 10 || !/^\d+$/.test(inviterWhatsapp)) {
-                    inviterWhatsappError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    inviterWhatsappError.style.display = 'none';
-                }
-            } else if (nextSectionId === 'name-input' && quotePage.classList.contains('active')) {
-                currentSection = quotePage;
-            }
-            if (isValid) {
-                if (currentSection) {
-                    currentSection.classList.remove('active');
-                }
-                document.getElementById(nextSectionId).classList.add('active');
-            }
-        }
-
-        sendDataButton.addEventListener('click', () => {
-            showAdminSelection();
-        });
-
-        function showAdminSelection() {
-            joinGroupFormContainer.style.display = 'none';
-            adminSelectionPopup.style.display = 'flex';
-            adminButtonsContainer.innerHTML = '';
-            const name = document.getElementById('name').value.trim();
-            const whatsapp = document.getElementById('whatsapp').value.trim();
-            const inviterName = document.getElementById('inviter-name').value.trim();
-            const inviterWhatsapp = document.getElementById('inviter-whatsapp').value.trim();
-            const additionalMessage = additionalMessageTextarea.value.trim();
-            let whatsappMessage = `
-*FORM JOIN GROUP CAHAYA DAGET*
-_Mohon Segera di proses kak!_
-*Nama:* ${name}
-*No. WA:* ${whatsapp}
-*Nama Pengundang:* ${inviterName}
-*No. WA Pengundang:* ${inviterWhatsapp}
-`;
-            if (additionalMessage) {
-                whatsappMessage += `
-*Pesan Tambahan:*
-${additionalMessage}`;
-            }
-            admins.forEach(admin => {
-                const adminButton = document.createElement('button');
-                adminButton.classList.add('admin-button');
-                adminButton.innerHTML = `✨ Hubungi Admin ${admin.name}`;
-                adminButton.addEventListener('click', () => {
-                    const encodedMessage = encodeURIComponent(whatsappMessage);
-                    const whatsappUrl = `https://wa.me/${admin.number}?text=${encodedMessage}`;
-                    window.open(whatsappUrl, '_blank');
-                    showThankYouPage();
-                });
-                adminButtonsContainer.appendChild(adminButton);
-            });
-        }
-
-        function showThankYouPage() {
-            adminSelectionPopup.style.display = 'none';
-            joinGroupFormContainer.style.display = 'flex';
-            document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
-            thankYouPage.classList.add('active');
-            document.getElementById('thank-you-quote').textContent = thankYouQuote;
-            let countdown = 5;
-            const sendCountdownDisplay = document.getElementById('send-countdown');
-            sendCountdownDisplay.textContent = `Anda akan diarahkan ke WhatsApp admin dalam ${countdown} detik...`;
-            let thankYouCountdown = setInterval(() => {
-                countdown--;
-                if (countdown > 0) {
-                    sendCountdownDisplay.textContent = `Anda akan diarahkan ke WhatsApp admin dalam ${countdown} detik...`;
-                } else {
-                    clearInterval(thankYouCountdown);
-                    sendCountdownDisplay.textContent = 'Anda akan diarahkan ke WhatsApp admin sekarang!';
+                    clearInterval(interval);
+                    watchButton.disabled = false;
+                    watchButton.textContent = 'KAROKE';
+                    // --- ALERT PERSUASIF VPN SETELAH COOLDOWN ---
                     setTimeout(() => {
-                        joinGroupFormContainer.style.display = 'none';
-                        document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
-                        mainPage.classList.add('active');
-                        document.getElementById('name').value = '';
-                        document.getElementById('whatsapp').value = '';
-                        document.getElementById('inviter-name').value = '';
-                        document.getElementById('inviter-whatsapp').value = '';
-                        additionalMessageTextarea.value = '';
-                    }, 1000);
+                        alert("Tips: Jika Anda mengalami masalah pemutaran atau error berkali-kali, gunakan Browser VPN yang kami sediakan untuk memastikan koneksi yang stabil dan bebas blokir. Selamat berkaraoke!");
+                    }, 500);
+                    // ---------------------------------------------
                 }
             }, 1000);
+            // ----------------------------------------------------
+
+            // 2. Tampilkan loading, sembunyikan pesan, video, dan hasil info
+            messageBox.style.display = 'none'; 
+            videoPlayer.style.display = 'none';
+            liveInfo.style.opacity = '0'; 
+            resultInfoContainer.style.display = 'none'; 
+            loadingSpinner.style.display = 'block';
+            videoPlayer.removeAttribute('src'); 
+
+            try {
+                // Gunakan finalQuery (dengan " karaoke request") untuk memanggil API
+                const response = await fetch(`${API_URL}?q=${encodeURIComponent(finalQuery)}`);
+                const result = await response.json();
+
+                // 3. Sembunyikan loading
+                loadingSpinner.style.display = 'none';
+
+                if (result.status && result.result && result.result.download) {
+                    // KASUS SUKSES: Putar Video
+                    const videoLink = result.result.download;
+                    const videoTitle = result.result.title || 'Video YouTube';
+                    const videoChannel = result.result.channel || 'Channel Tidak Diketahui';
+                    
+                    videoPlayer.src = videoLink; 
+                    videoPlayer.style.display = 'block'; 
+                    
+                    resultTitle.textContent = `🎶 ${videoTitle}`;
+                    resultChannel.textContent = `Oleh: ${videoChannel}`;
+                    resultInfoContainer.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        liveInfo.style.opacity = '1'; 
+                    }, 7000);
+
+                    videoPlayer.play().catch(error => {
+                        console.error("Autoplay gagal, mungkin ada batasan browser.", error);
+                        messageBox.textContent = `Video "${videoTitle}" dimuat! Klik tombol play untuk memutar. (Autoplay diblokir browser)`;
+                        messageBox.style.display = 'block';
+                        videoPlayer.style.display = 'block';
+                    });
+
+                } else {
+                    // KASUS GAGAL API: Tampilkan pesan error dan kontainer VPN
+                    const errorMessage = result.message || 'Gagal memproses. Coba masukkan Judul/kata kunci yang berbeda.';
+                    messageBox.textContent = errorMessage;
+                    messageBox.style.display = 'block';
+                    videoPlayer.style.display = 'none';
+                    vpnContainer.style.display = 'block'; // Tampilkan solusi VPN
+                    
+                    alert("⚠️ Ups! Koneksi ke server karaoke terputus. Mohon coba lagi, atau gunakan VPN yang tersedia di bawah jika masalah terus berlanjut.");
+                }
+
+            } catch (error) {
+                // KASUS GAGAL JARINGAN/SERVER: Tampilkan pesan error dan kontainer VPN
+                console.error('Error fetching YouTube video:', error);
+                loadingSpinner.style.display = 'none';
+                messageBox.textContent = 'Terjadi kesalahan jaringan atau server API. Mungkin IP Anda terblokir.';
+                messageBox.style.display = 'block';
+                videoPlayer.style.display = 'none';
+                vpnContainer.style.display = 'block'; // Tampilkan solusi VPN
+
+                alert("⚠️ Error Jaringan! Ada kemungkinan IP Anda terblokir oleh provider. Silakan gunakan Browser VPN yang kami rekomendasikan untuk melanjutkan karaoke.");
+            }
         }
+        
+        // FUNGSI LAIN
+        function openWebsite() {
+            const overlay = document.getElementById('welcomeOverlay');
+            overlay.style.opacity = '0';
+            
+            // 1. Sembunyikan overlay setelah transisi (1000ms)
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 1000); 
+
+            // 2. Panggil fungsi fetchNews() setelah total 20 detik (20000ms)
+            const NEWS_DELAY_MS = 20000; 
+
+            setTimeout(() => {
+                fetchNews();
+            }, NEWS_DELAY_MS);
+        }
+
     </script>
+
 </body>
 </html>
