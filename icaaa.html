@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Ica Markoca!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #E91E63; /* Deep Pink/Red */
+            --secondary-pink: #F48FB1; /* Light Pink */
+            --accent-gold: #FFC107; /* Amber/Gold */
+            --text-dark: #3F51B5; /* Indigo/Blue */
+            --text-light: #FFFFFF;
+            --button-green: #25D366; /* WhatsApp Green */
+            --button-hover: #1EBE5A;
+            --input-border: #9C27B0; /* Purple */
+            --input-focus: #E040FB; /* Magenta */
+            --start-button-color: #00BCD4; /* Cyan */
+            --start-button-hover: #0097A7;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--secondary-pink) 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            background-image: url('https://c.top4top.io/p_3441bfhhm0.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 25px;
+            background-color: transparent;
+            box-shadow: transparent;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+            transition: all 0.5s ease-in-out;
+        }
+
+        /* Initial Start Content Styles */
+        #startContent {
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #startContent.hide {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+            display: none;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: var(--primary-red);
+            font-size: 3.0em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        p {
+            color: var(--text-dark);
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Start Button Styles */
+        #startButton {
+            background-color: var(--start-button-color);
+            color: var(--text-light);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.4em;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        #startButton:hover {
+            background-color: var(--start-button-hover);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #startButton i {
+            margin-right: 10px;
+            font-size: 1.6em;
+        }
+
+        /* Form section styling */
+        #icaFormSection {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+            pointer-events: none;
+            display: none;
+            text-align: left;
+        }
+
+        #icaFormSection.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            display: block;
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            color: var(--text-dark);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form-section input[type="text"],
+        .form-section textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid var(--input-border);
+            border-radius: 10px;
+            font-size: 1.1em;
+            color: var(--text-dark);
+            background-color: var(--text-light);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            resize: vertical;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-section input[type="text"]:focus,
+        .form-section textarea:focus {
+            outline: none;
+            border-color: var(--input-focus);
+            box-shadow: 0 0 8px rgba(224, 64, 251, 0.5);
+        }
+
+        .send-button-form {
+            background-color: var(--button-green);
+            color: var(--text-light);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.4em;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .send-button-form:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .send-button-form i {
+            margin-right: 10px;
+            font-size: 1.6em;
+        }
+
+        /* Confetti effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: confetti-fall linear infinite;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .confetti:nth-child(2n) { background-color: var(--primary-red); }
+        .confetti:nth-child(3n) { background-color: var(--secondary-pink); }
+        .confetti:nth-child(4n) { background-color: var(--input-focus); }
+
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0.5; }
+        }
+        
+        /* Floating Image Style */
+        .floating-image {
+            position: absolute;
+            width: 80px; /* Ukuran gambar kecil */
+            height: 80px;
+            background-image: url('https://autoresbot.com/tmp_files/1df53f2b-6a8a-4c23-8ab9-583ee84d94e3.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            opacity: 0;
+            /* Perubahan: Transisi diperhalus menjadi 2 detik */
+            transition: opacity 2.0s ease-in-out; 
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="startContent">
+            <h1>🎉 Selamat Ulang Tahun! 🥳</h1>
+            <p>Klik tombol di bawah untuk menulis pesan spesial ulang tahun untuk **Ica Markoca**.</p>
+            <button id="startButton">
+                <i class="fas fa-birthday-cake"></i>Buka Kartu Ucapan
+            </button>
+        </div>
+
+        <div class="form-section" id="icaFormSection">
+            <h1>Untuk Ica Markoca!</h1>
+            <form id="icaWhatsappForm">
+                <label for="userName">Nama Anda:</label>
+                <input type="text" id="userName" name="userName" placeholder="Contoh: Penggemar Setia" required>
+
+                <label for="birthdayMessage">Pesan Ulang Tahun Anda:</label>
+                <textarea id="birthdayMessage" name="birthdayMessage" rows="5" placeholder="Tuliskan harapan dan doa terbaik Anda di sini untuk Ica Markoca..." required></textarea>
+
+                <button type="submit" class="send-button-form">
+                    <i class="fab fa-whatsapp"></i> Kirim Ucapan
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <audio id="backgroundMusic" src="https://files.catbox.moe/7k058r.mp3" loop preload="auto"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startContent = document.getElementById('startContent');
+            const startButton = document.getElementById('startButton');
+            const icaFormSection = document.getElementById('icaFormSection');
+            const icaWhatsappForm = document.getElementById('icaWhatsappForm');
+            const userNameInput = document.getElementById('userName');
+            const birthdayMessageInput = document.getElementById('birthdayMessage');
+            const backgroundMusic = document.getElementById('backgroundMusic');
+
+            const whatsappNumber = '6285711374861'; 
+            const confettiCount = 50;
+            // Perubahan: Interval dipercepat dari 1000ms (1 detik) menjadi 250ms (0.25 detik)
+            const floatingImageIntervalTime = 250; 
+            // Perubahan: Durasi ditingkatkan dari 500ms menjadi 2000ms (2 detik)
+            const floatingImageDuration = 2000; 
+
+            // --- Confetti Effect ---
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                confetti.style.animationDelay = (Math.random() * confettiCount * 0.1) + 's';
+                confetti.style.opacity = Math.random();
+                document.body.appendChild(confetti);
+            }
+            
+            // --- Floating Image Effect ---
+            function createFloatingImage() {
+                const img = document.createElement('div');
+                img.classList.add('floating-image');
+                
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+
+                img.style.left = Math.random() * (viewportWidth - 80) + 'px';
+                img.style.top = Math.random() * (viewportHeight - 80) + 'px';
+                
+                // Animasi muncul (Fade In)
+                setTimeout(() => {
+                    img.style.opacity = '1';
+                }, 10);
+
+                document.body.appendChild(img);
+
+                // Animasi menghilang (Fade Out) setelah 2 detik
+                setTimeout(() => {
+                    img.style.opacity = '0';
+                    // Hapus elemen setelah transisi selesai (500ms adalah durasi transisi di CSS)
+                    setTimeout(() => {
+                        img.remove();
+                    }, 2000); 
+                }, floatingImageDuration);
+            }
+
+            // Memanggil fungsi lebih cepat untuk membuat lebih banyak gambar
+            setInterval(createFloatingImage, floatingImageIntervalTime);
+
+
+            // --- Event Listeners and Logic ---
+
+            // Handle start button click
+            startButton.addEventListener('click', function() {
+                backgroundMusic.play().catch(e => console.error("Error playing audio:", e));
+                startContent.classList.add('hide');
+                setTimeout(() => {
+                    startContent.style.display = 'none';
+                    icaFormSection.style.display = 'block';
+                    setTimeout(() => {
+                        icaFormSection.classList.add('show');
+                    }, 50);
+                }, 500);
+            });
+
+            // Function to send WhatsApp message for Ica Markoca
+            icaWhatsappForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const userName = userNameInput.value.trim();
+                const birthdayMessage = birthdayMessageInput.value.trim();
+
+                if (userName && birthdayMessage) {
+                    const fullMessage = `🎉 Selamat Ulang Tahun, Ica Markoca! 🥳\n\nDari: ${userName}\n\nPesan Ulang Tahun:\n"${birthdayMessage}"\n\nSemoga panjang umur, sehat selalu, dan semua yang dicita-citakan tercapai! 😊`;
+                    const encodedMessage = encodeURIComponent(fullMessage);
+                    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                    window.open(whatsappURL, '_blank');
+                } else {
+                    alert('Mohon masukkan nama Anda dan pesan ulang tahun untuk melanjutkan.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
