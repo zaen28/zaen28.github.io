@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElitePay - Pembayaran SPP Mahasiswa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* ======================================= */
+        /* Warna Tema: Warm & Modern (Nuansa Biru Laut & Hijau Bumi) */
+        /* ======================================= */
+        :root {
+            --primary-color: #004d40; /* Hijau Tua/Teal */
+            --secondary-color: #ffb300; /* Kuning Emas */
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --background-light: #f4f6f9; /* Krem Muda */
+            --card-bg: #ffffff;
+            --sidebar-width: 260px;
+            --navbar-height: 75px;
+            --border-radius: 12px;
+            --danger-color: #e57373; 
+            --success-color: #4CAF50;
+            --warning-color: #FFC107;
+            --info-color: #2196F3;
+        }
+
+        /* Gaya Dasar */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            color: var(--text-dark);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 25;
+            display: none;
+            transition: opacity 0.3s;
+        }
+        
+        /* Modal Style (Untuk QRIS) */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .modal-content h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-weight: 700;
+        }
+        .countdown {
+            font-size: 1.5em;
+            color: var(--danger-color);
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        /* Kwitansi Style */
+        .receipt-card {
+            border: 2px dashed #ccc;
+            padding: 30px;
+            margin-top: 20px;
+            background-color: #f9fff9;
+        }
+        .receipt-header h4 {
+            color: var(--success-color);
+            font-size: 1.4em;
+            font-weight: 800;
+        }
+        .receipt-header i {
+            font-size: 2.5em;
+            color: var(--success-color);
+            margin-bottom:px;
+        }
+        .receipt-footer button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .receipt-footer button:hover {
+            background-color: #00382e;
+        }
+
+        /* ======================================= */
+        /* Halaman Login (Tampilan Keren) */
+        /* ... (CSS Login dipertahankan) ... */
+        /* ======================================= */
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            background: linear-gradient(135deg, #e0f2f1 0%, var(--background-light) 100%);
+            z-index: 50;
+            position: fixed; 
+        }
+
+        .login-container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15); 
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border-top: 5px solid var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        .login-container img {
+            height: 70px; 
+            margin-bottom: 15px;
+        }
+
+        .login-container h2 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .university-name {
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-weight: 500;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            display: block;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 8px rgba(255, 179, 0, 0.3);
+            outline: none;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0, 77, 64, 0.3);
+        }
+
+        .login-form button:hover {
+            background-color: #00382e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 77, 64, 0.4);
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+
+        /* ======================================= */
+        /* HEADER & NAVBAR (Top Bar) */
+        /* ... (CSS Header dipertahankan) ... */
+        /* ======================================= */
+        .main-header {
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            padding-left: 0; 
+            width: 100%;
+        }
+        .top-navbar {
+            height: var(--navbar-height);
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+        .logo-section img {
+            height: 45px; 
+            margin-right: 15px;
+        }
+        .header-title h1 {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        .header-title p {
+            font-size: 0.85em;
+            color: var(--text-light);
+            margin: 0;
+        }
+        
+        /* Profile & Nav Kanan (Desktop) */
+        .user-nav-desktop {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        .user-nav-desktop .nav-links-desktop {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0 20px;
+        }
+        .user-nav-desktop .nav-links-desktop li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            padding: 0 18px;
+            transition: color 0.3s, border-bottom 0.3s;
+            line-height: var(--navbar-height);
+            border-bottom: 3px solid transparent;
+        }
+        .user-nav-desktop .nav-links-desktop li.active a,
+        .user-nav-desktop .nav-links-desktop li a:hover {
+            color: var(--primary-color);
+            font-weight: 600;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+        .user-nav-desktop .profile-info-desktop {
+            padding-left: 20px;
+            border-left: 1px solid #eee;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.3s;
+        }
+        .profile-info-desktop .profile-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            color: var(--primary-color);
+            margin-left: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tombol Burger */
+        .menu-toggle {
+            font-size: 1.6em;
+            cursor: pointer;
+            color: var(--primary-color);
+            padding: 8px;
+            margin-right: 15px;
+            display: none; 
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        /* Profile Bar (Mobile) */
+        .profile-bar {
+            display: none; 
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 20px;
+            align-items: center;
+            border-bottom: 5px solid var(--secondary-color);
+        }
+        .profile-bar .profile-img {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 3px solid var(--secondary-color);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.6em; color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .profile-text h4 { margin: 0; font-size: 1.2em; font-weight: 600; }
+        .profile-text p { margin: 0; font-size: 0.9em; font-weight: 400; color: #d6e0e0; }
+        
+        /* ======================================= */
+        /* SIDEBAR / MOBILE MENU */
+        /* ... (CSS Sidebar dipertahankan) ... */
+        /* ======================================= */
+        .main-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100%;
+            background-color: var(--card-bg);
+            box-shadow: 5px 0 20px rgba(0, 0, 0, 0.15);
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 30;
+            padding-top: var(--navbar-height); 
+            overflow-y: auto;
+        }
+        .main-sidebar.active {
+            transform: translateX(0);
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 20px 0;
+            margin: 0;
+        }
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            margin: 5px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        .sidebar-menu li a i {
+            width: 30px;
+            font-size: 1.2em;
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        .sidebar-menu li.active a {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 77, 64, 0.3);
+        }
+        .sidebar-menu li.active a i {
+            color: white;
+        }
+        .sidebar-menu li.logout-btn a {
+            color: var(--danger-color);
+            border-top: 1px solid #eee;
+            margin-top: 25px;
+            padding-top: 20px;
+        }
+        
+        /* ======================================= */
+        /* MAIN CONTENT & DASHBOARD LAYOUT */
+        /* ... (CSS Layout & Card dipertahankan) ... */
+        /* ======================================= */
+        .app-container {
+            flex-grow: 1;
+            padding: 0; 
+            box-sizing: border-box;
+        }
+
+        .main-content-wrapper {
+            display: flex;
+            flex-grow: 1;
+            padding: 40px; 
+            box-sizing: border-box;
+            justify-content: flex-start;
+        }
+        .main-content {
+            flex-grow: 1;
+            max-width: 900px; 
+        }
+        .sidebar-right {
+            width: 350px; 
+            margin-left: 40px;
+            position: sticky;
+            top: calc(var(--navbar-height) + 20px);
+            height: fit-content;
+            align-self: flex-start;
+            flex-shrink: 0;
+            display: none; 
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            border-top: 4px solid var(--primary-color);
+            transition: all 0.3s;
+        }
+        .info-simulasi {
+            background-color: #e0f2f1;
+            color: var(--primary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-color);
+        }
+        .info-simulasi h4 { margin-top: 0; font-size: 1.1em; }
+        .info-simulasi p { margin-bottom: 0; font-size: 0.9em; }
+        
+        /* Detail Row Style */
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95em;
+        }
+        .detail-row span:first-child {
+            color: var(--text-light);
+        }
+        .detail-row span:last-child {
+            font-weight: 500;
+        }
+
+        /* Tabel Data Container (FIX MOBILE) */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 10px; 
+        }
+
+        .data-table {
+            width: 100%;
+            min-width: 600px; 
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        .data-table th, .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: middle;
+            white-space: nowrap; 
+        }
+        .data-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 8px 8px 0 0; 
+        }
+        .data-table tr td {
+            background-color: #fcfcfc;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+        }
+
+        /* Payment Specific Style */
+        .payment-status {
+            font-size: 1.1em;
+            font-weight: 700;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .payment-status.unpaid {
+            color: var(--danger-color);
+        }
+
+        /* Konten Kuesioner */
+        .question-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+            border-left: 5px solid var(--secondary-color);
+        }
+        .question-card p {
+            font-weight: 600;
+            margin-top: 0;
+        }
+        .rating-options input {
+            margin-right: 5px;
+        }
+        .rating-options label {
+            font-size: 0.9em;
+            margin-right: 15px;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        
+        /* Konten Bahan Pembelajaran */
+        .material-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .material-list li:last-child {
+            border-bottom: none;
+        }
+        .material-list a {
+            color: var(--info-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .material-list i {
+            margin-right: 10px;
+        }
+        
+        /* Konten Jadwal */
+        .schedule-table th, .schedule-table td {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .schedule-table th {
+            background-color: #f0f0f0;
+            color: var(--text-dark);
+        }
+        .schedule-entry {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .schedule-entry.praktikum {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        
+        /* ======================================= */
+        /* MEDIA QUERY (MOBILE VIEW) */
+        /* ... (CSS Media Query dipertahankan) ... */
+        /* ======================================= */
+        @media (max-width: 900px) {
+            
+            .menu-toggle { display: block; }
+            .user-nav-desktop { display: none; }
+            .profile-bar { display: flex; }
+            
+            .top-navbar { height: 60px; padding: 0 15px; }
+            .header-title h1 { font-size: 1em; }
+            .header-title p { display: none; } 
+            .logo-section img { height: 35px; }
+            .main-header { padding-left: 0; }
+
+            .main-sidebar { padding-top: 0; }
+            
+            .main-content-wrapper {
+                flex-direction: column;
+                margin-left: 0; 
+                padding: 15px; 
+            }
+            .sidebar-right {
+                position: static;
+                width: 100%;
+                margin-left: 0;
+                order: -1; 
+            }
+            .main-content {
+                order: 1;
+                max-width: 100%;
+            }
+        }
+        
+        /* ======================================= */
+        /* MEDIA QUERY (DESKTOP VIEW) */
+        /* ... (CSS Media Query dipertahankan) ... */
+        /* ======================================= */
+        @media (min-width: 901px) {
+            .main-sidebar {
+                transform: translateX(0); 
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05); 
+                padding-top: 0;
+                top: 0;
+                border-right: 1px solid #e0e0e0;
+                z-index: 10;
+            }
+            
+            .main-header {
+                padding-left: var(--sidebar-width); 
+            }
+            .top-navbar {
+                padding: 0 40px; 
+            }
+            
+            .main-content-wrapper {
+                margin-left: var(--sidebar-width); 
+                padding: 40px; 
+                max-width: calc(100% - var(--sidebar-width)); 
+                flex-direction: row; 
+            }
+
+            .profile-bar, .menu-toggle { 
+                display: none !important; 
+            }
+
+            .sidebar-right {
+                display: block; 
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="loginPage" class="login-page">
+        <div class="login-container">
+            <img src="https://d.top4top.io/p_3584ov6ka0.png" alt="Logo ElitePay">
+            <span class="university-name">UNIVERSITAS INDRAPRASTA PGRI</span>
+            <h2>LOGIN</h2>
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="nimInput">Nomor Induk Mahasiswa (NIM)</label>
+                    <input type="text" id="nimInput" placeholder="masukan NIM" required>
+                </div>
+                <button type="submit">LOGIN</button>
+                <p id="loginError" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="qrisModal" class="modal">
+        <div class="modal-content">
+            <div id="qrisContent">
+                <h3>Selesaikan Pembayaran via QRIS</h3>
+                <p>Scan kode di bawah ini menggunakan aplikasi pembayaran favorit Anda (Gopay, Dana, Mobile Banking, dll).</p>
+                <img src="https://autoresbot.com/tmp_files/ee199744-fdd2-4b98-9ee8-92f36cd0b2d5.jpg" alt="Kode QRIS Pembayaran" style="max-height: 250px; max-width: 250px;">
+                <p style="font-size: 0.9em; font-weight: 500;">Total: <span id="qrisAmount" style="color: var(--primary-color);">Rp 6.250.000,-</span></p>
+                <p>Pembayaran Selesai dalam:</p>
+                <div class="countdown" id="countdownTimer">10 detik</div>
+            </div>
+
+            <div id="receiptContent" style="display: none;">
+                <div class="receipt-header">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>PEMBAYARAN BERHASIL!</h4>
+                </div>
+                <div class="receipt-card">
+                    <div class="detail-row"><span>ID Transaksi</span><span>QRIS-20261025-001</span></div>
+                    <div class="detail-row"><span>Jenis Tagihan</span><span>SPP Genap 2026/2027</span></div>
+                    <div class="detail-row"><span>Nominal Pembayaran</span><span style="color: var(--success-color);">Rp 6.250.000,-</span></div>
+                    <div class="detail-row"><span>Tanggal Bayar</span><span>25 Oktober 2025</span></div>
+                    <div class="detail-row" style="border-bottom: none;"><span>Metode</span><span>QRIS</span></div>
+                </div>
+                <div class="receipt-footer">
+                    <button onclick="backToPaymentPage()">KEMBALI KE HALAMAN TAGIHAN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="appWrapper" style="display: none;">
+        <div class="overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+        <aside class="main-sidebar" id="mainSidebar">
+            
+            <div class="profile-bar">
+                <div class="profile-img"><i class="fas fa-user"></i></div>
+                <div class="profile-text">
+                    <h4 id="profileName">NURIZA ZAHRA</h4>
+                    <p id="profileNim">202433500307</p>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="active"><a href="#" data-content="welcome" onclick="handleSidebarClick(this, event)"><i class="fas fa-desktop"></i> Dashboard</a></li>
+                <li><a href="#" data-content="simulasi-biodata" onclick="handleSidebarClick(this, event)"><i class="fas fa-user-circle"></i> Biodata</a></li>
+                <li><a href="#" data-content="simulasi-krs" onclick="handleSidebarClick(this, event)"><i class="fas fa-book"></i> KRS</a></li>
+                <li><a href="#" data-content="payment" onclick="handleSidebarClick(this, event)"><i class="fas fa-money-bill-wave"></i> Biaya Kuliah (SPP)</a></li>
+                <li><a href="#" data-content="simulasi-bahan" onclick="handleSidebarClick(this, event)"><i class="fas fa-book-open"></i> Bahan & Tugas</a></li>
+                <li><a href="#" data-content="simulasi-jadwal" onclick="handleSidebarClick(this, event)"><i class="fas fa-calendar-alt"></i> Jadwal & Presensi</a></li>
+                <li><a href="#" data-content="simulasi-pa" onclick="handleSidebarClick(this, event)"><i class="fas fa-chalkboard-teacher"></i> PA Online</a></li>
+                <li><a href="#" data-content="simulasi-kuesioner" onclick="handleSidebarClick(this, event)"><i class="fas fa-question-circle"></i> Kuesioner</a></li>
+                <li><a href="#" data-content="simulasi-nilai" onclick="handleSidebarClick(this, event)"><i class="fas fa-star"></i> Nilai</a></li>
+                <li><a href="#" data-content="history" onclick="handleSidebarClick(this, event)"><i class="fas fa-history"></i> Riwayat Pembayaran</a></li>
+                <li class="logout-btn"><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
+            </ul>
+        </aside>
+
+        <header class="main-header">
+            <div class="top-navbar">
+                <div class="logo-section">
+                    <i class="fas fa-bars menu-toggle" onclick="openSidebar()"></i>
+                    <img src="https://d.top4top.io/p_3584ov6ka0.png" alt="Logo">
+                    <div class="header-title">
+                        <h1>ElitePay - Universitas Indraprasta PGRI</h1>
+                        <p>Pembayaran SPP Mahasiswa Online</p>
+                    </div>
+                </div>
+                
+                <div class="user-nav-desktop">
+                    <ul class="nav-links-desktop">
+                        <li data-content="payment"><a href="#" data-content="payment" onclick="handleSidebarClick(this, event)">Pembayaran SPP</a></li>
+                        <li data-content="history"><a href="#" data-content="history" onclick="handleSidebarClick(this, event)">Riwayat</a></li>
+                        <li data-content="simulasi-pengaturan"><a href="#" data-content="-pengaturan" onclick="handleSidebarClick(this, event)">Pengaturan</a></li>
+                    </ul>
+                    <div class="profile-info-desktop" onclick="showContent('simulasi-biodata', event)">
+                        <span id="desktopProfileName">Karina Dewi</span>
+                        <div class="profile-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="app-container">
+            <div class="main-content-wrapper">
+                
+                <main class="main-content">
+                    
+                    <div id="welcome" class="content-pane active"> 
+                        
+                        <div class="card">
+                            <div class="info-simulasi">
+                                <h4>Halaman: Dashboard Utama</h4>
+                                <p>Selamat datang. Cek status akademik dan tagihan kuliah Anda di sini.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>Indeks Prestasi Kumulatif (IPK) Per Semester</h4>
+                            <div class="chart-container">
+                                <div class="bar-chart">
+                                    <div class="bar" style="height: 70%; background-color: #81c784;" data-value="3.50">
+                                        <span class="bar-value">3.50</span>
+                                        <span class="bar-label">Sem 1</span>
+                                    </div>
+                                    <div class="bar" style="height: 90%; background-color: #64b5f6;" data-value="3.75">
+                                        <span class="bar-value">3.75</span>
+                                        <span class="bar-label">Sem 2</span>
+                                    </div>
+                                    <div class="bar" style="height: 80%; background-color: #ffb300;" data-value="3.60">
+                                        <span class="bar-value">3.60</span>
+                                        <span class="bar-label">Sem 3</span>
+                                    </div>
+                                    <div class="bar" style="height: 95%; background-color: var(--primary-color);" data-value="3.85">
+                                        <span class="bar-value">3.85</span>
+                                        <span class="bar-label">Sem 4</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h4>Status Presensi Mata Kuliah Terbaru</h4>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mata Kuliah</th>
+                                            <th>Total Hadir</th>
+                                            <th>Persentase</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Pengembangan Web</td>
+                                            <td>10/12</td>
+                                            <td>83%</td>
+                                            <td style="color: var(--success-color); font-weight: 600;">Aman</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Basis Data Lanjut</td>
+                                            <td>12/12</td>
+                                            <td>100%</td>
+                                            <td style="color: var(--primary-color); font-weight: 600;">Sempurna</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jaringan Komputer</td>
+                                            <td>8/12</td>
+                                            <td>66%</td>
+                                            <td style="color: var(--danger-color); font-weight: 600;">Waspada</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div id="payment" class="content-pane">
+                         <div class="card">
+                            <div class="info-simulasi">
+                                <h4>Status Tagihan Semester Genap 2026/2027</h4>
+                                <p>Silakan lakukan pembayaran sebelum batas waktu yang ditentukan untuk melanjutkan studi. **Metode Pembayaran Tersedia: QRIS**</p>
+                            </div>
+                         </div>
+
+                         <div class="card" id="paymentDetailsCard">
+                            <h4>Rincian Tagihan</h4>
+                            <div class="detail-row">
+                                <span>Jenis Tagihan</span>
+                                <span>SPP Pokok Semester Genap</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Total Biaya Kuliah</span>
+                                <span id="paymentTotalAmount">Rp 6.250.000</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Potongan (Beasiswa/Diskon)</span>
+                                <span style="color: var(--success-color);">- Rp 0</span>
+                            </div>
+                            <div class="detail-row" style="border-bottom: none; font-size: 1.1em; font-weight: 700;">
+                                <span>TOTAL YANG HARUS DIBAYAR</span>
+                                <span style="color: var(--danger-color);" id="paymentDueAmount">Rp 6.250.000</span>
+                            </div>
+                            
+                            <div class="payment-status unpaid">
+                                <span>STATUS</span>
+                                <span>BELUM LUNAS</span>
+                            </div>
+
+                            <button onclick="showQrisModal()" style="background-color: var(--secondary-color); color: var(--primary-color); padding: 12px; border: none; border-radius: 8px; width: 100%; margin-top: 20px; font-weight: 700; cursor: pointer;">
+                                BAYAR SEKARANG via QRIS <i class="fas fa-qrcode"></i>
+                            </button>
+                         </div>
+                    </div>
+                    
+                    <div id="history" class="content-pane">
+                         <div class="card">
+                            <div class="info-simulasi">
+                                <h4>Riwayat Pembayaran ElitePay</h4>
+                                <p>Anda dapat melihat semua transaksi pembayaran SPP yang telah berhasil di sini.</p>
+                            </div>
+                         </div>
+                         <div class="card">
+                             <h4>Daftar Transaksi Lunas</h4>
+                             <div class="table-responsive">
+                                 <table class="data-table">
+                                     <thead>
+                                         <tr>
+                                             <th>ID Transaksi</th>
+                                             <th>Semester</th>
+                                             <th>Tanggal Bayar</th>
+                                             <th>Jumlah</th>
+                                             <th>Metode</th>
+                                             <th>Aksi</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody id="historyTableBody">
+                                         </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                    </div>
+                    
+                    <div id="simulasi-biodata" class="content-pane">
+                         <div class="card">
+                            <h4>Informasi Akademik</h4>
+                            <div class="detail-row"><span>NIM</span><span>202433500307</span></div>
+                            <div class="detail-row"><span>Nama Lengkap</span><span>NURIZA ZAHRA</span></div>
+                            <div class="detail-row"><span>Program Studi</span><span>Teknik Informatika (S1)</span></div>
+                            <div class="detail-row"><span>Kelas / Angkatan</span><span>R4E / 2024</span></div>
+                            <div class="detail-row"><span>Status Akademik</span><span style="color: var(--success-color);">Aktif</span></div>
+                         </div>
+                         <div class="card">
+                            <h4>Informasi Kontak & Pribadi</h4>
+                            <div class="detail-row"><span>Email Aktif</span><span>nuriza.zahra@unindra.ac.id</span></div>
+                            <div class="detail-row"><span>Nomor HP</span><span>0812-3456-7890</span></div>
+                            <div class="detail-row"><span>Alamat Domisili</span><span>Jl. Raya Condet No. 12, Jakarta Timur</span></div>
+                            <div class="detail-row"><span>Tanggal Lahir</span><span>01 Januari 2004</span></div>
+                         </div>
+                    </div>
+
+                    <div id="simulasi-krs" class="content-pane">
+                         <div class="card">
+                            <div class="info-simulasi">
+                                <h4>KRS Semester Genap 2026/2027</h4>
+                                <p>Pastikan mata kuliah yang diambil sudah sesuai dan telah diverifikasi Dosen PA Anda.</p>
+                            </div>
+                         </div>
+                         <div class="card">
+                            <h4>Mata Kuliah Aktif</h4>
+                             <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode MK</th>
+                                            <th>Nama Mata Kuliah</th>
+                                            <th>SKS</th>
+                                            <th>Dosen Pengampu</th>
+                                            <th>Jadwal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>TI401</td><td>Pemrograman Web Lanjut</td><td>3</td><td>Dr. Rina Handayani</td><td>Senin, 13:00-15:30</td></tr>
+                                        <tr><td>TI402</td><td>Kecerdasan Buatan</td><td>3</td><td>Prof. Budi Santoso</td><td>Selasa, 10:00-12:30</td></tr>
+                                        <tr><td>TI403</td><td>Manajemen Proyek SI</td><td>2</td><td>Mawar Melati, M.Kom</td><td>Rabu, 08:00-09:40</td></tr>
+                                        <tr><td>UM105</td><td>Pendidikan Agama Islam</td><td>2</td><td>Ust. Ahmad Sobari</td><td>Kamis, 15:00-16:40</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                         </div>
+                         <div class="card" style="border-top: 4px solid var(--secondary-color);">
+                            <div class="detail-row" style="font-weight: 600; border-bottom: none;">
+                                <span>TOTAL SKS DIAMBIL</span>
+                                <span>10 SKS</span>
+                            </div>
+                         </div>
+                    </div>
+
+                    <div id="simulasi-nilai" class="content-pane">
+                         <div class="card">
+                            <div class="info-simulasi">
+                                <h4>Kartu Hasil Studi (KHS) Semester Ganjil 2025/2026</h4>
+                                <p>Nilai akhir yang ditampilkan sudah final dan diverifikasi oleh Ketua Program Studi.</p>
+                            </div>
+                         </div>
+                         <div class="card">
+                             <h4>Detail Nilai</h4>
+                             <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode MK</th>
+                                            <th>Nama Mata Kuliah</th>
+                                            <th>SKS</th>
+                                            <th>Nilai Huruf</th>
+                                            <th>Bobot Mutu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>TI301</td><td>Struktur Data</td><td>3</td><td>A</td><td>12.00</td></tr>
+                                        <tr><td>TI302</td><td>Sistem Operasi</td><td>3</td><td>A-</td><td>11.25</td></tr>
+                                        <tr><td>TI303</td><td>Algoritma Lanjut</td><td>2</td><td>B+</td><td>6.00</td></tr>
+                                        <tr><td>UM104</td><td>Bahasa Inggris Teknik</td><td>2</td><td>B</td><td>4.00</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                         </div>
+                         <div class="card" style="border-top: 4px solid var(--success-color);">
+                            <div class="detail-row" style="font-size: 1.1em; font-weight: 700;">
+                                <span>IP Semester Ganjil 2025/2026</span>
+                                <span style="color: var(--success-color);">3.75</span>
+                            </div>
+                            <div class="detail-row" style="font-size: 1.1em; font-weight: 700; border-bottom: none;">
+                                <span>Total SKS Lulus</span>
+                                <span>10 SKS</span>
+                            </div>
+                         </div>
+                    </div>
+
+                    <div id="simulasi-bahan" class="content-pane">
+                        <div class="card"><div class="info-simulasi"><h4>Halaman: Bahan Kuliah & Tugas</h4><p>Anda dapat mengunduh materi dan mengunggah tugas di halaman ini.</p></div></div>
+                        <div class="card">
+                            <h4>Materi Mata Kuliah Terbaru</h4>
+                            <ul class="material-list" style="list-style: none; padding: 0;">
+                                <li>
+                                    <span><i class="fas fa-file-pdf"></i> TI401 - Modul 1: Konsep Dasar MVC</span>
+                                    <a href="#" onclick="alert('Mengunduh Modul 1')">Unduh</a>
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-file-powerpoint"></i> TI402 - Slide Presentasi AI Chapter 5</span>
+                                    <a href="#" onclick="alert('Mengunduh Slide AI')">Unduh</a>
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-link"></i> TI403 - Tautan Video Tutorial Project Management</span>
+                                    <a href="#" onclick="alert('Membuka Tautan')">Buka</a>
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-upload"></i> UM105 - Tugas Pekan 3: Essay Agama</span>
+                                    <a href="#" onclick="alert('Mengunggah Tugas')">Unggah</a>
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-file-archive"></i> TI401 - Library Pendukung Framework</span>
+                                    <a href="#" onclick="alert('Mengunduh Library')">Unduh</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="simulasi-jadwal" class="content-pane">
+                        <div class="card">
+                            <div class="info-simulasi">
+                                <h4>Jadwal Kuliah Mingguan Semester Genap 2026/2027</h4>
+                                <p>Pastikan presensi dilakukan tepat waktu. Cek kolom presensi untuk status kehadiran.</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h4>Jadwal Minggu Ini (24 - 30 Okt)</h4>
+                             <div class="table-responsive">
+                                <table class="data-table schedule-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Waktu</th>
+                                            <th>Senin</th>
+                                            <th>Selasa</th>
+                                            <th>Rabu</th>
+                                            <th>Kamis</th>
+                                            <th>Jumat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>**08:00 - 09:40**</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><div class="schedule-entry">Manajemen Proyek SI<br>(Daring)</div></td>
+                                            <td></td>
+                                            <td><div class="schedule-entry praktikum">P. Web Lanjut<br>(Lab 301)</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>**10:00 - 12:30**</td>
+                                            <td></td>
+                                            <td><div class="schedule-entry">Kecerdasan Buatan<br>(R. Dosen)</div></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>**13:00 - 15:30**</td>
+                                            <td><div class="schedule-entry">Pemrograman Web Lanjut<br>(R. 202)</div></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>**15:00 - 16:40**</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><div class="schedule-entry">Pendidikan Agama<br>(Online)</div></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="simulasi-kuesioner" class="content-pane">
+                        <div class="card">
+                            <div class="info-simulasi">
+                                <h4>Kuesioner Evaluasi Dosen & Mata Kuliah (EDOM)</h4>
+                                <p>Mohon berikan penilaian yang objektif terhadap 5 mata kuliah berikut. Penilaian Anda sangat berharga.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>Evaluasi Mata Kuliah: Pemrograman Web Lanjut (Dr. Rina Handayani)</h4>
+                            <div class="question-card">
+                                <p>1. Dosen menguasai materi dengan baik.</p>
+                                <div class="rating-options">
+                                    <input type="radio" name="q1" id="q1_5"><label for="q1_5">5 (Sangat Baik)</label>
+                                    <input type="radio" name="q1" id="q1_4"><label for="q1_4">4 (Baik)</label>
+                                    <input type="radio" name="q1" id="q1_3"><label for="q1_3">3 (Cukup)</label>
+                                </div>
+                            </div>
+                            <div class="question-card">
+                                <p>2. Metode pengajaran Dosen menarik dan interaktif.</p>
+                                <div class="rating-options">
+                                    <input type="radio" name="q2" id="q2_5"><label for="q2_5">5 (Sangat Baik)</label>
+                                    <input type="radio" name="q2" id="q2_4"><label for="q2_4">4 (Baik)</label>
+                                    <input type="radio" name="q2" id="q2_3"><label for="q2_3">3 (Cukup)</label>
+                                </div>
+                            </div>
+                            <div class="question-card">
+                                <p>3. Keterlambatan Dosen dalam memulai kuliah.</p>
+                                <div class="rating-options">
+                                    <input type="radio" name="q3" id="q3_5"><label for="q3_5">5 (Tidak Pernah)</label>
+                                    <input type="radio" name="q3" id="q3_4"><label for="q3_4">4 (Jarang)</label>
+                                    <input type="radio" name="q3" id="q3_3"><label for="q3_3">3 (Sering)</label>
+                                </div>
+                            </div>
+                            <div class="question-card">
+                                <p>4. Bahan ajar yang diberikan relevan dengan RPS.</p>
+                                <div class="rating-options">
+                                    <input type="radio" name="q4" id="q4_5"><label for="q4_5">5 (Sangat Sesuai)</label>
+                                    <input type="radio" name="q4" id="q4_4"><label for="q4_4">4 (Sesuai)</label>
+                                    <input type="radio" name="q4" id="q4_3"><label for="q4_3">3 (Kurang Sesuai)</label>
+                                </div>
+                            </div>
+                            <div class="question-card">
+                                <p>5. Fasilitas ruang kelas mendukung proses belajar.</p>
+                                <div class="rating-options">
+                                    <input type="radio" name="q5" id="q5_5"><label for="q5_5">5 (Sangat Baik)</label>
+                                    <input type="radio" name="q5" id="q5_4"><label for="q5_4">4 (Baik)</label>
+                                    <input type="radio" name="q5" id="q5_3"><label for="q5_3">3 (Cukup)</label>
+                                </div>
+                            </div>
+                            
+                            <button onclick="alert('Terima kasih, kuesioner berhasil dikirim!')" style="background-color: var(--primary-color); color: white; padding: 12px; border: none; border-radius: 8px; width: 100%; margin-top: 20px; font-weight: 600; cursor: pointer;">
+                                KIRIM KUESIONER
+                            </button>
+                        </div>
+                    </div>
+                    
+                    
+                    <div id="simulasi-pa" class="content-pane">
+                        <div class="card"><div class="info-simulasi"><h4>Halaman: Pembimbing Akademik Online</h4><p>Konsultasi dan persetujuan KRS/PKL/Skripsi dilakukan bersama Dosen PA Anda.</p></div></div>
+                        <div class="card"><h4>Status Konsultasi</h4><p>Pembimbing Akademik Anda: Dr. Rina Handayani. Status: Aktif.</p></div>
+                    </div>
+                    <div id="simulasi-pengaturan" class="content-pane">
+                        <div class="card"><div class="info-simulasi"><h4>Halaman: Pengaturan Akun</h4><p>Atur kata sandi, notifikasi, dan preferensi akun Anda di sini.</p></div></div>
+                        <div class="card"><h4>Pengaturan Keamanan</h4><p>Terakhir ganti kata sandi: 1 Oktober 2025.</p></div>
+                    </div>
+                    <div id="detail" class="content-pane">
+                         <div class="card">
+                            <div class="info-simulasi">
+                                <h4>Detail Rincian Pembayaran SPP</h4>
+                                <p>Ini adalah halaman yang diakses dari tombol 'Lihat Rincian Lainnya' di sidebar kanan.</p>
+                            </div>
+                         </div>
+                         <div class="card">
+                            <h4>Komponen Biaya Semester Genap</h4>
+                            <div class="detail-row"><span>Biaya Pokok SKS (10 SKS)</span><span>Rp 4.000.000</span></div>
+                            <div class="detail-row"><span>Biaya Gedung (Angsuran)</span><span>Rp 1.500.000</span></div>
+                            <div class="detail-row"><span>Biaya Praktikum</span><span>Rp 500.000</span></div>
+                            <div class="detail-row"><span>Biaya Administrasi</span><span>Rp 250.000</span></div>
+                            <div class="detail-row" style="font-weight: 700; border-bottom: none;"><span>TOTAL</span><span>Rp 6.250.000</span></div>
+                         </div>
+                    </div>
+                    
+                </main>
+                
+                <aside class="sidebar-right" id="sidebarRight">
+                    </aside>
+
+            </div>
+        </div>
+    </div> 
+    
+    <script>
+        // Data simulasi (dipertahankan)
+        const paymentHistory = [
+            { id: 5, semester: "Ganjil 2025/2026", jumlah: "Rp 6.000.000", status: "Lunas", tanggal: "10 Agt 2025", metode: "VA BNI" },
+            { id: 4, semester: "Genap 2024/2025", jumlah: "Rp 5.800.000", status: "Lunas", tanggal: "20 Jan 2025", metode: "Kartu Kredit" },
+            { id: 3, semester: "Ganjil 2024/2025", jumlah: "Rp 5.500.000", status: "Lunas", tanggal: "05 Agt 2024", metode: "QRIS" },
+            { id: 2, semester: "Genap 2023/2024", jumlah: "Rp 5.500.000", status: "Lunas", tanggal: "15 Jan 2024", metode: "VA Mandiri" },
+            { id: 1, semester: "Ganjil 2023/2024", jumlah: "Rp 5.300.000", status: "Lunas", tanggal: "01 Agt 2023", metode: "Bank Transfer" },
+        ];
+        const studentData = {
+            '202433500307': { name: 'NURIZA ZAHRA', nim: '202433500307' },
+            '1234567890': { name: 'Karina Dewi', nim: '1234567890' } 
+        };
+        let currentUser = null; 
+
+        // Elemen
+        const mainSidebar = document.getElementById('mainSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarRight = document.getElementById('sidebarRight');
+        const appWrapper = document.getElementById('appWrapper');
+        const loginPage = document.getElementById('loginPage');
+        const loginForm = document.getElementById('loginForm');
+        const nimInput = document.getElementById('nimInput');
+        const loginError = document.getElementById('loginError');
+        const qrisModal = document.getElementById('qrisModal');
+        const qrisContent = document.getElementById('qrisContent');
+        const receiptContent = document.getElementById('receiptContent');
+        const countdownTimer = document.getElementById('countdownTimer');
+        
+        let paymentSuccessSimulated = false; // Status untuk simulasi
+
+        // ===========================================
+        // FUNGSI NAVIGASI HALAMAN (Login/App)
+        // ===========================================
+        function showPage(pageId) {
+            if (pageId === 'loginPage') {
+                loginPage.style.display = 'flex';
+                appWrapper.style.display = 'none';
+                if (loginForm) loginForm.reset();
+                if (loginError) loginError.textContent = '';
+                currentUser = null;
+                if (mainSidebar) mainSidebar.classList.remove('active');
+            } else if (pageId === 'appWrapper') {
+                loginPage.style.display = 'none';
+                appWrapper.style.display = 'block';
+                // Di desktop, sidebar selalu terbuka
+                if (window.innerWidth > 900 && mainSidebar) {
+                    mainSidebar.classList.add('active'); 
+                }
+            }
+        }
+
+        // ===========================================
+        // FUNGSI LOGIN
+        // ===========================================
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const nim = nimInput.value.trim();
+
+                if (studentData[nim]) {
+                    currentUser = studentData[nim];
+                    // Update profile info
+                    if (document.getElementById('profileName')) document.getElementById('profileName').textContent = currentUser.name;
+                    if (document.getElementById('profileNim')) document.getElementById('profileNim').textContent = currentUser.nim;
+                    if (document.getElementById('desktopProfileName')) document.getElementById('desktopProfileName').textContent = currentUser.name;
+                    if (document.getElementById('sidebarRightNimName')) document.getElementById('sidebarRightNimName').textContent = `${currentUser.nim} / ${currentUser.name}`;
+
+                    showPage('appWrapper');
+                    showContent('welcome', null, true); 
+
+                } else {
+                    if (loginError) loginError.textContent = 'NIM tidak ditemukan. Silakan coba lagi.';
+                    nimInput.focus();
+                }
+            });
+        }
+
+        // ===========================================
+        // FUNGSI LOGOUT
+        // ===========================================
+        function logout() {
+            if (confirm('Anda yakin ingin keluar?')) {
+                if (window.innerWidth <= 900) closeSidebar(); 
+                showPage('loginPage');
+            }
+        }
+        
+        // ===========================================
+        // FUNGSI PEMBAYARAN QRIS (BARU)
+        // ===========================================
+        function showQrisModal() {
+            if (qrisModal) {
+                // Reset tampilan modal
+                qrisContent.style.display = 'block';
+                receiptContent.style.display = 'none';
+                qrisModal.style.display = 'flex';
+                countdownTimer.textContent = '3 detik';
+                
+                // Mulai countdown simulasi
+                let timeleft = 3;
+                const timerInterval = setInterval(() => {
+                    timeleft--;
+                    countdownTimer.textContent = `${timeleft} detik`;
+
+                    if (timeleft <= 0) {
+                        clearInterval(timerInterval);
+                        simulatePaymentSuccess();
+                    }
+                }, 1000);
+            }
+        }
+
+        function simulatePaymentSuccess() {
+            // Sembunyikan QRIS dan tampilkan Kwitansi
+            qrisContent.style.display = 'none';
+            receiptContent.style.display = 'block';
+            paymentSuccessSimulated = true;
+            
+            // Perbarui data tagihan di halaman payment setelah berhasil (simulasi)
+            updatePaymentStatus();
+            // Perbarui riwayat di halaman history (agar data baru muncul)
+            generateHistoryContent();
+        }
+        
+        function updatePaymentStatus() {
+             // Simulasi: Mengganti tagihan yang belum lunas menjadi lunas
+            const paymentDetailsCard = document.getElementById('paymentDetailsCard');
+            if (paymentDetailsCard) {
+                paymentDetailsCard.innerHTML = `
+                    <h4>Status Tagihan</h4>
+                    <div class="info-simulasi" style="background-color: #e8f5e9; border-left-color: var(--success-color);">
+                        <h4>Tagihan SPP Semester Genap 2026/2027</h4>
+                        <p>Pembayaran sebesar **Rp 6.250.000,-** telah lunas pada 25 Oktober 2025. Terima kasih.</p>
+                    </div>
+                    <div class="payment-status" style="color: var(--success-color); border-top: none; margin-top: 0;">
+                        <span>STATUS</span>
+                        <span>LUNAS</span>
+                    </div>
+                    <button onclick="showContent('history', event)" style="background-color: var(--primary-color); color: white; padding: 12px; border: none; border-radius: 8px; width: 100%; margin-top: 20px; font-weight: 700; cursor: pointer;">
+                        LIHAT RIWAYAT & KWITANSI
+                    </button>
+                `;
+            }
+
+            // Simulasi: Mengganti tagihan di sidebar kanan menjadi 'LUNAS'
+            const sidebarSummary = document.getElementById('sidebarRight');
+            if (sidebarSummary) {
+                sidebarSummary.innerHTML = `
+                    <div class="card bill-summary" style="display: none; border-top-color: var(--success-color);">
+                        <p class="label" style="font-size: 0.9em; color: var(--text-light); margin-bottom: 5px;">Status Tagihan Terbaru</p>
+                        <h2 class="amount-due" id="totalTagihan" style="color: var(--success-color); margin-top: 0; margin-bottom: 20px;"><i class="fas fa-check-circle"></i> LUNAS</h2>
+                        <div class="detail-row">
+                            <span>Tagihan</span>
+                            <span>SPP Genap 26/27</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Status</span>
+                            <span style="font-weight: 700; color: var(--success-color);">Lunas</span>
+                        </div>
+                        <button class="info-button" onclick="showContent('history', event)" style="padding: 12px 30px;border-radius: 8px;font-weight: 600;cursor: pointer;transition: all 0.3s ease;text-transform: uppercase;border: 1px solid var(--primary-color);display: block;width: 100%;text-align: center;background-color: white;color: var(--primary-color);margin-top: 10px;font-size: 0.9em;">Lihat Kwitansi</button>
+                    </div>
+                `;
+            }
+        }
+
+        function backToPaymentPage() {
+            if (qrisModal) {
+                qrisModal.style.display = 'none';
+            }
+            showContent('payment');
+        }
+
+
+        // ===========================================
+        // FUNGSI LOGIKA NAVIGASI (dipertahankan)
+        // ===========================================
+        function openSidebar() {
+            if (mainSidebar && sidebarOverlay) {
+                mainSidebar.classList.add('active');
+                sidebarOverlay.style.display = 'block';
+            }
+        }
+
+        function closeSidebar() {
+            if (mainSidebar && sidebarOverlay) {
+                mainSidebar.classList.remove('active');
+                sidebarOverlay.style.display = 'none';
+            }
+        }
+
+        function handleSidebarClick(element, event) {
+            if (event) event.preventDefault();
+            const contentId = element.getAttribute('data-content');
+            
+            if (contentId) {
+                showContent(contentId, event);
+            }
+            
+            if (window.innerWidth <= 900) {
+                closeSidebar();
+            }
+            
+            document.querySelectorAll('.sidebar-menu li').forEach(li => {
+                li.classList.remove('active');
+            });
+            element.closest('li').classList.add('active');
+            
+            updateDesktopNavActiveState(contentId);
+        }
+        
+        function updateDesktopNavActiveState(contentId) {
+            document.querySelectorAll('.nav-links-desktop li').forEach(li => {
+                li.classList.remove('active');
+                if (li.getAttribute('data-content') === contentId) {
+                    li.classList.add('active');
+                }
+            });
+        }
+        
+        function generateHistoryContent() {
+            const tableBody = document.getElementById('historyTableBody');
+            
+            // Tambahkan transaksi baru jika  sukses
+            if (paymentSuccessSimulated && !paymentHistory.find(item => item.id === 6)) {
+                 paymentHistory.unshift({ 
+                    id: 6, 
+                    semester: "Genap 2026/2027", 
+                    jumlah: "Rp 6.250.000", 
+                    status: "Lunas", 
+                    tanggal: "25 Okt 2025", 
+                    metode: "QRIS" 
+                });
+            }
+            
+            if (!tableBody) return;
+            
+            tableBody.innerHTML = ''; 
+            
+            paymentHistory.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>#${item.id}</td>
+                    <td>${item.semester}</td>
+                    <td>${item.tanggal}</td>
+                    <td>${item.jumlah}</td>
+                    <td>${item.metode}</td>
+                    <td>
+                        <button onclick="alert('Mencetak kuitansi untuk transaksi #${item.id}')" style="background-color: var(--info-color); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8em; cursor: pointer;">
+                            <i class="fas fa-print"></i> Cetak
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+
+        // ===========================================
+        // FUNGSI UTAMA: MENGGANTI KONTEN
+        // ===========================================
+        function showContent(contentId, event, isInitialLogin = false) {
+            if (event) {
+                event.preventDefault();
+            }
+
+            document.querySelectorAll('.content-pane').forEach(pane => {
+                pane.classList.remove('active');
+                pane.style.display = 'none'; 
+            });
+
+            const targetPane = document.getElementById(contentId);
+            if (targetPane) {
+                targetPane.classList.add('active');
+                targetPane.style.display = 'block';
+            }
+
+            // Atur sidebar kanan (Ringkasan Tagihan)
+            const billSummaryCard = sidebarRight ? sidebarRight.querySelector('.bill-summary') : null;
+            if (contentId === 'payment' || contentId === 'detail') {
+                if (sidebarRight) sidebarRight.style.display = 'block';
+                if (billSummaryCard) billSummaryCard.style.display = 'block';
+            } else {
+                if (sidebarRight) sidebarRight.style.display = 'none';
+                if (billSummaryCard) billSummaryCard.style.display = 'none';
+            }
+            
+            // Khusus halaman History
+            if (contentId === 'history') {
+                generateHistoryContent();
+            }
+            
+            // Update status aktif navigasi
+            updateDesktopNavActiveState(contentId);
+            document.querySelectorAll('.sidebar-menu li').forEach(li => {
+                 li.classList.remove('active');
+            });
+            if (contentId) {
+                const sidebarLink = document.querySelector(`.sidebar-menu a[data-content="${contentId}"]`);
+                if (sidebarLink) {
+                    sidebarLink.closest('li').classList.add('active');
+                }
+            }
+        }
+        
+        // ===========================================
+        // INISIALISASI SAAT DOM SIAP
+        // ===========================================
+        document.addEventListener('DOMContentLoaded', () => {
+             // 1. Tampilkan halaman login secara default
+             showPage('loginPage');
+             
+             // 2. Isi konten ringkasan tagihan di sidebar kanan (agar siap ditampilkan saat login)
+             if (sidebarRight) {
+                 sidebarRight.innerHTML = `
+                    <div class="card bill-summary" style="display: none;">
+                        <p class="label" style="font-size: 0.9em; color: var(--text-light); margin-bottom: 5px;">Status Tagihan Terbaru</p>
+                        <h2 class="amount-due" id="totalTagihan" style="color: var(--danger-color); margin-top: 0; margin-bottom: 20px;">Rp 6.250.000,-</h2>
+                        <div class="detail-row">
+                            <span>NIM / Nama</span>
+                            <span id="sidebarRightNimName">202433500307 / NURIZA ZAHRA</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Semester Tagihan</span>
+                            <span>Genap 2026/2027</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Batas Waktu Pembayaran</span>
+                            <span class="due-date-text" style="color: var(--danger-color); font-weight: 600;">25 November 2026</span>
+                        </div>
+                        <button class="info-button" onclick="showContent('detail', event)" style="padding: 12px 30px;border-radius: 8px;font-weight: 600;cursor: pointer;transition: all 0.3s ease;text-transform: uppercase;border: none;display: block;width: 100%;text-align: center;background-color: var(--secondary-color);color: var(--primary-color);margin-top: 20px;font-size: 0.9em;">Lihat Rincian Lainnya</button>
+                        <button class="info-button" onclick="showQrisModal()" style="padding: 12px 30px;border-radius: 8px;font-weight: 600;cursor: pointer;transition: all 0.3s ease;text-transform: uppercase;border: 1px solid var(--primary-color);display: block;width: 100%;text-align: center;background-color: white;color: var(--primary-color);margin-top: 10px;font-size: 0.9em;">Bayar Sekarang</button>
+                    </div>
+                `;
+             }
+        });
+    </script>
+
+</body>
+</html>
