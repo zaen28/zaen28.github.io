@@ -19,7 +19,6 @@
             --new-bg-image: url('https://autoresbot.com/tmp_files/1ea18aab-7b3d-4f59-ab66-4ca8f3051b00.jpg');
             --dark-transparent: rgba(0, 0, 0, 0.7);
         }
-
         /* CSS Dasar */
         body { 
             margin: 0; 
@@ -236,7 +235,6 @@
         }
         .input-group { display: flex; margin-bottom: 0; }
         .youtube-input-container input[type="text"] { width: 80%; }
-
         /* TOMBOL KAROKE (Merah dan Animasi Cooldown Kuning) */
         .youtube-input-container button {
             width: 20%; 
@@ -246,11 +244,9 @@
             font-weight: bold;
             transition: background-color 0.2s, opacity 0.2s;
         }
-
         .youtube-input-container button:hover:not(:disabled) {
             background-color: #c82333;
         }
-
         /* Gaya Tombol Saat Disabled (Cooldown) */
         .youtube-input-container button:disabled {
             background-color: rgba(255, 193, 7, 0.5); /* Kuning semi-transparan */
@@ -323,7 +319,6 @@
     </style>
 </head>
 <body>
-
     <div id="welcomeOverlay">
         <div id="welcome-logo"></div> 
         <h1 style="margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Selamat Datang di NARA ZAEN KAROKE!</h1>
@@ -334,7 +329,6 @@
             Mulai Karaoke
         </button>
     </div>
-
     <nav class="navbar">
         <a class="navbar-brand">
             <div class="logo-placeholder"></div>
@@ -343,7 +337,7 @@
         
         <div class="navbar-right">
             <button class="menu-button">
-                &#9776;
+                ☰
             </button>
         </div>
     </nav>
@@ -353,7 +347,6 @@
             Selamat datang di website karaoke tanpa iklan NARA ZAEN KAROKE. Ketik judul lagu favoritmu dan nikmati musiknya! 🎤🎶
         </marquee>
     </div>
-
     <section id="home-page">
         
         <div id="video-input-area">
@@ -385,18 +378,16 @@
             </div>
             
             <div class="vpn-solution-container">
-
                 <p>Jika video tidak muncul (error) dan Anda sudah menunggu, artinya **IP Anda kemungkinan terblokir.**</p>
                 <p>Gunakan Browser VPN ini untuk melewati blokir dan kembali berkaraoke:</p>
                 <a href="https://play.google.com/store/apps/details?id=com.pawxy.browser" target="_blank" rel="noopener noreferrer">
                     <span>
-                        &#128249; 
+                        📹 
                     </span>
                     DOWNLOAD BROWSER ANTI BLOKIR
                 </a>
             </div>
             <div id="news-loading-placeholder">
-
             </div>
             
             <div id="antara-news-container" class="news-section-container" style="display: none;">
@@ -413,7 +404,6 @@
             </div>
             
     </section>
-
     <script>
         // FUNGSI UNTUK MENGAMBIL BERITA (ANTARA & CNBC)
         async function fetchNews() {
@@ -425,14 +415,11 @@
             const antaraContainer = document.getElementById('antara-news-container');
             const cnbcContainer = document.getElementById('cnbc-news-container');
             const loadingPlaceholder = document.getElementById('news-loading-placeholder');
-
             // 1. Sembunyikan placeholder loading segera setelah fungsi dipanggil
             loadingPlaceholder.style.display = 'none';
-
             // 2. Tampilkan pesan memuat di dalam kontainer masing-masing (opsional, tapi bagus untuk indikasi)
             antaraContentDiv.innerHTML = '<p style="text-align: center; color: #aaa;">Memuat berita Antara...</p>';
             cnbcContentDiv.innerHTML = '<p style="text-align: center; color: #aaa;">Memuat berita CNBC...</p>';
-
             try {
                 const [antaraResponse, cnbcResponse] = await Promise.all([
                     fetch(ANTARA_API).catch(() => null),
@@ -477,7 +464,6 @@
                     }));
                 }
                 renderNews(antaraContentDiv, antaraNews, 'ANTARA');
-
                 // --- PROSES CNBC ---
                 let cnbcNews = [];
                 if (cnbcData.status && Array.isArray(cnbcData.data)) {
@@ -486,14 +472,11 @@
                     }));
                 }
                 renderNews(cnbcContentDiv, cnbcNews, 'CNBC Indonesia');
-
                 // Jika kedua-duanya gagal, tampilkan placeholder error
                 if (antaraNews.length === 0 && cnbcNews.length === 0) {
                     loadingPlaceholder.style.display = 'block';
                     loadingPlaceholder.innerHTML = '<p style="color: #f00;">❌ Gagal memuat berita dari semua sumber setelah 20 detik.</p>';
                 }
-
-
             } catch (error) {
                 console.error('Error fetching news concurrently:', error);
                 loadingPlaceholder.style.display = 'block';
@@ -504,7 +487,7 @@
         // FUNGSI UTAMA: Fetch dan Putar Video YouTube (Tidak ada perubahan di sini)
         async function fetchYouTubeVideo() {
             const COOLDOWN_TIME = 60; 
-            const API_URL = 'https://api.deline.my.id/downloader/ytplay';
+            const API_URL = 'https://api.deline.web.id/downloader/ytplay';
             const youtubeUrlInput = document.getElementById('youtubeUrl');
             const videoPlayer = document.getElementById('video-player');
             const loadingSpinner = document.getElementById('loading-video');
@@ -517,18 +500,14 @@
             const resultTitle = document.getElementById('result-title');
             const resultChannel = document.getElementById('result-channel');
             const vpnContainer = document.querySelector('.vpn-solution-container'); 
-
             const input = youtubeUrlInput.value.trim();
-
             if (!input) {
                 alert('Mohon masukkan Judul atau kata kunci video!');
                 return;
             }
-
             // Kata kunci yang akan ditambahkan ke kueri API tanpa muncul di input pengguna.
             const hiddenKeyword = " karaoke request"; 
             const finalQuery = input + hiddenKeyword; 
-
             // --- 1. Mulai Cooldown Tombol Tonton (60 Detik) ---
             watchButton.disabled = true;
             vpnContainer.style.display = 'none'; 
@@ -551,7 +530,6 @@
                 }
             }, 1000);
             // ----------------------------------------------------
-
             // 2. Tampilkan loading, sembunyikan pesan, video, dan hasil info
             messageBox.style.display = 'none'; 
             videoPlayer.style.display = 'none';
@@ -559,15 +537,12 @@
             resultInfoContainer.style.display = 'none'; 
             loadingSpinner.style.display = 'block';
             videoPlayer.removeAttribute('src'); 
-
             try {
                 // Gunakan finalQuery (dengan " karaoke request") untuk memanggil API
                 const response = await fetch(`${API_URL}?q=${encodeURIComponent(finalQuery)}`);
                 const result = await response.json();
-
                 // 3. Sembunyikan loading
                 loadingSpinner.style.display = 'none';
-
                 if (result.status && result.result && result.result.download) {
                     // KASUS SUKSES: Putar Video
                     const videoLink = result.result.download;
@@ -584,14 +559,12 @@
                     setTimeout(() => {
                         liveInfo.style.opacity = '1'; 
                     }, 7000);
-
                     videoPlayer.play().catch(error => {
                         console.error("Autoplay gagal, mungkin ada batasan browser.", error);
                         messageBox.textContent = `Video "${videoTitle}" dimuat! Klik tombol play untuk memutar. (Autoplay diblokir browser)`;
                         messageBox.style.display = 'block';
                         videoPlayer.style.display = 'block';
                     });
-
                 } else {
                     // KASUS GAGAL API: Tampilkan pesan error dan kontainer VPN
                     const errorMessage = result.message || 'Gagal memproses. Coba masukkan Judul/kata kunci yang berbeda.';
@@ -602,7 +575,6 @@
                     
                     alert("⚠️ Ups! Koneksi ke server karaoke terputus. Mohon coba lagi, atau gunakan VPN yang tersedia di bawah jika masalah terus berlanjut.");
                 }
-
             } catch (error) {
                 // KASUS GAGAL JARINGAN/SERVER: Tampilkan pesan error dan kontainer VPN
                 console.error('Error fetching YouTube video:', error);
@@ -611,7 +583,6 @@
                 messageBox.style.display = 'block';
                 videoPlayer.style.display = 'none';
                 vpnContainer.style.display = 'block'; // Tampilkan solusi VPN
-
                 alert("⚠️ Error Jaringan! Ada kemungkinan IP Anda terblokir oleh provider. Silakan gunakan Browser VPN yang kami rekomendasikan untuk melanjutkan karaoke.");
             }
         }
@@ -625,16 +596,12 @@
             setTimeout(() => {
                 overlay.style.display = 'none';
             }, 1000); 
-
             // 2. Panggil fungsi fetchNews() setelah total 20 detik (20000ms)
             const NEWS_DELAY_MS = 20000; 
-
             setTimeout(() => {
                 fetchNews();
             }, NEWS_DELAY_MS);
         }
-
     </script>
-
 </body>
 </html>
