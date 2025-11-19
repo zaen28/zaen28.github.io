@@ -3,604 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZK PREMIUM</title>
+    <title>Kuis Cepat Berhadiah Dana Kaget! 💰</title>
     
-    <meta property="og:title" content="🎤 NARA ZAEN KAROKE: Karaoke Online Tanpa Iklan 100% GRATIS! 🎶" />
-    <meta property="og:description" content="Langsung nyanyi sepuasnya! Cukup ketik judul lagu favoritmu, nikmati musik bebas iklan tanpa jeda. Server Stabil & Cepat." />
-    <meta property="og:image" content="https://autoresbot.com/tmp_files/1ea18aab-7b3d-4f59-ab66-4ca8f3051b00.jpg" />
-    <meta property="og:url" content="https://zaen28.github.io">
-    <meta property="og:type" content="website" />
-    <meta property="og:image:width" content="600" /> 
-    <meta property="og:image:height" content="315" />
-    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="https://autoresbot.com/tmp_files/39cf2b4b-f74b-4be7-aeca-278306c4d992.jpg">
+    <meta property="og:title" content="Kuis Dana Kaget! Jawab 1 Soal & Menangkan Saldo DANA Gratis!">
+    <meta property="og:description" content="Klaim Dana Kaget Anda sekarang! Jawab pertanyaan cepat untuk memenangkan saldo.">
+    
     <style>
-        /* URL Gambar Baru */
+        /* --- CSS Variables untuk Tema Warna Serasi (Merah/Jingga DANA) --- */
         :root {
-            --new-bg-image: url('https://autoresbot.com/tmp_files/1ea18aab-7b3d-4f59-ab66-4ca8f3051b00.jpg');
-            --dark-transparent: rgba(0, 0, 0, 0.7);
+            --color-primary: #1E90FF; /* Biru DANA */
+            --color-secondary: #0080FF; /* Biru Gelap DANA */
+            --color-accent: #191970; /* Biru Tua untuk Aksen */
+            --color-background: #E0FFFF; /* Aqua Muda */
+            --color-text: #333333;
+            --color-light-text: #666666;
+            --color-white: #ffffff;
+            --color-shadow: rgba(0, 0, 0, 0.15);
         }
-        /* CSS Dasar */
-        body { 
-            margin: 0; 
-            font-family: Arial, sans-serif; 
-            height: 100vh; 
-            overflow: hidden; 
-            /* Background web utama */
-            background-image: var(--new-bg-image);
-            background-size: cover;
-            background-position: center;
-        }
-        
-        /* Gaya Navbar (Fixed) dan Lain-lain (Tidak Berubah) */
-        
-        #welcomeOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--new-bg-image); 
-            background-size: cover; background-position: center; color: white;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 5000; transition: opacity 1s ease; backdrop-filter: blur(8px);
-        }
-        #welcome-logo {
-            width: 100px; height: 100px; background-image: var(--new-bg-image);
-            background-size: cover; background-position: center; border-radius: 50%;
-            border: 4px solid white; margin-bottom: 20px; box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-        #welcomeOverlay h1, #welcomeOverlay p {
-            padding-left: 10px; padding-right: 10px; box-sizing: border-box; max-width: 90%; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-        #openButton {
-            background-color: rgba(0, 123, 255, 0.6); color: white; border: 2px solid white;
-            padding: 15px 30px; border-radius: 10px; cursor: pointer; font-size: 1.5em;
-            font-weight: bold; transition: background-color 0.3s, transform 0.3s;
-            backdrop-filter: blur(2px); z-index: 5010; 
-        }
-        #openButton:hover {
-            background-color: rgba(0, 123, 255, 0.8); transform: scale(1.05);
-        }
-        .navbar { 
-            background-color: var(--dark-transparent); padding: 10px 20px; display: flex; 
-            justify-content: space-between; align-items: center; color: white; position: fixed; 
-            top: 0; left: 0; width: 100%; z-index: 4500; box-sizing: border-box; height: 55px; 
-            backdrop-filter: blur(2px);
-        }
-        .navbar-brand { display: flex; align-items: center; font-size: 1.4em; text-decoration: none; color: white; cursor: pointer; }
-        .logo-placeholder { 
-            width: 35px; height: 35px; background-image: var(--new-bg-image);
-            background-size: cover; background-position: center; border-radius: 50%; 
-            margin-right: 8px; display: inline-block; 
-        }
-        .brand-text { font-weight: 600; }
-        .menu-button { display: none; }
-        .running-text-bar { 
-            position: fixed; top: 55px; left: 0; width: 100%; height: 25px; 
-            background-color: rgba(0, 123, 255, 0.8); color: white; line-height: 25px; 
-            overflow: hidden; z-index: 2000; font-size: 0.8em; padding: 0 10px; 
-            backdrop-filter: blur(1px);
-        }
-        #home-page { 
-            position: fixed; top: 80px; left: 0; width: 100%; height: calc(100% - 80px); 
-            display: flex; flex-direction: column; align-items: center; text-align: center; 
-            color: white; padding: 0 10px; background-color: transparent; z-index: 1; 
-            overflow: hidden; box-sizing: border-box;
-        }
-        #video-input-area {
-            width: 100%; display: flex; flex-direction: column; align-items: center;
-            padding-top: 15px; flex-shrink: 0; 
-        }
-        #scrollable-content {
-            width: 100%; max-width: 720px; overflow-y: auto; flex-grow: 1; padding-bottom: 20px; 
-        }
-        .cooldown-alert {
-            max-width: 700px; width: 95%; background-color: #388e3c; color: white;
-            padding: 10px; border-radius: 5px; font-weight: bold; margin: 0 auto 15px; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        /* KONTENER HASIL API */
-        #result-info-container {
-            max-width: 700px; width: 95%; background-color: var(--dark-transparent);
-            padding: 15px; border-radius: 8px; margin: 0 auto 10px; text-align: left;
-            border-left: 5px solid #ffc107; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            display: none;
-        }
-        #result-info-container h3 {
-            margin: 0 0 5px 0; color: #ffc107; font-size: 1.1em;
-        }
-        #result-info-container p {
-            margin: 0; font-size: 0.9em; color: #ccc;
-        }
-        /* Kontainer Solusi VPN */
-        .vpn-solution-container {
-            max-width: 700px; 
-            width: 95%; 
-            background-color: rgba(220, 53, 69, 0.9); /* Merah semi-transparan */
-            color: white;
-            padding: 15px; 
-            border-radius: 8px; 
-            font-size: 0.95em; 
-            line-height: 1.5; 
-            margin: 10px auto 20px; /* Jarak atas/bawah */
-            text-align: center; 
-            border: 2px solid #ffc107; /* Garis kuning */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            display: none; 
-        }
-        .vpn-solution-container h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: #ffc107; /* Kuning */
-            font-size: 1.2em;
-        }
-        .vpn-solution-container p {
-            margin-bottom: 15px;
-        }
-        
-        /* Gaya Tombol Download VPN Baru */
-        .vpn-solution-container a {
-            display: flex; 
+
+        /* Gaya Dasar */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
             justify-content: center;
             align-items: center;
-            width: fit-content;
-            margin: 15px auto 0; 
-            
-            background-color: #4CAF50; 
-            color: white; 
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background-color 0.3s, transform 0.3s;
-            border: 2px solid white;
+            min-height: 100vh;
+            margin: 0;
+            /* Gradien Biru Muda */
+            background: linear-gradient(135deg, var(--color-background), #B0E0E6); 
         }
-        .vpn-solution-container a:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-        .vpn-solution-container a span {
-            margin-right: 8px;
-            font-size: 1.3em;
-        }
-        /* Akhir Gaya Tombol Download VPN Baru */
-        
-        /* KONTENER BERITA - Gaya Umum */
-        .news-section-container {
-            max-width: 700px; 
-            width: 95%; 
-            background-color: rgba(0, 0, 0, 0.85); 
-            padding: 15px; 
-            border-radius: 8px; 
-            margin: 10px auto 30px; 
-            text-align: left; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
-        .news-section-container h2 {
-            color: #007bff; 
-            margin-top: 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-            font-size: 1.3em;
+
+        .container {
+            background-color: var(--color-white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--color-shadow);
             text-align: center;
+            max-width: 450px;
+            width: 90%;
+            transition: transform 0.3s ease;
         }
-        .news-item {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+
+        .container:hover {
+            transform: translateY(-5px);
         }
-        .news-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+
+        h1 {
+            color: var(--color-secondary);
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            letter-spacing: 1px;
         }
-        .news-item a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
+
+        .quiz-question {
+            margin-bottom: 25px;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .options button {
             display: block;
-            margin-bottom: 5px;
-            transition: color 0.2s;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            font-size: 1em;
+            color: var(--color-text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-        .news-item a:hover {
-            color: #007bff;
+
+        .options button:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            transform: scale(1.02);
         }
-        .news-source {
-            font-size: 0.8em;
-            color: #ccc;
+
+        /* --- Gaya Popup Premium (Tema Biru DANA) --- */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
-        #news-loading-placeholder {
+
+        .popup-box {
+            /* Gradien Biru DANA yang Menarik */
+            background: linear-gradient(145deg, var(--color-secondary), var(--color-primary)); 
+            padding: 35px 40px;
+            border-radius: 20px;
+            color: var(--color-white); 
             text-align: center;
-            color: #ccc;
-            padding: 20px;
+            box-shadow: 0 15px 40px var(--color-shadow);
+            position: relative;
+            animation: fadeIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+            max-width: 380px;
+            width: 80%;
+            border: 5px solid var(--color-white); 
         }
-        /* Gaya khusus untuk border kontainer berita */
-        #antara-news-container { border-top: 3px solid #dc3545; /* Merah untuk Antara */ }
-        #cnbc-news-container { border-top: 3px solid #ffc107; /* Kuning untuk CNBC */ }
         
-        .rules-container { 
-            max-width: 700px; width: 95%; background-color: rgba(34, 34, 34, 0.9); 
-            padding: 20px; border-radius: 8px; font-size: 1em; line-height: 1.6; 
-            margin-top: 5px; text-align: left; border: 1px solid #444; color: #fff;
-            margin-left: auto; margin-right: auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
         }
-        .rules-container h2 {
-            margin-top: 0; color: white; text-align: center; margin-bottom: 15px;
+
+        .popup-header {
+            font-size: 1.8em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--color-white); 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
-        .rules-container h2 span { color: #ffc107; }
-        .youtube-input-container {
-            max-width: 700px; width: 95%; margin: 0 auto 10px; padding: 15px;
-            background-color: var(--dark-transparent); border-radius: 8px;
-            border-bottom: 5px solid #dc3545; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            text-align: center; flex-shrink: 0; color: #fff;
+
+        .popup-reward {
+            font-size: 3.5em;
+            font-weight: 900;
+            /* Efek Kilau Putih/Emas */
+            background-color: rgba(255, 255, 255, 0.9); 
+            padding: 10px 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            display: inline-block;
+            color: var(--color-secondary); /* Teks Biru Kontras */
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
         }
-        .input-group { display: flex; margin-bottom: 0; }
-        .youtube-input-container input[type="text"] { width: 80%; }
-        /* TOMBOL KAROKE (Merah dan Animasi Cooldown Kuning) */
-        .youtube-input-container button {
-            width: 20%; 
-            background-color: #dc3545; /* Merah terang default */
-            color: white;
-            border: 1px solid #c82333;
+        
+        /* Gaya Tombol Claim */
+        .popup-button {
+            /* Gradien Menarik */
+            background: linear-gradient(to right, #00FF00, #32CD32); /* Hijau Cerah */
+            color: var(--color-white);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px; 
+            font-size: 1.1em;
             font-weight: bold;
-            transition: background-color 0.2s, opacity 0.2s;
-        }
-        .youtube-input-container button:hover:not(:disabled) {
-            background-color: #c82333;
-        }
-        /* Gaya Tombol Saat Disabled (Cooldown) */
-        .youtube-input-container button:disabled {
-            background-color: rgba(255, 193, 7, 0.5); /* Kuning semi-transparan */
-            color: #212529;
-            cursor: not-allowed;
-            animation: cooldown-flash 0.5s infinite alternate; 
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(50, 205, 50, 0.6);
         }
         
-        @keyframes cooldown-flash {
-            0% {
-                background-color: rgba(255, 193, 7, 0.5); /* Kuning transparan */
-                color: #212529;
-                opacity: 1;
-            }
-            50% {
-                background-color: transparent; /* Transparan total */
-                color: #fff;
-                opacity: 0.8;
-            }
-            100% {
-                background-color: rgba(255, 193, 7, 0.5); /* Kembali ke Kuning transparan */
-                color: #212529;
-                opacity: 1;
-            }
+        /* Gaya Tombol Non-Aktif (Locked) */
+        .popup-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+            box-shadow: none;
         }
-        /* KONTENER VIDEO */
-        #video-output-container {
-            margin-top: 0; max-width: 700px; width: 95%; aspect-ratio: 16 / 9; 
-            background-color: rgba(0, 0, 0, 0.9); display: flex;
-            justify-content: center; align-items: center; border-radius: 8px;
-            overflow: hidden; position: relative; flex-shrink: 0;
-            margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+
+        .popup-button:not(:disabled):hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(50, 205, 50, 0.8);
         }
-        #video-player {
-            width: 100%; height: 100%; display: none; border: none; transition: opacity 0.5s;
+
+        .countdown-text {
+            margin-top: 15px; 
+            font-weight: 600; 
+            color: var(--color-white);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
-        .message-box {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            color: #fff; padding: 15px; background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 5px; animation: fadeIn 0.5s; text-align: center; 
-            line-height: 1.5; max-width: 80%; z-index: 3000; display: block; 
+        
+        .countdown-time {
+            font-size: 1.5em;
+            font-weight: 900;
+            display: block;
+            margin-top: 5px;
+            color: #FFD700; /* Emas untuk waktu */
         }
-        /* Loading Spinner */
-        .loading-video {
-            border: 4px solid rgba(255, 255, 255, 0.3); border-top: 4px solid #dc3545;
-            border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite;
+        
+        .result-message {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #E74C3C;
+        }
+        
+        .hidden {
             display: none;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        /* Live Info */
-        #channel-live-info {
-            position: absolute; top: 10px; left: 10px; display: flex; align-items: center;
-            z-index: 3500; user-select: none; opacity: 0; transition: opacity 0.5s ease; 
-        }
-        .live-tag {
-            background-color: #ff0000; color: white; padding: 2px 6px; border-radius: 3px;
-            font-size: 0.7em; font-weight: bold; margin-right: 5px; animation: pulse 1.5s infinite; 
-        }
-        .channel-name {
-            background-color: rgba(0, 0, 0, 0.7); color: white; padding: 3px 8px; border-radius: 3px;
-            font-size: 0.8em; font-weight: bold;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-        }
-        
     </style>
 </head>
 <body>
-    <div id="welcomeOverlay">
-        <div id="welcome-logo"></div> 
-        <h1 style="margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Selamat Datang di NARA ZAEN KAROKE!</h1>
-        <p style="margin-bottom: 30px; font-size: 1.1em; max-width: 80%; text-align: center;">
-            Nikmati **Karaoke Online Tanpa Iklan**! Cukup cari judul lagu favoritmu di bawah dan langsung nyanyi!
-        </p>
-        <button id="openButton" onclick="openWebsite()">
-            Mulai Karaoke
-        </button>
-    </div>
-    <nav class="navbar">
-        <a class="navbar-brand">
-            <div class="logo-placeholder"></div>
-            <span class="brand-text">NARA ZAEN KAROKE</span>
-        </a>
+
+    <div class="container" id="quiz-container">
+        <h1>💰 Kuis Cepat Berhadiah Dana Kaget! 💰</h1>
         
-        <div class="navbar-right">
-            <button class="menu-button">
-                ☰
+        <div class="quiz-question">
+            Pada tahun berapa Indonesia merdeka?
+        </div>
+        
+        <div class="options">
+            <button onclick="checkAnswer('1945')">A. 1945</button>
+            <button onclick="checkAnswer('1948')">B. 1948</button>
+            <button onclick="checkAnswer('1950')">C. 1950</button>
+            <button onclick="checkAnswer('1942')">D. 1942</button>
+        </div>
+        
+        <div class="result-message hidden" id="result-msg"></div>
+    </div>
+
+    <div class="popup-overlay" id="reward-popup">
+        <div class="popup-box">
+            <div class="popup-header">🎉 Hore! Anda Mendapat Dana Kaget!</div>
+            
+            <div class="popup-reward">
+                Rp ***
+            </div>
+            
+            <div class="countdown-text">
+                Tombol Claim Dana Kaget akan aktif dalam waktu: 
+                <span class="countdown-time" id="countdown">10</span>
+            </div>
+            
+            <button class="popup-button" id="claim-button" disabled onclick="goToDanaKaget()">
+                CLAIM
             </button>
+            
+            <p style="margin-top: 15px; font-size: 0.8em; color: var(--color-white);">*Nominal acak (fiktif). Klaim sebelum kehabisan!</p>
         </div>
-    </nav>
-    
-    <div class="running-text-bar">
-        <marquee behavior="scroll" direction="left" scrollamount="6">
-            Selamat datang di website karaoke tanpa iklan NARA ZAEN KAROKE. Ketik judul lagu favoritmu dan nikmati musiknya! 🎤🎶
-        </marquee>
     </div>
-    <section id="home-page">
-        
-        <div id="video-input-area">
-            <div id="video-output-container">
-                <div id="channel-live-info">
-                    <span class="live-tag">LIVE</span>
-                    <span class="channel-name">ZAEN PLAY</span>
-                </div>
-                <div class="loading-video" id="loading-video"></div>
-                <p class="message-box" id="video-message">Hi 👋,<br>mau nyanyi apa?</p>
-                <video id="video-player" controls autoplay loop playsinline style="display: none;">
-                    </video>
-            </div>
-            <div id="result-info-container">
-                <h3 id="result-title"></h3>
-                <p id="result-channel"></p>
-            </div>
-            <div class="youtube-input-container">
-                <div class="input-group">
-                    <input type="text" id="youtubeUrl" placeholder="ketik judul lagu disini, cth: Bintang di Surga" required>
-                    <button id="watchButton" onclick="fetchYouTubeVideo()">KAROKE</button>
-                </div>
-            </div>
-        </div>
-        
-        <div id="scrollable-content">
-            <div class="cooldown-alert">
-                tombol KAROKE terkunci 60 detik setiap pencarian
-            </div>
-            
-            <div class="vpn-solution-container">
-                <p>Jika video tidak muncul (error) dan Anda sudah menunggu, artinya **IP Anda kemungkinan terblokir.**</p>
-                <p>Gunakan Browser VPN ini untuk melewati blokir dan kembali berkaraoke:</p>
-                <a href="https://play.google.com/store/apps/details?id=com.pawxy.browser" target="_blank" rel="noopener noreferrer">
-                    <span>
-                        📹 
-                    </span>
-                    DOWNLOAD BROWSER ANTI BLOKIR
-                </a>
-            </div>
-            <div id="news-loading-placeholder">
-            </div>
-            
-            <div id="antara-news-container" class="news-section-container" style="display: none;">
-                <h2>📰 Berita Terbaru dari ANTARA</h2>
-                <div id="antara-news-content">
-                    </div>
-            </div>
-            
-            <div id="cnbc-news-container" class="news-section-container" style="display: none;">
-                <h2>📈 Berita Terbaru dari CNBC Indonesia</h2>
-                <div id="cnbc-news-content">
-                    </div>
-            </div>
-            </div>
-            
-    </section>
+
     <script>
-        // FUNGSI UNTUK MENGAMBIL BERITA (ANTARA & CNBC)
-        async function fetchNews() {
-            const ANTARA_API = 'https://api.deline.my.id/berita/antara';
-            const CNBC_API = 'https://api.deline.my.id/berita/cnbc';
-            
-            const antaraContentDiv = document.getElementById('antara-news-content');
-            const cnbcContentDiv = document.getElementById('cnbc-news-content');
-            const antaraContainer = document.getElementById('antara-news-container');
-            const cnbcContainer = document.getElementById('cnbc-news-container');
-            const loadingPlaceholder = document.getElementById('news-loading-placeholder');
-            // 1. Sembunyikan placeholder loading segera setelah fungsi dipanggil
-            loadingPlaceholder.style.display = 'none';
-            // 2. Tampilkan pesan memuat di dalam kontainer masing-masing (opsional, tapi bagus untuk indikasi)
-            antaraContentDiv.innerHTML = '<p style="text-align: center; color: #aaa;">Memuat berita Antara...</p>';
-            cnbcContentDiv.innerHTML = '<p style="text-align: center; color: #aaa;">Memuat berita CNBC...</p>';
-            try {
-                const [antaraResponse, cnbcResponse] = await Promise.all([
-                    fetch(ANTARA_API).catch(() => null),
-                    fetch(CNBC_API).catch(() => null)
-                ]);
-                
-                const [antaraData, cnbcData] = await Promise.all([
-                    antaraResponse ? antaraResponse.json().catch(() => ({ status: false })) : { status: false },
-                    cnbcResponse ? cnbcResponse.json().catch(() => ({ status: false })) : { status: false }
-                ]);
-                
-                // --- FUNGSI UTILITY UNTUK MERENDER BERITA ---
-                function renderNews(containerElement, dataArray, sourceName, maxItems = 8) {
-                    if (dataArray.length > 0) {
-                        const limitedNews = dataArray.slice(0, maxItems); 
-                        let newsHtml = '';
-                        limitedNews.forEach(item => {
-                            newsHtml += `
-                                <div class="news-item">
-                                    <a href="${item.link}" target="_blank" rel="noopener noreferrer" title="${item.title}">
-                                        ${item.title}
-                                    </a>
-                                    <div class="news-source">
-                                        ${sourceName} | ${item.date || ''}
-                                    </div>
-                                </div>
-                            `;
-                        });
-                        containerElement.innerHTML = newsHtml;
-                        // Tampilkan kontainer jika berhasil
-                        containerElement.parentElement.style.display = 'block'; 
-                    } else {
-                        containerElement.innerHTML = `<p style="text-align: center; color: #f00;">Gagal memuat berita dari ${sourceName}.</p>`;
-                    }
-                }
-                
-                // --- PROSES ANTARA ---
-                let antaraNews = [];
-                if (antaraData.status && Array.isArray(antaraData.data)) {
-                    antaraNews = antaraData.data.map(item => ({
-                        title: item.title, link: item.link, date: item.date || ''
-                    }));
-                }
-                renderNews(antaraContentDiv, antaraNews, 'ANTARA');
-                // --- PROSES CNBC ---
-                let cnbcNews = [];
-                if (cnbcData.status && Array.isArray(cnbcData.data)) {
-                    cnbcNews = cnbcData.data.map(item => ({
-                        title: item.title, link: item.link, date: item.date || ''
-                    }));
-                }
-                renderNews(cnbcContentDiv, cnbcNews, 'CNBC Indonesia');
-                // Jika kedua-duanya gagal, tampilkan placeholder error
-                if (antaraNews.length === 0 && cnbcNews.length === 0) {
-                    loadingPlaceholder.style.display = 'block';
-                    loadingPlaceholder.innerHTML = '<p style="color: #f00;">❌ Gagal memuat berita dari semua sumber setelah 20 detik.</p>';
-                }
-            } catch (error) {
-                console.error('Error fetching news concurrently:', error);
-                loadingPlaceholder.style.display = 'block';
-                loadingPlaceholder.innerHTML = '<p style="color: #f00;">❌ Terjadi kesalahan saat mengambil berita.</p>';
-            }
-        }
+        // TAUTAN DANA KAGET NYATA ANDA
+        const DANA_KAGET_LINK = 'https://link.dana.id/danakaget?c=sq9g7sk3m&r=cAYM8h&orderId=20251120101214802515010300166998249897511';
         
-        // FUNGSI UTAMA: Fetch dan Putar Video YouTube (Tidak ada perubahan di sini)
-        async function fetchYouTubeVideo() {
-            const COOLDOWN_TIME = 60; 
-            const API_URL = 'https://api.deline.web.id/downloader/ytplay';
-            const youtubeUrlInput = document.getElementById('youtubeUrl');
-            const videoPlayer = document.getElementById('video-player');
-            const loadingSpinner = document.getElementById('loading-video');
-            const messageBox = document.getElementById('video-message');
-            const watchButton = document.getElementById('watchButton');
-            const liveInfo = document.getElementById('channel-live-info'); 
+        const correctAnswer = '1945'; 
+        const resultMsg = document.getElementById('result-msg');
+        const rewardPopup = document.getElementById('reward-popup');
+        const quizContainer = document.getElementById('quiz-container');
+        const claimButton = document.getElementById('claim-button');
+        const countdownDisplay = document.getElementById('countdown');
+        let countdownTimer;
+
+        /**
+         * Fungsi untuk memulai hitungan mundur 10 detik.
+         */
+        function startCountdown() {
+            let timeLeft = 10;
             
-            // Elemen untuk hasil API dan VPN
-            const resultInfoContainer = document.getElementById('result-info-container');
-            const resultTitle = document.getElementById('result-title');
-            const resultChannel = document.getElementById('result-channel');
-            const vpnContainer = document.querySelector('.vpn-solution-container'); 
-            const input = youtubeUrlInput.value.trim();
-            if (!input) {
-                alert('Mohon masukkan Judul atau kata kunci video!');
-                return;
-            }
-            // Kata kunci yang akan ditambahkan ke kueri API tanpa muncul di input pengguna.
-            const hiddenKeyword = " karaoke request"; 
-            const finalQuery = input + hiddenKeyword; 
-            // --- 1. Mulai Cooldown Tombol Tonton (60 Detik) ---
-            watchButton.disabled = true;
-            vpnContainer.style.display = 'none'; 
+            if (countdownTimer) clearInterval(countdownTimer); 
             
-            watchButton.textContent = `Menunggu (${COOLDOWN_TIME}s)`;
-            let countdown = COOLDOWN_TIME;
-            const interval = setInterval(() => {
-                countdown--;
-                if (countdown >= 0) {
-                    watchButton.textContent = `Menunggu (${countdown}s)`;
+            claimButton.disabled = true;
+            claimButton.textContent = `CLAIM`;
+            countdownDisplay.textContent = timeLeft;
+
+            countdownTimer = setInterval(() => {
+                timeLeft--;
+                countdownDisplay.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdownTimer);
+                    claimButton.disabled = false;
+                    claimButton.textContent = 'KLIK UNTUK CLAIM SEKARANG';
+                    countdownDisplay.textContent = 'AKTIF!';
                 } else {
-                    clearInterval(interval);
-                    watchButton.disabled = false;
-                    watchButton.textContent = 'KAROKE';
-                    // --- ALERT PERSUASIF VPN SETELAH COOLDOWN ---
-                    setTimeout(() => {
-                        alert("Tips: Jika Anda mengalami masalah pemutaran atau error berkali-kali, gunakan Browser VPN yang kami sediakan untuk memastikan koneksi yang stabil dan bebas blokir. Selamat berkaraoke!");
-                    }, 500);
-                    // ---------------------------------------------
+                    claimButton.textContent = `CLAIM`;
                 }
             }, 1000);
-            // ----------------------------------------------------
-            // 2. Tampilkan loading, sembunyikan pesan, video, dan hasil info
-            messageBox.style.display = 'none'; 
-            videoPlayer.style.display = 'none';
-            liveInfo.style.opacity = '0'; 
-            resultInfoContainer.style.display = 'none'; 
-            loadingSpinner.style.display = 'block';
-            videoPlayer.removeAttribute('src'); 
-            try {
-                // Gunakan finalQuery (dengan " karaoke request") untuk memanggil API
-                const response = await fetch(`${API_URL}?q=${encodeURIComponent(finalQuery)}`);
-                const result = await response.json();
-                // 3. Sembunyikan loading
-                loadingSpinner.style.display = 'none';
-                if (result.status && result.result && result.result.download) {
-                    // KASUS SUKSES: Putar Video
-                    const videoLink = result.result.download;
-                    const videoTitle = result.result.title || 'Video YouTube';
-                    const videoChannel = result.result.channel || 'Channel Tidak Diketahui';
-                    
-                    videoPlayer.src = videoLink; 
-                    videoPlayer.style.display = 'block'; 
-                    
-                    resultTitle.textContent = `🎶 ${videoTitle}`;
-                    resultChannel.textContent = `Oleh: ${videoChannel}`;
-                    resultInfoContainer.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        liveInfo.style.opacity = '1'; 
-                    }, 7000);
-                    videoPlayer.play().catch(error => {
-                        console.error("Autoplay gagal, mungkin ada batasan browser.", error);
-                        messageBox.textContent = `Video "${videoTitle}" dimuat! Klik tombol play untuk memutar. (Autoplay diblokir browser)`;
-                        messageBox.style.display = 'block';
-                        videoPlayer.style.display = 'block';
-                    });
-                } else {
-                    // KASUS GAGAL API: Tampilkan pesan error dan kontainer VPN
-                    const errorMessage = result.message || 'Gagal memproses. Coba masukkan Judul/kata kunci yang berbeda.';
-                    messageBox.textContent = errorMessage;
-                    messageBox.style.display = 'block';
-                    videoPlayer.style.display = 'none';
-                    vpnContainer.style.display = 'block'; // Tampilkan solusi VPN
-                    
-                    alert("⚠️ Ups! Koneksi ke server karaoke terputus. Mohon coba lagi, atau gunakan VPN yang tersedia di bawah jika masalah terus berlanjut.");
-                }
-            } catch (error) {
-                // KASUS GAGAL JARINGAN/SERVER: Tampilkan pesan error dan kontainer VPN
-                console.error('Error fetching YouTube video:', error);
-                loadingSpinner.style.display = 'none';
-                messageBox.textContent = 'Terjadi kesalahan jaringan atau server API. Mungkin IP Anda terblokir.';
-                messageBox.style.display = 'block';
-                videoPlayer.style.display = 'none';
-                vpnContainer.style.display = 'block'; // Tampilkan solusi VPN
-                alert("⚠️ Error Jaringan! Ada kemungkinan IP Anda terblokir oleh provider. Silakan gunakan Browser VPN yang kami rekomendasikan untuk melanjutkan karaoke.");
+        }
+
+        /**
+         * Fungsi untuk mengecek jawaban kuis.
+         */
+        function checkAnswer(selectedAnswer) {
+            resultMsg.classList.add('hidden');
+            resultMsg.textContent = '';
+            
+            if (selectedAnswer === correctAnswer) {
+                // Jawaban Benar: Tampilkan popup dan mulai timer
+                quizContainer.classList.add('hidden');
+                rewardPopup.style.display = 'flex';
+                startCountdown(); // Mulai hitungan mundur
+            } else {
+                // Jawaban Salah
+                resultMsg.textContent = '❌ Jawaban salah! Coba cari jawaban yang benar!';
+                resultMsg.style.color = '#E74C3C';
+                resultMsg.classList.remove('hidden');
             }
         }
-        
-        // FUNGSI LAIN
-        function openWebsite() {
-            const overlay = document.getElementById('welcomeOverlay');
-            overlay.style.opacity = '0';
+
+        /**
+         * Fungsi yang mengarahkan ke link Dana Kaget yang asli.
+         */
+        function goToDanaKaget() {
+            if (claimButton.disabled) {
+                alert('Tombol belum aktif. Tunggu hitungan mundur selesai!');
+                return;
+            }
             
-            // 1. Sembunyikan overlay setelah transisi (1000ms)
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 1000); 
-            // 2. Panggil fungsi fetchNews() setelah total 20 detik (20000ms)
-            const NEWS_DELAY_MS = 20000; 
-            setTimeout(() => {
-                fetchNews();
-            }, NEWS_DELAY_MS);
+            // Mengarahkan pengguna ke link Dana Kaget di tab baru
+            window.open(DANA_KAGET_LINK, '_blank');
+
+            // Atur ulang tampilan agar kuis bisa dimainkan lagi atau menampilkan pesan sukses
+            rewardPopup.style.display = 'none';
+            quizContainer.classList.remove('hidden'); 
+            
+            // Reset timer display
+            countdownDisplay.textContent = '10';
+            claimButton.disabled = true;
+            claimButton.textContent = 'CLAIM';
+            
+            // Tampilkan pesan sukses
+            resultMsg.textContent = '✅ Anda diarahkan ke tautan Dana Kaget! Semoga berhasil mendapatkan saldonya.';
+            resultMsg.style.color = '#28A745';
+            resultMsg.classList.remove('hidden');
         }
     </script>
 </body>
