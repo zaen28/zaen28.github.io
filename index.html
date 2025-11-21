@@ -3,322 +3,1016 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuis Cepat Berhadiah Dana Kaget! 💰</title>
+    <title>Sewa Bot WA - NARA ZAEN BOT</title>
     
-    <meta property="og:image" content="https://autoresbot.com/tmp_files/39cf2b4b-f74b-4be7-aeca-278306c4d992.jpg">
-    <meta property="og:title" content="Kuis Dana Kaget! Jawab 1 Soal & Menangkan Saldo DANA Gratis!">
-    <meta property="og:description" content="Klaim Dana Kaget Anda sekarang! Jawab pertanyaan cepat untuk memenangkan saldo.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS Variables untuk Tema Warna Serasi (Merah/Jingga DANA) --- */
+        /* Definisi Warna Baru berdasarkan Logo Nara Zaen */
         :root {
-            --color-primary: #1E90FF; /* Biru DANA */
-            --color-secondary: #0080FF; /* Biru Gelap DANA */
-            --color-accent: #191970; /* Biru Tua untuk Aksen */
-            --color-background: #E0FFFF; /* Aqua Muda */
-            --color-text: #333333;
-            --color-light-text: #666666;
-            --color-white: #ffffff;
-            --color-shadow: rgba(0, 0, 0, 0.15);
+            --color-primary-blue: #00BFFF;   
+            --color-accent-green: #00FF00;   
+            --color-secondary-purple: #8A2BE2; 
+            --color-red-accent: #FF4500;     
+
+            --color-text-dark: #111111; 
+            --color-text-light: #EEEEEE;     
+
+            --color-navbar-background: rgba(42, 42, 42, 0.9); 
+            
+            --color-content-overlay-dark: rgba(34, 34, 34, 0.7); 
+            --color-content-overlay-medium: rgba(51, 51, 51, 0.7); 
+            --color-content-overlay-light: rgba(68, 68, 68, 0.7); 
+
+            --color-border-accent: #00BFFF;  
         }
 
-        /* Gaya Dasar */
+        /* --- Animasi Kedip Warna-Warni (Untuk Border/Shadow) --- */
+        @keyframes pulse-color {
+            0% { 
+                border-color: var(--color-primary-blue); 
+                box-shadow: 0 0 5px var(--color-primary-blue);
+            }
+            50% { 
+                border-color: var(--color-secondary-purple); 
+                box-shadow: 0 0 10px var(--color-secondary-purple);
+            }
+            100% { 
+                border-color: var(--color-primary-blue); 
+                box-shadow: 0 0 5px var(--color-primary-blue);
+            }
+        }
+
+        /* --- Animasi Background Berkilau (Untuk Konten) --- */
+        @keyframes pulse-bg {
+            0% { 
+                background-color: rgba(34, 34, 34, 0.7); /* Dark */
+            }
+            50% { 
+                background-color: rgba(51, 51, 51, 0.7); /* Medium */
+            }
+            100% { 
+                background-color: rgba(34, 34, 34, 0.7); /* Dark */
+            }
+        }
+        /* ---------------------------------- */
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            /* Gradien Biru Muda */
-            background: linear-gradient(135deg, var(--color-background), #B0E0E6); 
+            padding: 0;
+            background-image: url('https://files.catbox.moe/x6w5c8.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            background-color: #111111; 
+            color: var(--color-text-light); 
+            line-height: 1.6;
+            overflow-y: scroll;
         }
-
-        .container {
-            background-color: var(--color-white);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px var(--color-shadow);
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            transition: transform 0.3s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-5px);
-        }
-
-        h1 {
-            color: var(--color-secondary);
-            margin-bottom: 30px;
-            font-size: 1.8em;
-            letter-spacing: 1px;
-        }
-
-        .quiz-question {
-            margin-bottom: 25px;
-            font-size: 1.2em;
-            font-weight: 600;
-            color: var(--color-text);
-        }
-
-        .options button {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 12px;
-            border: none;
-            border-radius: 10px;
-            background-color: #f0f0f0;
-            font-size: 1em;
-            color: var(--color-text);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .options button:hover {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            transform: scale(1.02);
-        }
-
-        /* --- Gaya Popup Premium (Tema Biru DANA) --- */
-        .popup-overlay {
+        
+        /* --- LANDING PAGE STYLING (Halaman Awal) --- */
+        #landing-page {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: none; 
+            background-color: rgba(0, 0, 0, 0.9); 
+            z-index: 200; 
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-        }
-
-        .popup-box {
-            /* Gradien Biru DANA yang Menarik */
-            background: linear-gradient(145deg, var(--color-secondary), var(--color-primary)); 
-            padding: 35px 40px;
-            border-radius: 20px;
-            color: var(--color-white); 
             text-align: center;
-            box-shadow: 0 15px 40px var(--color-shadow);
-            position: relative;
-            animation: fadeIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
-            max-width: 380px;
-            width: 80%;
-            border: 5px solid var(--color-white); 
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
+            padding: 20px;
         }
 
-        .popup-header {
-            font-size: 1.8em;
-            font-weight: 800;
+        #landing-page h1 {
+            color: var(--color-primary-blue);
+            font-size: 2.5em;
             margin-bottom: 10px;
-            color: var(--color-white); 
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            font-weight: 700;
         }
 
-        .popup-reward {
-            font-size: 3.5em;
-            font-weight: 900;
-            /* Efek Kilau Putih/Emas */
-            background-color: rgba(255, 255, 255, 0.9); 
-            padding: 10px 25px;
-            border-radius: 12px;
-            margin: 25px 0;
-            display: inline-block;
-            color: var(--color-secondary); /* Teks Biru Kontras */
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Gaya Tombol Claim */
-        .popup-button {
-            /* Gradien Menarik */
-            background: linear-gradient(to right, #00FF00, #32CD32); /* Hijau Cerah */
-            color: var(--color-white);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 30px; 
+        #landing-page p {
+            color: var(--color-accent-green);
             font-size: 1.1em;
-            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        /* Tombol Lihat Menu di Landing Page */
+        #landing-page .btn {
+            background-color: var(--color-red-accent); 
+            color: var(--color-text-light);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
             cursor: pointer;
-            margin-top: 25px;
+            font-size: 18px;
+            font-weight: 700;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(50, 205, 50, 0.6);
+            text-transform: uppercase;
         }
-        
-        /* Gaya Tombol Non-Aktif (Locked) */
-        .popup-button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            opacity: 0.7;
-            box-shadow: none;
+        #landing-page .btn:hover {
+            background-color: #e03b00; 
+            box-shadow: 0 0 20px var(--color-red-accent);
+        }
+        /* --- END LANDING PAGE STYLING --- */
+
+        /* --- Navbar Styling --- */
+        .navbar {
+            background-color: var(--color-navbar-background); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--color-border-accent); 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--color-text-light);
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+        .navbar-brand .brand-logo {
+            width: 40px; 
+            height: 40px; 
+            margin-right: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .navbar-brand .brand-logo img { 
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 50%; 
+            box-shadow: 0 0 8px rgba(0, 191, 255, 0.5); 
         }
 
-        .popup-button:not(:disabled):hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(50, 205, 50, 0.8);
-        }
+        /* Tombol Menu Dropdown */
+        .dropdown { position: relative; display: inline-block; }
+        .menu-toggle {
+            background: none;
+            border: 2px solid var(--color-primary-blue); 
+            color: var(--color-text-light); 
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
 
-        .countdown-text {
-            margin-top: 15px; 
-            font-weight: 600; 
-            color: var(--color-white);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            /* EFEK KEDIP WARNA-WARNI */
+            animation: pulse-color 2s infinite alternate; 
         }
-        
-        .countdown-time {
-            font-size: 1.5em;
-            font-weight: 900;
-            display: block;
-            margin-top: 5px;
-            color: #FFD700; /* Emas untuk waktu */
+        .menu-toggle:hover {
+            background-color: var(--color-secondary-purple);
+            color: var(--color-text-light); 
         }
-        
-        .result-message {
-            margin-top: 15px;
-            font-weight: 600;
-            color: #E74C3C;
-        }
-        
-        .hidden {
+        .dropdown-content {
             display: none;
+            position: absolute;
+            right: 0;
+            background-color: var(--color-navbar-background); 
+            min-width: 180px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
+            z-index: 1;
+            border-radius: 5px;
+            border: 1px solid var(--color-secondary-purple); 
         }
+        .dropdown-content a {
+            color: var(--color-text-light);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+        .dropdown-content a:hover {
+            background-color: var(--color-secondary-purple); 
+            color: var(--color-text-light);
+        }
+        .dropdown.active .dropdown-content { display: block; }
+
+        /* --- End Navbar Styling --- */
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto 50px; 
+            padding: 0;
+            background-color: transparent; 
+            box-shadow: none; 
+            border-radius: 12px;
+            min-height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .page-header {
+            text-align: center;
+            padding: 25px 0 15px;
+            background: linear-gradient(145deg, rgba(17,17,17,0.8), rgba(42,42,42,0.8)); 
+            color: var(--color-text-light);
+            border-bottom: 2px solid var(--color-accent-green); 
+            position: relative;
+            z-index: 2;
+            border-top-left-radius: 12px; 
+            border-top-right-radius: 12px; 
+        }
+        .page-header h2 {
+            font-weight: 300;
+            font-size: 1.2em;
+            margin: 0;
+            color: var(--color-text-light);
+        }
+        
+        /* --- Konten Menu (Content Section) --- */
+        .content-section {
+            display: none; 
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .content-section h3 {
+            color: var(--color-primary-blue); 
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        
+        /* Daftar Fitur Styling */
+        .feature-list-container {
+            text-align: left;
+            max-height: 550px; 
+            overflow-y: auto; 
+            padding-right: 15px; 
+        }
+
+        .feature-category {
+            margin-bottom: 25px;
+            padding: 10px;
+            background-color: var(--color-content-overlay-medium);
+            border-radius: 8px;            
+                   }
+
+        .feature-category h4 {
+            color: var(--color-accent-green); 
+            font-size: 1.2em;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+        
+        /* Form Request Bot Styling */
+        .request-form {
+            background-color: var(--color-content-overlay-medium); 
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+            
+            /* PERUBAHAN BARU: Shadow Kedip */
+            box-shadow: 0 0 10px var(--color-secondary-purple);
+            animation: pulse-color 3.5s infinite alternate; 
+        }
+        
+        /* --- Styling Input Formulir (Request dan Sewa Bot) --- */
+        .request-form input[type="text"],
+        .request-form input[type="tel"],
+        .request-form input[type="url"],
+        .request-form textarea,
+        .request-form select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 20px 0;
+            display: inline-block;
+            box-sizing: border-box;
+            
+            /* Warna dan Border Sesuai Tema */
+            background-color: rgba(30, 30, 30, 0.9); 
+            color: var(--color-text-light); 
+            border: 1px solid var(--color-secondary-purple); 
+            border-radius: 6px;
+            
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        /* Styling Saat Input Fokus (Diklik) */
+        .request-form input:focus,
+        .request-form textarea:focus,
+        .request-form select:focus {
+            border-color: var(--color-primary-blue); 
+            box-shadow: 0 0 10px var(--color-primary-blue);
+            outline: none;
+        }
+
+        /* Styling Label */
+        .request-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--color-accent-green); 
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        
+        /* Placeholder styling */
+        .request-form input::placeholder, 
+        .request-form textarea::placeholder {
+            color: #aaa;
+            opacity: 0.8; 
+        }
+        
+        /* Tombol */
+        .btn-group { margin-top: 30px; display: flex; justify-content: center; gap: 15px; }
+        .btn {
+            background-color: var(--color-red-accent); 
+            color: var(--color-text-light);
+            padding: 12px 28px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        .btn-wa { background-color: #25d366; color: white; } 
+        .btn-wa:hover { background-color: #128c7e; }
+        .btn:hover { 
+            background-color: #e03b00; 
+            box-shadow: 0 0 15px var(--color-red-accent);
+        }
+        
+        /* PERBAIKAN CSS GAMBAR AGAR RESPONSIF (DIGUNAKAN UNTUK QRIS) */
+        .payment-info img {
+            max-width: 100%; 
+            height: auto; 
+            border: 3px solid var(--color-primary-blue); 
+            margin: 15px auto; 
+            border-radius: 8px;
+            display: block;
+            /* Tambahkan efek kedip pada border QRIS */
+            animation: pulse-color 2.5s infinite alternate; 
+        }
+        
+        /* --- CSS Khusus untuk Bagian Event (FINAL REVISI) --- */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px;
+            padding: 10px;
+            max-height: 800px; 
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .event-card {
+            display: flex; 
+            flex-direction: column; 
+            background-color: var(--color-content-overlay-medium); 
+            border-radius: 10px;
+            overflow: hidden;                               
+            min-height: 180px; 
+            max-height: 200px; 
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 191, 255, 0.4);
+        }
+        
+        /* Gambar Card Event (Banner) */
+        .event-card .card-banner {
+            width: 100%;
+            height: 120px; 
+            overflow: hidden;
+            /* Border bawah biru juga akan kedip karena efek pulse-color pada .event-card */
+            border-bottom: 2px solid var(--color-primary-blue); 
+        }
+        
+        .event-card .card-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+        }
+
+        .event-info {
+            padding: 2px 15px 2px; 
+            text-align: left;
+            flex-grow: 1; 
+            position: relative; 
+            max-height: 50px; 
+            overflow: hidden; 
+        }
+
+        .event-info h4 {
+            color: var(--color-accent-green);
+            margin-top: 3px; 
+            margin-bottom: 1px; 
+            font-size: 10px; 
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Teks Deskripsi Diperkecil */
+        .event-info p {
+            color: var(--color-text-light);
+            font-size: 7px; 
+            margin-bottom: 1px; 
+            min-height: auto; 
+            display: -webkit-box;
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Tombol Kecil di Pojok Kanan Bawah (Diaplikasikan ke <a>) */
+        .event-card .btn-join {
+            position: absolute; 
+            bottom: 3px; 
+            right: 15px;
+            background-color: var(--color-primary-blue); 
+            color: white;
+            padding: 3px 8px; 
+            border-radius: 50px;
+            font-size: 8px; 
+            font-weight: 600;
+            width: auto; 
+            text-transform: uppercase;
+            text-decoration: none; /* Tambahan untuk link (<a>) */
+            text-align: center;
+            display: inline-block; /* Tambahan untuk link (<a>) */
+            /* Tombol Join juga diberi efek kedip */
+            box-shadow: 0 0 5px var(--color-primary-blue);
+            animation: pulse-color 2s infinite alternate; 
+        }
+        .event-card .btn-join:hover {
+            background-color: #008cff;
+            box-shadow: 0 0 10px var(--color-primary-blue);
+        }
+        /* --- END CSS EVENT REVISI --- */
     </style>
 </head>
 <body>
 
-    <div class="container" id="quiz-container">
-        <h1>💰 Kuis Cepat Berhadiah Dana Kaget! 💰</h1>
-        
-        <div class="quiz-question">
-            Pada tahun berapa Indonesia merdeka?
-        </div>
-        
-        <div class="options">
-            <button onclick="checkAnswer('1945')">A. 1945</button>
-            <button onclick="checkAnswer('1948')">B. 1948</button>
-            <button onclick="checkAnswer('1950')">C. 1950</button>
-            <button onclick="checkAnswer('1942')">D. 1942</button>
-        </div>
-        
-        <div class="result-message hidden" id="result-msg"></div>
+    <audio id="background-music" src="https://files.catbox.moe/c2qykj.mp3" preload="auto" loop></audio>
+
+    <div id="landing-page">
+        <h1>NARA ZAEN BOT</h1>
+        <p>Premium WhatsApp Bot Service Siap Melayani Grup Anda</p>
+        <button class="btn" onclick="openMenuAndPlayMusic()">LIHAT MENU</button>
+        <p style="font-size: 0.8em; color: #aaa; margin-top: 20px;">*Klik untuk melanjutkan ke menu utama dan memutar musik latar.</p>
     </div>
 
-    <div class="popup-overlay" id="reward-popup">
-        <div class="popup-box">
-            <div class="popup-header">🎉 Hore! Anda Mendapat Dana Kaget!</div>
-            
-            <div class="popup-reward">
-                Rp ***
-            </div>
-            
-            <div class="countdown-text">
-                Tombol Claim Dana Kaget akan aktif dalam waktu: 
-                <span class="countdown-time" id="countdown">10</span>
-            </div>
-            
-            <button class="popup-button" id="claim-button" disabled onclick="goToDanaKaget()">
-                CLAIM
-            </button>
-            
-            <p style="margin-top: 15px; font-size: 0.8em; color: var(--color-white);">*Nominal acak (fiktif). Klaim sebelum kehabisan!</p>
-        </div>
-    </div>
+    <div id="main-content" style="display: none;">
+        
+        <div class="navbar">
+            <a href="javascript:void(0)" class="navbar-brand">
+                <div class="brand-logo">
+                    <img src="https://files.catbox.moe/n2f2sm.jpg" alt="Nara Zaen Bot Logo">
+                </div>
+                NARA ZAEN BOT
+            </a>
 
+            <div class="dropdown" onclick="toggleDropdown(this)">
+                <button class="menu-toggle">MENU &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="javascript:showContent('fitur')">1. Fitur Bot</a>
+                    <a href="javascript:showContent('keunggulan')">2. Keunggulan Bot</a>
+                    <a href="javascript:showContent('request')">3. Request Bot</a>
+                    <a href="javascript:showContent('sewa')">4. Sewa Bot</a>
+                    <a href="javascript:showContent('admin')">5. Hub. Admin</a>
+                    <a href="javascript:showContent('event')">6. Event & Acara</a> 
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="page-header">
+                <h2>Premium Service | <span style="color: var(--color-accent-green);">**Rp 15.000**/Bulan</span></h2>
+            </div>
+
+            <div id="fitur" class="content-section">
+                <h3>🤖 Daftar Lengkap Command NARA ZAEN BOT</h3>
+                <p style="color: var(--color-accent-green); font-style: italic;">Total ratusan command siap Anda gunakan!</p>
+                
+                <div class="feature-list-container">
+                    
+                    <div class="feature-category">
+                        <h4>Admin & Group</h4>
+                        <ul>
+                            <li>.ᴀᴅᴅʙᴀᴅᴡᴏʀᴅ</li>
+                            <li>.ᴅᴇʟʙᴀᴅᴡᴏʀᴅ</li>
+                            <li>.ʟɪꜱᴛʙᴀᴅᴡᴏʀᴅ</li>
+                            <li>.ᴀɴᴛɪʟɪɴᴋ</li>
+                            <li>.ᴀᴅᴅ (untuk menambah member)</li>
+                            <li>.ᴋɪᴄᴋ (untuk mengeluarkan member)</li>
+                            <li>.ᴘʀᴏᴍᴏᴛᴇ</li>
+                            <li>.ᴅᴇᴍᴏᴛᴇ</li>
+                            <li>.ᴀᴘᴘʀᴏᴠᴇ (anti-link)</li>
+                            <li>.ʙᴀɴꜰɪᴛᴜʀ (untuk memblokir fitur)</li>
+                            <li>.ᴍᴜᴛᴇɢʀᴏᴜᴘ</li>
+                            <li>.ᴜɴᴍᴜᴛᴇɢʀᴏᴜᴘ</li>
+                            <li>.ᴛᴀɢᴀʟʟ</li>
+                            <li>.ꜱᴇᴛᴡᴇʟᴄᴏᴍᴇ</li>
+                            <li>.ᴅᴇʟᴡᴇʟᴄᴏᴍᴇ</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-category">
+                        <h4>AI (Artificial Intelligence)</h4>
+                        <ul>
+                            <li>.ᴀɪ (Chat AI canggih)</li>
+                            <li>.ꜱɪᴍɪ (Chatbot SimSimi)</li>
+                            <li>.ᴠɴᴀɴɪᴍᴇ (Text-to-Speech Voice Anime)</li>
+                            <li>.ᴠᴏɪᴄᴇᴀɪ (Text-to-Speech AI Pria/Wanita)</li>
+                            <li>.ɪᴍᴀɢᴇᴀɪ (Generator Gambar dari Teks)</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-category">
+                        <h4>Anime & Erotica</h4>
+                        <ul>
+                            <li>.ᴡᴀɪꜰᴜ</li>
+                            <li>.ɴᴇᴋᴏ</li>
+                            <li>.ꜱʜɪɴᴏʙᴜ</li>
+                            <li>.ᴍᴇɢᴜᴍɪɴ</li>
+                            <li>.ʙᴜʟʟʏ</li>
+                            <li>.ᴄᴜᴅᴅʟᴇ</li>
+                            <li>.ᴄʀʏ</li>
+                            <li>.ʜᴜɢ</li>
+                            <li>.ᴋɪꜱꜱ</li>
+                            <li>.ʟɪᴄᴋ</li>
+                            <li>.ᴘᴀᴛ</li>
+                            <li>.ꜱᴍᴜɢ</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-category">
+                        <h4>Download & Konversi</h4>
+                        <ul>
+                            <li>.ꜰʙ / .ꜰᴀᴄᴇʙᴏᴏᴋ (Video Facebook)</li>
+                            <li>.ɪɢ / .ɪɴꜱᴛᴀɢʀᴀᴍ (Video/Reel IG)</li>
+                            <li>.ᴛᴛ / .ᴛɪᴋᴛᴏᴋ (Video TikTok No Watermark)</li>
+                            <li>.ʏᴛᴍᴘ4 (Video YouTube)</li>
+                            <li>.ʏᴛᴍᴘ3 (Audio YouTube)</li>
+                            <li>.ᴘɪɴ (Gambar Pinterest)</li>
+                            <li>.ᴛᴏꜱᴛɪᴄᴋᴇʀ (Mengubah Gambar/Video menjadi Sticker)</li>
+                            <li>.ᴇꜰᴇᴋ (Menambah Efek Audio)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>Games & Interaktif</h4>
+                        <ul>
+                            <li>.ʙᴊ / .ʙʟᴀᴄᴋᴊᴀᴄᴋ</li>
+                            <li>.ᴄᴀᴋ / .ᴄᴀᴋʟᴏɴᴛᴏɴɢ (Tebak Kata)</li>
+                            <li>.ᴋᴏᴅᴀᴍ / .ᴄᴇᴋᴋᴏᴅᴀᴍ (Cek Kodam Populer)</li>
+                            <li>.ʜᴀᴘᴘʏʀᴏᴏᴜʟᴇᴛᴛᴇ</li>
+                            <li>.ᴀᴋᴜɴᴇɴᴀɪ (Tebak Angka)</li>
+                            <li>.ᴋᴜɪꜱ</li>
+                            <li>.ᴛʜɪꜱᴏʀᴛʜᴀᴛ</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-category">
+                        <h4>Owner & Ekonomi</h4>
+                        <ul>
+                            <li>.ᴀᴅᴅɢʟᴏʙᴀʟʙᴀᴅᴡᴏʀᴅ</li>
+                            <li>.ᴀᴅᴅʟᴇᴠᴇʟ (Menambah level user)</li>
+                            <li>.ᴀᴅᴅʟɪᴍɪᴛ (Menambah batas penggunaan)</li>
+                            <li>.ᴀᴅᴅᴍᴏɴᴇʏ (Menambah saldo)</li>
+                            <li>.ᴀᴅᴅᴏᴡɴᴇʀ (Menambah admin bot)</li>
+                            <li>.ʙᴀɴᴜꜱᴇʀ</li>
+                            <li>.ᴜɴʙᴀɴᴜꜱᴇʀ</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-category">
+                        <h4>Tools & Utility</h4>
+                        <ul>
+                            <li>.ᴄᴇᴋᴅɴꜱ</li>
+                            <li>.ᴄᴇᴋʜᴏꜱᴛ</li>
+                            <li>.ᴄᴇᴋɪᴅɢᴄ (Cek ID Google Cloud)</li>
+                            <li>.ᴄᴇᴋᴜꜱᴇʀ</li>
+                            <li>.ɪᴘᴄʜᴇᴄᴋ / .ᴄʜᴇᴄᴋɪᴘ / .ᴄᴇᴋɪᴘ</li>
+                            <li>.ᴛʀᴀɴꜱʟᴀᴛᴇ (Penerjemah Bahasa)</li>
+                            <li>.ᴡɪᴋɪ (Pencarian Wikipedia)</li>
+                            <li>.ꜱʜᴏʀᴛʟɪɴᴋ</li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div id="keunggulan" class="content-section features">
+                <h3>✨ Keunggulan Eksklusif NARA ZAEN BOT</h3>
+                <ul>
+                    <li>**FREE REQUEST FITUR BOT:** Ajukan fitur sesuai kebutuhan Anda!</li>
+                    <li>**Media Command:** Mampu memutar Musik dan Video dari URL.</li>
+                    <li>**Game Module:** Tersedia berbagai fitur Games interaktif.</li>
+                    <li>**Tag All/Mention All:** Panggil semua anggota dalam Group WA.</li>
+                    <li>**High-Speed Response:** Balasan instan, tanpa jeda.</li>
+                    <li>**Prioritas Support:** Bantuan tim ahli kapan saja.</li>
+                </ul>
+                <div class="btn-group">
+                    <button class="btn" onclick="showContent('request')">Lanjut ke Request Fitur</button>
+                    <button class="btn btn-wa" onclick="showContent('sewa')">LANGSUNG SEWA</button>
+                </div>
+            </div>
+            
+            <div id="request" class="content-section">
+                <h3>📝 Request Tambahan Fitur Bot Anda</h3>
+                
+                <div class="request-form">
+                    <p style="color: var(--color-accent-green); font-weight: 600;">*Request ini akan dikirimkan langsung ke Admin via WhatsApp.</p>
+
+                    <label for="req-nama">Nama Anda</label>
+                    <input type="text" id="req-nama" placeholder="Nama Lengkap" required>
+                    
+                    <label for="req-no-wa">Nomor WhatsApp</label>
+                    <input type="tel" id="req-no-wa" placeholder="Nomor WA Aktif (cth: 62812...)" required>
+                    
+                    <label for="req-fitur-type">Pilih Tipe Fitur yang Diinginkan:</label>
+                    <select id="req-fitur-type">
+                        <option value="Games">Games</option>
+                        <option value="Media/Musik">Media/Musik</option>
+                        <option value="Utility/Admin">Utility/Admin (cth: Tag All)</option>
+                        <option value="Integrasi Eksternal">Integrasi Eksternal (API)</option>
+                        <option value="Lainnya">Lainnya (Jelaskan di bawah)</option>
+                    </select>
+
+                    <label for="req-fitur-keterangan">Keterangan Detail (Contoh: Jenis game, format balasan, dll.):</label>
+                    <textarea id="req-fitur-keterangan" placeholder="Jelaskan secara rinci fitur yang Anda butuhkan..."></textarea>
+                    
+                    <button class="btn btn-wa" style="width: 100%;" onclick="sendFeatureRequest()">KIRIM REQUEST VIA WHATSAPP</button>
+                </div>
+            </div>
+
+            <div id="sewa" class="content-section">
+                <h3>🛒 PAYMENT</h3>
+                <p>Lengkapi data Anda, lalu scan QRIS untuk menyelesaikan pemesanan.</p>
+
+                <div id="form-section-main" class="request-form">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" placeholder="Nama Lengkap" required>
+                    
+                    <label for="no-wa">Nomor WhatsApp</label>
+                    <input type="tel" id="no-wa" placeholder="Nomor WhatsApp Aktif (cth: 62812...)" required>
+                    
+                    <label for="link-group">Link Group WA (Opsional)</label>
+                    <input type="url" id="link-group" placeholder="Link Group WA (Opsional)" required>
+                    
+                    <button class="btn" style="width: 100%;" onclick="showPayment()">Lanjut ke QRIS Pembayaran</button>
+                </div>
+
+                <div id="payment-section-main" class="payment-info" style="display: none;">
+                    <h3>💰 Selesaikan Pembayaran</h3>
+                    <p>Silakan scan **QRIS All Payment** di bawah ini:</p>
+                    
+                    <img src="https://files.catbox.moe/9jq1bt.jpg" alt="QRIS All Payment">
+                    
+                    <p>Total: <span style="color: var(--color-primary-blue); font-weight: 700;">Rp 15.000</span></p>
+                    <p>Waktu Tersisa: <span id="countdown" style="color: var(--color-primary-blue);">60</span> detik</p>
+                    
+                    <button class="btn" id="claim-btn" style="width: 100%;" onclick="redirectToWA(true)" disabled>Claim dan Konfirmasi Pembayaran</button>
+                    <p style="font-size: small; color: var(--color-red-accent);">*Segera Claim setelah pembayaran berhasil!</p>
+                </div>
+            </div>
+
+            <div id="admin" class="content-section">
+                <h3>📞 Hubungi Admin</h3>
+                <p>Silakan hubungi kontak di bawah ini jika ada pertanyaan lebih lanjut.</p>
+                
+                <div class="btn-group" style="flex-direction: column; max-width: 300px; margin: 30px auto;">
+                    <button class="btn btn-wa" style="margin-bottom: 15px;" onclick="contactAdmin('admin')">
+                        Customer Service
+                    </button>
+                    <button class="btn btn-wa" onclick="contactAdmin('owner')">
+                        Hubungi Owner (Kerja Sama / Urgent)
+                    </button>
+                </div>
+            </div>
+
+            <div id="event" class="content-section">
+                <h3>🎉 Event, Promo & Giveaway Spesial!</h3>
+                <p style="color: var(--color-accent-green); font-style: italic; margin-bottom: 30px;">Jangan lewatkan kesempatan dan hadiah menarik dari kami.</p>
+                
+                <div class="event-grid">
+                    
+                    <div class="event-card">
+                        <div class="card-banner">
+                            <img src="https://files.catbox.moe/5zkl8z.jpg" alt="Diskon Sewa Bot">
+                        </div>
+                        <div class="event-info">
+                            <h4>Rp. 10.000</h4>
+                            <p>Sewa bot untuk 1 bulan hanya bayar 10k Berlaku hingga 25 november 2025.</p>
+                            <a class="btn btn-join" href="https://wa.me/6285711374861?text=Hi kak zaen, aku mau sewa bot promo 1 bulan 10k ya..." target="_blank">CLAIM</a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="card-banner">
+                            <img src="https://files.catbox.moe/kxhj53.jpg" alt="Giveaway Saldo Dana">
+                        </div>
+                        <div class="event-info">
+                            <h4>REWARD 30K</h4>
+                            <p>Syarat: download di web ini dan gunakn kode referalku(<br>dan nabung 100k di bank neo</p>
+                            <a class="btn btn-join" href="https://s.bankneo.co.id/PT7k10" target="_blank">CLAIM</a>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="card-banner">
+                            <img src="https://files.catbox.moe/4x81xw.jpg" alt="Fitur Baru Panel">
+                        </div>
+                        <div class="event-info">
+                            <h4>REWARD 10K</h4>
+                            <p>masukan reff [ SB8TDZ ] nabung 4 hari<br>hubungi aku jika isi selesai</p>
+                            <a class="btn btn-join" href="https://app.seabank.co.id/app/main?module=router&type=me&sub_type=referral&login=true&referralCode=SB8TDZ" target="_blank">CLAIM</a>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="card-banner">
+                            <img src="https://files.catbox.moe/tj66xj.jpg" alt="Lomba Chat Terbanyak">
+                        </div>
+                        <div class="event-info">
+                            <h4>REWARD 5K DARI APLIKASI</h4>
+                            <p>reward didapat dri apk itu sendir ya<br>bukan dari aku</p>
+                            <a class="btn btn-join" href="https://dooie.go.link/lRBpJ?code=361528&link=InvitationPageIndex&jumpTab=1&uid=361528" target="_blank">DOWNLOAD</a>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="card-banner">
+                            <img src="https://files.catbox.moe/o2nn8h.jpg" alt="Event Mendatang">
+                        </div>
+                        <div class="event-info">
+                            <h4>
+                            REWARD 500 RUPIAH DARI AKU</h4>
+                            <p>tonton live 3 menit dan follow 3 akun</p>
+                            <a class="btn btn-join" href="https://slink.bigovideo.tv/Y0ibFD" target="_blank">DOWNLOAD</a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="card-banner">
+                            <img src="https://files.catbox.moe/0mwppy.jpg" alt="Event Mendatang">
+                        </div>
+                        <div class="event-info">
+                            <h4>DANA KAGET</h4>
+                            <p>klaim dana laget receh nya ya, semoga kamu beruntung💸</p>
+                            <a class="btn btn-join" href="https://link.dana.id/danakaget?c=s9e5mgzgj&r=cAYM8h&orderId=20251121101214822815010300166998250172219" target="_blank">CLAIM</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-wa" onclick="showContent('admin')">Tanyakan Event Lainnya ke Admin</button>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div> 
+    
     <script>
-        // TAUTAN DANA KAGET NYATA ANDA
-        const DANA_KAGET_LINK = 'https://link.dana.id/danakaget?c=sq9g7sk3m&r=cAYM8h&orderId=20251120101214802515010300166998249897511';
-        
-        const correctAnswer = '1945'; 
-        const resultMsg = document.getElementById('result-msg');
-        const rewardPopup = document.getElementById('reward-popup');
-        const quizContainer = document.getElementById('quiz-container');
-        const claimButton = document.getElementById('claim-button');
-        const countdownDisplay = document.getElementById('countdown');
-        let countdownTimer;
+        const contents = ['fitur', 'keunggulan', 'request', 'sewa', 'admin', 'event']; 
 
-        /**
-         * Fungsi untuk memulai hitungan mundur 10 detik.
-         */
+        // Sewa Bot Elements
+        const formSectionMain = document.getElementById('form-section-main');
+        const paymentSectionMain = document.getElementById('payment-section-main');
+        const countdownDisplay = document.getElementById('countdown');
+        const claimBtn = document.getElementById('claim-btn');
+        const backgroundMusic = document.getElementById('background-music');
+        const landingPage = document.getElementById('landing-page');
+        const mainContent = document.getElementById('main-content');
+        let countdownInterval;
+
+        // --- Fungsi Kontrol Dropdown ---
+        function toggleDropdown(element) {
+            document.querySelectorAll('.dropdown').forEach(d => {
+                if (d !== element) {
+                    d.classList.remove('active');
+                }
+            });
+            element.classList.toggle('active');
+        }
+
+        // Tutup dropdown saat klik di luar area
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(d => {
+                    d.classList.remove('active');
+                });
+            }
+        });
+
+        // --- Fungsi Landing Page dan Musik ---
+        function openMenuAndPlayMusic() {
+            landingPage.style.display = 'none';
+            mainContent.style.display = 'block';
+            
+            const playPromise = backgroundMusic.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                }).catch(error => {
+                    console.log("Autoplay diblokir. Musik tidak dapat diputar otomatis.");
+                });
+            }
+
+            // Tampilkan konten 'fitur' sebagai default
+            showContent('fitur');
+        }
+
+        // --- Fungsi Navigasi Konten ---
+        function showContent(contentId) {
+            document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+            
+            contents.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.style.display = 'none';
+            });
+            const target = document.getElementById(contentId);
+            if (target) {
+                target.style.display = 'block';
+                if (contentId === 'sewa') {
+                    resetSewaBotView();
+                } else if (contentId !== 'sewa') {
+                    stopCountdown();
+                }
+            }
+        }
+
+        // --- Logika Sewa Bot (Payment) ---
+        function resetSewaBotView() {
+             formSectionMain.style.display = 'block';
+             paymentSectionMain.style.display = 'none';
+             stopCountdown();
+        }
+
+        function showPayment() {
+            const nama = document.getElementById('nama').value;
+            const noWa = document.getElementById('no-wa').value;
+            const linkGroup = document.getElementById('link-group').value;
+
+            if (!nama || !noWa) {
+                alert('Nama Lengkap dan Nomor WhatsApp harus diisi!');
+                return;
+            }
+
+            localStorage.setItem('formData', JSON.stringify({ nama, noWa, linkGroup }));
+
+            formSectionMain.style.display = 'none';
+            paymentSectionMain.style.display = 'block';
+            
+            startCountdown();
+        }
+
         function startCountdown() {
-            let timeLeft = 10;
-            
-            if (countdownTimer) clearInterval(countdownTimer); 
-            
-            claimButton.disabled = true;
-            claimButton.textContent = `CLAIM`;
+            stopCountdown(); 
+            let timeLeft = 60;
+            claimBtn.disabled = true; 
             countdownDisplay.textContent = timeLeft;
 
-            countdownTimer = setInterval(() => {
+            countdownInterval = setInterval(() => {
                 timeLeft--;
                 countdownDisplay.textContent = timeLeft;
-                
+
                 if (timeLeft <= 0) {
-                    clearInterval(countdownTimer);
-                    claimButton.disabled = false;
-                    claimButton.textContent = 'KLIK UNTUK CLAIM SEKARANG';
-                    countdownDisplay.textContent = 'AKTIF!';
-                } else {
-                    claimButton.textContent = `CLAIM`;
+                    clearInterval(countdownInterval);
+                    countdownDisplay.textContent = 'Waktu Habis! Harap ulangi pemesanan.';
+                    claimBtn.disabled = true;
+                } else if (timeLeft <= 50) { 
+                    claimBtn.disabled = false;
                 }
             }, 1000);
         }
 
-        /**
-         * Fungsi untuk mengecek jawaban kuis.
-         */
-        function checkAnswer(selectedAnswer) {
-            resultMsg.classList.add('hidden');
-            resultMsg.textContent = '';
-            
-            if (selectedAnswer === correctAnswer) {
-                // Jawaban Benar: Tampilkan popup dan mulai timer
-                quizContainer.classList.add('hidden');
-                rewardPopup.style.display = 'flex';
-                startCountdown(); // Mulai hitungan mundur
-            } else {
-                // Jawaban Salah
-                resultMsg.textContent = '❌ Jawaban salah! Coba cari jawaban yang benar!';
-                resultMsg.style.color = '#E74C3C';
-                resultMsg.classList.remove('hidden');
+        function stopCountdown() {
+            clearInterval(countdownInterval);
+            if(paymentSectionMain.style.display !== 'none') {
+                countdownDisplay.textContent = '60'; 
+                claimBtn.disabled = true;
             }
         }
 
-        /**
-         * Fungsi yang mengarahkan ke link Dana Kaget yang asli.
-         */
-        function goToDanaKaget() {
-            if (claimButton.disabled) {
-                alert('Tombol belum aktif. Tunggu hitungan mundur selesai!');
+        // --- Logika Request Bot (Langsung WA) ---
+        function sendFeatureRequest() {
+            const nama = document.getElementById('req-nama').value;
+            const noWa = document.getElementById('req-no-wa').value;
+            const type = document.getElementById('req-fitur-type').value;
+            const keterangan = document.getElementById('req-fitur-keterangan').value.trim() || 'Tidak ada keterangan detail.';
+
+            if (!nama || !noWa) {
+                alert('Nama dan Nomor WhatsApp harus diisi untuk Request Fitur!');
+                return;
+            }
+
+            const message = `
+*FORM REQUEST FITUR BARU NARA ZAEN BOT*
+======================================
+%0A
+Halo Admin, saya ingin mengajukan request fitur baru:
+%0A
+--------------------------------------
+👤 Nama: *${nama}*
+📱 No. WA: *${noWa}*
+%0A
+--------------------------------------
+⚙️ Tipe Fitur: *${type}*
+🗒️ Keterangan Detail:
+${keterangan}
+%0A
+======================================
+*Mohon dipertimbangkan ketersediaan dan biayanya. Terima kasih!*
+            `.trim().replace(/\n/g, '%0A');
+
+            // Ganti 6281234567890 dengan nomor WA Admin/Dev
+            const waLink = `https://wa.me/6281234567890?text=${message}`; 
+            window.open(waLink, '_blank');
+        }
+
+        // --- Logika Hub. Admin ---
+        function contactAdmin(role) {
+            let phoneNumber = '';
+            let text = 'Halo Admin NARA ZAEN BOT, aku ingin bertanya!';
+            
+            if (role === 'admin') {
+                phoneNumber = '6285711374861'; // Ganti dengan nomor Admin
+            } else if (role === 'owner') {
+                phoneNumber = '6285711374861'; // Ganti dengan nomor Owner
+            }
+
+            const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
+            window.open(waLink, '_blank');
+        }
+        
+        // --- Logika Konfirmasi Pembayaran (redirectToWA) ---
+        function redirectToWA(isPayment) {
+            const formData = JSON.parse(localStorage.getItem('formData'));
+            
+            if (!formData) {
+                alert('Data pemesanan tidak ditemukan.');
                 return;
             }
             
-            // Mengarahkan pengguna ke link Dana Kaget di tab baru
-            window.open(DANA_KAGET_LINK, '_blank');
+            const { nama, noWa, linkGroup } = formData;
+            const linkGroupText = linkGroup ? `Link Group WA: ${linkGroup}` : `Link Group WA: (Belum Disediakan)`;
 
-            // Atur ulang tampilan agar kuis bisa dimainkan lagi atau menampilkan pesan sukses
-            rewardPopup.style.display = 'none';
-            quizContainer.classList.remove('hidden'); 
+            const message = `
+*KONFIRMASI PEMESANAN BOT WA*
+=============================
+%0A
+Halo Admin, saya telah menyelesaikan pembayaran *Rp 15.000* untuk sewa bot *NARA ZAEN BOT* 1 bulan.
+%0A
+-------------------------------------------
+*A. DATA PELANGGAN*
+-------------------------------------------
+👤 Nama: *${nama}*
+📱 No. WA Pendaftar: *${noWa}*
+🔗 ${linkGroupText}
+%0A
+===========================================
+*STATUS: pending!! silakan call jika lama respon*
+            `.trim().replace(/\n/g, '%0A'); 
+
+            const waLink = `https://wa.me/6285711374861?text=${message}`; // Ganti ke nomor Admin
             
-            // Reset timer display
-            countdownDisplay.textContent = '10';
-            claimButton.disabled = true;
-            claimButton.textContent = 'CLAIM';
-            
-            // Tampilkan pesan sukses
-            resultMsg.textContent = '✅ Anda diarahkan ke tautan Dana Kaget! Semoga berhasil mendapatkan saldonya.';
-            resultMsg.style.color = '#28A745';
-            resultMsg.classList.remove('hidden');
+            window.open(waLink, '_blank');
+            // Bersihkan form dan reset tampilan
+            document.getElementById('nama').value = '';
+            document.getElementById('no-wa').value = '';
+            document.getElementById('link-group').value = '';
+            localStorage.removeItem('formData');
+            resetSewaBotView();
         }
+        
+        // FUNGSI redirectToWAEvent DIHAPUS SESUAI PERMINTAAN USER
+        
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+             landingPage.style.display = 'flex';
+             mainContent.style.display = 'none';
+        });
     </script>
+
 </body>
 </html>
