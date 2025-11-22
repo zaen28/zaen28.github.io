@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klaim Hadiah dengan Countdown Detik</title>
+    <style>
+        /* CSS Styling (Tidak ada perubahan signifikan dari sebelumnya) */
+        body {
+            background-color: #ffdd00;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            flex-direction: column;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #4a4a4a;
+            margin-bottom: 10px;
+        }
+
+        .timer {
+            /* Perubahan kecil untuk ID */
+            background-color: #ffb800;
+            color: #fff;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .claim-button {
+            background: linear-gradient(to right, #ff6600, #ff4400); 
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            width: 90%;
+            margin-top: 50px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s;
+        }
+
+        .claim-button:hover {
+            background: linear-gradient(to right, #ff7711, #ff5511);
+        }
+
+        .footer-note {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 15px;
+        }😛
+
+        .gift-icon {
+            font-size: 8em;
+            margin: 50px 0;
+            color: #7d40e0;
+            text-shadow: 0 0 20px #fff, 0 0 30px #a5a5ff; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>NARA ZAEN ANTI HOAX</h1>
+            <p>lu download, login langsung tarik saldo Rp 1.650.<br>lu gaprrcaya bodo amat</p>
+            <div class="timer" id="countdown">Ends 00d 00h 00m 00s</div>
+        </div>
+
+        <div class="gift-icon">✨</div>
+        
+        <button class="claim-button">
+            Claim
+        </button>
+
+        <p class="footer-note">
+            wajib cium gua udah gua kasih tau apk cuan 😛
+        </p>
+    </div>
+
+    <script>
+        // 1. Tentukan Waktu Akhir: Tengah Malam (00:00:00) Hari Berikutnya
+        const now = new Date();
+        const endTime = new Date();
+        
+        // Atur waktu ke 00:00:00
+        endTime.setHours(0, 0, 0, 0); 
+        
+        // Majukan tanggal 1 hari (jika jam sekarang sudah melewati 00:00 hari ini, 
+        // maka targetnya adalah 00:00 besok).
+        endTime.setDate(endTime.getDate() + 1); 
+
+        const countdownElement = document.getElementById('countdown');
+
+        // Fungsi untuk memastikan angka selalu memiliki 2 digit (misal: 05, 10)
+        function pad(number) {
+            return number < 10 ? '0' + number : number;
+        }
+
+        function updateCountdown() {
+            const currentTime = new Date().getTime();
+            const distance = endTime - currentTime;
+
+            // Perhitungan waktu
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Menampilkan hasilnya dengan format 00
+            if (distance > 0) {
+                countdownElement.innerHTML = `Ends ${pad(days)}d ${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
+            } else {
+                // Jika waktu habis
+                clearInterval(interval);
+                countdownElement.innerHTML = "EXPIRED";
+                countdownElement.style.backgroundColor = '#ff0000'; 
+            }
+        }
+
+        // Panggil fungsi setiap 1 detik
+        const interval = setInterval(updateCountdown, 1000);
+
+        // Panggil sekali saat dimuat
+        updateCountdown();
+        
+        // --- Logika Klaim Tambahan ---
+
+        const claimButton = document.querySelector('.claim-button');
+        const redirectUrl = 'https://s.hifamiapp.com/1/HZREWl4UB';
+        const claimMessage = '🚨 KLAIM SEKARANG! 🚨\n\nSelamat! Dengan mengunduh melalui tautan ini, Anda akan mendapatkan bonus tambahan **Rp1.600** langsung dari aplikasi!\n\nJangan tunda, segera **Unduh dan Tarik Langsung** hadiah Anda sebelum kuota habis!';
+
+        claimButton.addEventListener('click', function() {
+            // 1. Tampilkan pesan peringatan (alert)
+            alert(claimMessage);
+            
+            // 2. Arahkan pengguna ke URL
+            window.location.href = redirectUrl;
+        });
+    </script>
+</body>
+</html>
