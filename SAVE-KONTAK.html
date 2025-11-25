@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>SAVE KONTAK NARA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 1. GAYA DASAR - BACKGROUND GAMBAR PENUH */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            
+            /* --- PENGATURAN BACKGROUND BARU --- */
+            background-image: url('https://files.catbox.moe/wu28bk.jpg');
+            background-repeat: no-repeat;
+            background-size: cover; /* Memastikan gambar menutupi seluruh layar tanpa terpotong */
+            background-position: center center; /* Memposisikan gambar di tengah */
+            background-attachment: fixed; /* Membuat background tetap di tempat saat discroll */
+            /* ---------------------------------- */
+            
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            min-height: 100vh;
+            padding: 30px 20px;
+            margin: 0;
+            box-sizing: border-box;
+            color: #E0E0E0; 
+        }
+        
+        /* WARNA OVERLAY GELAP AGAR FORM LEBIH TERLIHAT */
+        /* Saya menambahkan pseudo-element untuk efek overlay transparan gelap */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* Overlay hitam 40% transparan */
+            z-index: -1;
+        }
+
+        .container {
+            /* Latar belakang form dibuat semi-transparan agar background tetap terlihat */
+            background-color: rgba(30, 30, 30, 0.85); /* 85% opacity */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            width: 1300px; 
+            position: relative;
+            overflow: hidden; 
+            
+            /* BORDER NEON */
+            border: 3px solid #25D366; 
+            transition: all 0.5s ease;
+        }
+        
+        /* Efek Menyala Saat Hover */
+        .container:hover {
+            border-color: #FFD700; 
+            box-shadow: 0 0 30px #FFD700, 0 0 10px #25D366; 
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-family: 'Fredoka One', cursive; 
+            color: #00FFFF; 
+            font-size: 80px; 
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px #00FFFF, 0 0 5px #0000FF; 
+        }
+        .header p {
+            color: #AAAAAA;
+            font-size: 30px;
+            margin-top: -10px;
+        }
+
+        /* 2. STYLING INPUT */
+        .form-group {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        .input-label {
+            position: absolute;
+            top: -15px; 
+            left: 15px;
+            background-color: #25D366; 
+            color: black; 
+            padding: 5px 15px;
+            border-radius: 10px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+            z-index: 10;
+        }
+        input[type="text"], input[type="number"] { /* Tambahkan input[type="number"] */
+            width: calc(100% - 20px); 
+            padding: 15px 10px;
+            margin-top: 10px; 
+            border: 2px solid #25D366; 
+            border-radius: 15px; 
+            font-size: 1em;
+            background-color: #2C2C2C; 
+            color: white;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus {
+            border-color: #FFD700; 
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            outline: none;
+        }
+        
+        /* 3. TOMBOL KIRIM */
+        .submit-button-wrapper {
+            text-align: center;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #25D366;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, box-shadow 0.3s;
+            box-shadow: 0 0 15px #25D366; 
+            width: 100%;
+        }
+        button:hover {
+            background-color: #FFD700; 
+            box-shadow: 0 0 20px #FFD700; 
+            color: black;
+        }
+
+        /* 4. DEKORASI FOTO BULAT MENYALA */
+        .decoration {
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        .decoration img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%; 
+            object-fit: cover;
+            /* Efek Neon Bulat */
+            box-shadow: 0 0 15px #00FFFF, 0 0 5px #00FFFF; 
+            border: 3px solid #00FFFF;
+            transition: box-shadow 0.5s;
+        }
+        .decoration img:hover {
+             box-shadow: 0 0 25px #FFD700, 0 0 10px #FFD700; 
+             border-color: #FFD700;
+        }
+        
+        /* 5. PESAN ERROR */
+        .error-message {
+            color: #FF4500; 
+            font-size: 0.9em;
+            margin-top: -30px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 0 0 5px #FF4500;
+            display: none;
+        }
+    </style>
+</head>
+<body>               
+    <form id="waForm" class="container">
+        <div class="decoration">
+            <img src="https://autoresbot.com/tmp_files/f0b25b81-52f2-4d03-a478-ebbd7b5935eb.jpg" alt="Ikon Kura-kura">
+        </div>
+        <div class="header">
+            <h1>SAVE KONTAK NARA</h1>
+            <p>lu save kontak gua, gua kasih daget co 🥰</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="nama_pengunggah" class="input-label">NAMA KAMU</label>
+            <input type="text" id="nama_pengunggah" placeholder="Siapa namamu?" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="usia" class="input-label">USIA KAMU</label>
+            <input type="number" id="usia" placeholder="Berapa tahun usiamu?" min="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="asal_kota" class="input-label">ASAL KOTA</label>
+            <input type="text" id="asal_kota" placeholder="Asal kota kamu." required>
+        </div>
+        
+        <div id="errorMsg" class="error-message">
+            ⚠️ Pengiriman gagal. Pastikan semua kolom terisi dengan benar.
+        </div>
+
+        <div class="submit-button-wrapper">
+            <button type="submit">Kirim Bukti Save Kontak ke WhatsApp 🟢</button>
+        </div>
+        
+
+
+    </form>
+
+    <script>
+        document.getElementById('waForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            // 1. Ambil data
+            const namaPengunggah = document.getElementById('nama_pengunggah').value.trim();
+            // Ambil data USIA baru
+            const usia = document.getElementById('usia').value.trim(); 
+            const asalKota = document.getElementById('asal_kota').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            
+            // Validasi sederhana (pastikan semua terisi)
+            if (!namaPengunggah || !usia || !asalKota) {
+                errorMsg.textContent = '⚠️ Harap isi semua kolom data (Nama, Usia, Asal Kota).';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            // Sembunyikan pesan error jika valid
+            errorMsg.style.display = 'none';
+
+            // 3. Susun teks pesan WhatsApp dengan data baru:
+            const teksPesan = 
+                `🔥BILANG DONE KALO DAH SAVE🔥\n\n` +
+                `Nama: ${namaPengunggah}\n` +
+                `Usia: ${usia} tahun\n` +
+                `Asal Kota: ${asalKota}\n\n` +
+                `*qutes :* hanya klaim dana kaget nya ajah ga save dosa masuk neraka\n` +
+                `https://link.dana.id/danakaget?c=sz4az7dhv&r=cAYM8h&orderId=20251126101214852715010300166998250735813`;
+
+            // 4. Encode dan kirim ke nomor WA tujuan
+            const pesanURL = encodeURIComponent(teksPesan);
+            // Nomor tujuan WhatsApp dipertahankan: 6285711374861
+            const waLink = `https://wa.me/6285711374861?text=${pesanURL}`;
+            window.open(waLink, '_blank');
+        });
+    </script>
+
+</body>
+</html>
