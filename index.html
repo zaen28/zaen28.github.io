@@ -498,6 +498,7 @@
                     <a href="javascript:showContent('sewa')">4. Sewa Bot</a>
                     <a href="javascript:showContent('admin')">5. Hub. Admin</a>
                     <a href="javascript:showContent('event')">6. Event & Acara</a> 
+                    <a href="https://tokopanel157-private216.mts4you.biz.id" target="_blank">7. Panel ↗</a> 
                 </div>
             </div>
         </div>
@@ -720,7 +721,7 @@
                             <img src="https://files.catbox.moe/5zkl8z.jpg" alt="Diskon Sewa Bot">
                         </div>
                         <div class="event-info">
-                            <h4>Harga Asli Rp. 15.000</h4>
+                            <h4>Rp. 10.000</h4>
                             <p>Sewa bot untuk 1 bulan hanya bayar 10k Berlaku hingga 25 november 2025.</p>
                             <a class="btn btn-join" href="https://wa.me/6285711374861?text=Hi kak zaen, aku mau sewa bot promo 1 bulan 10k ya..." target="_blank">CLAIM</a>
                         </div>
@@ -793,6 +794,7 @@
     </div> 
     
     <script>
+        // DAFTAR KONTEN DIPERBARUI (Menghapus 'panel')
         const contents = ['fitur', 'keunggulan', 'request', 'sewa', 'admin', 'event']; 
 
         // Sewa Bot Elements
@@ -853,6 +855,7 @@
             const target = document.getElementById(contentId);
             if (target) {
                 target.style.display = 'block';
+                
                 if (contentId === 'sewa') {
                     resetSewaBotView();
                 } else if (contentId !== 'sewa') {
@@ -1004,8 +1007,6 @@ Halo Admin, saya telah menyelesaikan pembayaran *Rp 15.000* untuk sewa bot *NARA
             localStorage.removeItem('formData');
             resetSewaBotView();
         }
-        
-        // FUNGSI redirectToWAEvent DIHAPUS SESUAI PERMINTAAN USER
         
         // --- Initial Load ---
         document.addEventListener('DOMContentLoaded', () => {
