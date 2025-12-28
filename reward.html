@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultah Gift - Dana Kaget</title>
+    <style>
+        :root {
+            --purple-gradient: linear-gradient(to right, #ff7eb3, #a18cd1);
+            --bg-color: #f4f4f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .balance-card {
+            background: var(--purple-gradient);
+            border-radius: 20px;
+            padding: 25px;
+            color: white;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(255, 126, 179, 0.3);
+        }
+
+        .instruction {
+            background: #fff9c4;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #856404;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px dashed #ffe082;
+        }
+
+        .item-card {
+            border: 1px solid #eee;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+        }
+
+        .item-info { display: flex; align-items: center; gap: 12px; }
+        .icon { font-size: 24px; }
+
+        .btn-claim {
+            border: none;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            min-width: 90px;
+            text-transform: uppercase;
+        }
+
+        .locked { background: #f0f0f0; color: #aaa; border: 1px solid #ddd; }
+        .unlocked { background: #00c853; color: white; box-shadow: 0 4px 10px rgba(0, 200, 83, 0.3); }
+
+        /* Khusus Tombol 6 */
+        .special-btn { background: #ff4081; color: white; box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3); }
+
+        .wa-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #e7ffdb;
+            border-radius: 15px;
+            border: 1px solid #c5e1b5;
+        }
+
+        .wa-section h3 {
+            margin-top: 0;
+            font-size: 16px;
+            color: #075e54;
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: none;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+
+        .btn-wa {
+            width: 100%;
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .thanks-section {
+            margin-top: 25px;
+            padding: 20px;
+            text-align: center;
+            background: #fdf2ff;
+            border-radius: 20px;
+            border: 1px solid #f0d0f0;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">🧧 Paket Hadiah Ultah 🧧</div>
+
+    <div class="balance-card">
+        <p style="margin:0; font-size: 14px; opacity: 0.9;">Total Reward</p>
+        <h2 style="margin:5px 0; font-size: 32px;">Rp 999.999.999.999</h2>
+    </div>
+
+    <div class="instruction">
+        <strong>Cara Klaim:</strong> Tap tombol 1-5 berkali-kali. Khusus Paket 6, jawab tantangan matematikanya!
+    </div>
+
+    <div class="item-card"><div class="item-info"><span class="icon">🎁</span><div><strong>dari kak Sofiey</strong><br><small>Paket 1</small></div></div><button id="btn1" class="btn-claim locked" onclick="handleTap(1, 200)">Tap: 200</button></div>
+    <div class="item-card"><div class="item-info"><span class="icon">🎁</span><div><strong>Dari Ester</strong><br><small>Paket 2</small></div></div><button id="btn2" class="btn-claim locked" onclick="handleTap(2, 400)">Tap: 400</button></div>
+    <div class="item-card"><div class="item-info"><span class="icon">🎁</span><div><strong>Dari Kak Ajex</strong><br><small>Paket 3</small></div></div><button id="btn3" class="btn-claim locked" onclick="handleTap(3, 600)">Tap: 600</button></div>
+    <div class="item-card"><div class="item-info"><span class="icon">🎁</span><div><strong>Dari kak Elwayar</strong><br><small>Paket 4</small></div></div><button id="btn4" class="btn-claim locked" onclick="handleTap(4, 400)">Tap: 400</button></div>
+    <div class="item-card"><div class="item-info"><span class="icon">🎁</span><div><strong>Dari Nurizah zahra</strong><br><small>Paket 5</small></div></div><button id="btn5" class="btn-claim locked" onclick="handleTap(5, 1000)">Tap: 1000</button></div>
+    
+    <div class="item-card">
+        <div class="item-info">
+            <span class="icon">🔥</span>
+            <div><strong>NARA ZAEN</strong><br><small>Paket 6 (Spesial)</small></div>
+        </div>
+        <button class="btn-claim special-btn" onclick="specialClaim(6)">CLAIM</button>
+    </div>
+
+    <div class="wa-section">
+        <h3>Kirim Ucapan Ultah 🎂</h3>
+        <textarea id="pesan" rows="3" placeholder="Tulis ucapan kamu di sini..."></textarea>
+        <button class="btn-wa" onclick="kirimWA()">Kirim ke WhatsApp</button>
+    </div>
+
+    <div class="thanks-section">
+        <p style="color: #7b1fa2; font-style: italic; font-size: 14px; margin: 0;">
+            "Terima kasih sudah mampir dan kasih ucapan! Semoga harimu menyenangkan! ✨"
+        </p>
+    </div>
+</div>
+
+<script>
+    let taps = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    // URUTAN LINK DANA KAGET (Sudah Urut 1-6)
+    const links = {
+        1: "https://link.dana.id/danakaget?c=sqqw386uz&r=bqLoX4&orderId=20251228101214457515010300166544355828140",
+        2: "https://link.dana.id/danakaget?c=sldl7pw4j&r=k1KFgP&orderId=20251228101214738315010300166138455755332",
+        3: "https://link.dana.id/danakaget?c=smct6b6dn&r=gij203&orderId=20251228101214799515010300166870455768153",
+        4: "https://link.dana.id/danakaget?c=slvcr2vfs&r=hK1Ksl&orderId=20251228101214570715010300166157156227680",
+        5: "https://link.dana.id/danakaget?c=sgrghsl32&r=eL6QLz&orderId=20251228101214897515010300166512655369761", // Silakan ganti link paket 5 di sini
+        6: "https://link.dana.id/danakaget?c=sypwyf8mn&r=cAYM8h&orderId=202512281012140847150103001669982555166236"
+    };
+
+    function handleTap(id, target) {
+        if (taps[id] < target) {
+            taps[id]++;
+            let sisa = target - taps[id];
+            let btn = document.getElementById('btn' + id);
+            btn.innerText = "Sisa: " + sisa;
+
+            if (taps[id] >= target) {
+                btn.innerText = "CLAIM NOW";
+                btn.classList.remove('locked');
+                btn.classList.add('unlocked');
+            }
+        } else {
+            window.location.href = links[id];
+        }
+    }
+
+    // Fungsi Khusus Paket 6 dengan Pertanyaan Matematika
+    function specialClaim(id) {
+        let jawaban = prompt("Tantangan Spesial: Berapakah hasil dari 100 x 100?");
+        
+        if (jawaban === "10000") {
+            alert("Jawaban Benar! Selamat mengklaim.");
+            window.location.href = links[id];
+        } else if (jawaban === null) {
+            // Jika user menekan cancel
+            return;
+        } else {
+            alert("Jawaban salah, coba hitung lagi ya!");
+        }
+    }
+
+    function kirimWA() {
+        const nomor = "6285711374861";
+        const pesan = document.getElementById('pesan').value;
+        if (pesan.trim() === "") {
+            alert("Tulis ucapannya dulu ya!");
+            return;
+        }
+        const url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent("Halo! Selamat Ulang Tahun! 🎂\n\n" + pesan);
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
