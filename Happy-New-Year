@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucapan Selamat Tahun Baru & Ulang Tahun</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            /* Perbaikan syntax gradient */
+            background: linear-gradient(to right, #f0f8ff, #e0ffff);
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            margin-bottom: 20px;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #ff6347;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #4682b4;
+            margin-top: 20px;
+            font-size: 2em;
+        }
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .new-year {
+            color: #2e8b57;
+        }
+        .birthday {
+            color: #da70d6;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        /* Styling Tombol Dana Kaget */
+        .floating-gift {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #118eea; /* Warna khas Dana */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(17, 142, 234, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        .floating-gift:hover {
+            transform: scale(1.1);
+            background-color: #0d79c8;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(17, 142, 234, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(17, 142, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(17, 142, 234, 0); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.5em; }
+            p { font-size: 1em; }
+            .floating-gift {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">
+            <img src="https://files.catbox.moe/9ab418.jpg" alt="Logo Verzader">
+        </div>
+        <h1>Selamat Tahun Baru!</h1>
+        <p class="new-year">Semoga tahun ini membawa kebahagiaan, kesehatan, dan kesuksesan yang melimpah untuk kita semua.</p>
+
+        <h2>Selamat Ulang Tahun, Kak Ayumaiman!</h2>
+        <p class="birthday">Di hari yang istimewa ini, kami ingin mengucapkan selamat ulang tahun yang paling hangat untuk Kak Ayumaiman.</p>
+        <p class="birthday">Semoga panjang umur, sehat selalu, selalu bahagia, dan segala impian serta cita-cita Kak Ayumaiman dapat tercapai.</p>
+        <p class="birthday">Terima kasih atas inspirasi dan kebersamaan yang telah diberikan. Semoga harimu penuh tawa dan cinta!</p>
+
+        <div class="footer">
+            <p>Dari kami, Verzader<br>veronica ● Zaen ● Deria</p>
+        </div>
+    </div>
+
+    <a href="https://link.dana.id/danakaget?c=s92slq5yc&r=cAYM8h&orderId=20251231101214844815010300166998255962059" class="floating-gift" target="_blank">
+        🎁 <span>Dana Kaget</span>
+    </a>
+
+</body>
+</html>
