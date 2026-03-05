@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset='UTF-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5'/>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+    <link rel="icon" type="image/svg+xml" href="https://feeldreams.github.io/main-icon.png">
+    <link rel="apple-touch-icon" href="https://feeldreams.github.io/main-icon.png">
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    <title>Semangat Puasa Sayang!</title>
+    <style>
+        :root { --warna-tema: #ffd700; }
+        body { font-family: Arial, sans-serif; background-color: #000; color: white; margin: 0; padding: 0; overflow-x: hidden; }
+        .sembunyi { display: none !important; }
+        
+        /* Overlay Awal */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; text-align: center; }
+        .blocklove { display: none; cursor: pointer; }
+        .lovein svg { stroke: var(--warna-tema); fill: none; width: 60px; height: 60px; }
+        
+        /* Section Styling */
+        section { position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box; }
+        .wp { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .wp img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
+        
+        h1 { font-size: 2em; margin: 10px 0; font-weight: bold; }
+        p { font-size: 1.1em; line-height: 1.6; }
+
+        /* Tombol */
+        #Tombol { opacity: 0; transform: scale(0.8); display: flex; gap: 15px; margin-top: 30px; transition: all 0.5s; }
+        #Tombol a { padding: 12px 25px; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        #By { background-color: #28a745; }
+        #Bn { background-color: #dc3545; }
+
+        /* Loading Process Overlay */
+        #loadingOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; }
+        #loadingOverlay img { width: 85%; max-width: 350px; border-radius: 12px; margin-bottom: 20px; border: 2px solid var(--warna-tema); }
+        .bar-container { width: 250px; height: 10px; background: #333; border-radius: 5px; overflow: hidden; }
+        .bar-fill { height: 100%; width: 0%; background: var(--warna-tema); transition: width 10s linear; }
+
+        /* Final Section */
+        .msg-box { background: rgba(0,0,0,0.7); padding: 20px; border-radius: 15px; border: 1px solid var(--warna-tema); opacity: 0; transform: scale(0.9); transition: all 0.8s; }
+        #btnDana { display: none; margin-top: 20px; padding: 15px 30px; background: var(--warna-tema); color: #000; text-decoration: none; font-weight: bold; border-radius: 10px; }
+
+        /* Moon Particle */
+        .moon { position: fixed; color: var(--warna-tema); animation: fall linear infinite; top: -10vh; z-index: -1; }
+        @keyframes fall { to { transform: translateY(110vh); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlayAwal">
+        <div id="loadingTeks">Assalamualaikum Ayang...</div>
+        <div class="blocklove" id="btnLove">
+            <div class="lovein">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke-width="1.5" stroke="#ffd700" fill="none"/></svg>
+            </div>
+            <p>Klik Hatinya!</p>
+        </div>
+    </div>
+
+    <div id="loadingOverlay">
+        <img src="https://files.catbox.moe/uak3yl.jpg" alt="Ramadhan">
+        <p>Sabar ya, lagi ambil daget untuk kamu.... ✨</p>
+        <div class="bar-container"><div class="bar-fill" id="fill"></div></div>
+    </div>
+
+    <audio src="https://feeldreams.github.io/audio/melody.mp3" id="lagu" loop></audio>
+
+    <section id="s1">
+        <div class="wp"><img src="https://images.unsplash.com/photo-1542662565-7e4b66bae529?q=80&w=1000"></div>
+        <h1 id="teksAwal"></h1>
+        <p id="subTeks" style="display:none">tadi sahur kan?<br>Jangan MOKEL ya 🌙</p>
+        <div id="btnNext" style="margin-top:20px; opacity:0; cursor:pointer;" onclick="keS2()">
+            <svg width="50" height="50" fill="#ffd700" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+    </section>
+
+    <section id="s2">
+        <div class="wp"><img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=1000"></div>
+        <h1>Gimana puasanya?</h1>
+        <p>Lapar gak? Atau udah haus bgt? 🤤</p>
+        <div id="Tombol">
+            <a id="By" onclick="prosesSemangat()">💌 Semangat!</a>
+            <a id="Bn" onclick="sindirLemes()">Udah Lemes</a>
+        </div>
+    </section>
+
+    <section id="s3">
+        <div class="wp"><img src="https://images.unsplash.com/photo-1542662565-7e4b66bae529?q=80&w=1000"></div>
+        <div class="msg-box" id="kotakPesan">
+            <h1>Masya Allah, Pinter! 🥰</h1>
+            <p>Semoga puasanya berkah dan lancar sampai Maghrib nanti ya sayang! Semangat terus aktivitasnya. ✨</p>
+            <p>Ini ada sedikit apresiasi buat beli takjil nanti sore... 🫢</p>
+            <a href="https://link.dana.id/danakaget?c=svxtqr47n&r=cAYM8h&orderId=20260305101214481015010300166998267093198" id="btnDana" target="_blank">🎁 SALDO TAKJIL</a>
+        </div>
+    </section>
+
+<script>
+    const lagu = document.getElementById("lagu");
+    
+    // Partikel Bulan
+    function hujanBulan() {
+        const moon = document.createElement("div");
+        moon.innerHTML = "🌙";
+        moon.className = "moon";
+        moon.style.left = Math.random() * 100 + "vw";
+        moon.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(moon);
+        setTimeout(() => moon.remove(), 5000);
+    }
+
+    // Tombol Lemes (Sindiran)
+    function sindirLemes() {
+        const sindiran = [
+            "Hah? Lemes? Malu sama umur ih, udah gede masa puasa aja loyo! 😂",
+            "Inget ya, yang boleh lemes itu cuma dompet akhir bulan, kalau puasa harus kuat! 😜",
+            "Jangan manja! Malu tuh sama anak kecil yang udah tamat puasanya. Semangat dong! 💪",
+            "Dih, baru jam segini udah lemes. Mental dewasa mana nih? Sindir keras! 😏"
+        ];
+        alert(sindiran[Math.floor(Math.random() * sindiran.length)]);
+    }
+
+    // Tombol Semangat (Loading 10 Detik)
+    function prosesSemangat() {
+        document.getElementById("loadingOverlay").style.display = "flex";
+        setTimeout(() => { document.getElementById("fill").style.width = "100%"; }, 100);
+        
+        setTimeout(() => {
+            document.getElementById("loadingOverlay").style.display = "none";
+            keS3();
+        }, 10500);
+    }
+
+    // Navigasi
+    function keS2() {
+        window.scrollTo({top: window.innerHeight, behavior: 'smooth'});
+        setTimeout(() => { document.getElementById("Tombol").style.opacity = "1"; document.getElementById("Tombol").style.transform = "scale(1)"; }, 500);
+    }
+
+    function keS3() {
+        window.scrollTo({top: window.innerHeight * 2, behavior: 'smooth'});
+        setTimeout(() => {
+            document.getElementById("kotakPesan").style.opacity = "1";
+            document.getElementById("kotakPesan").style.transform = "scale(1)";
+            document.getElementById("btnDana").style.display = "inline-block";
+            setInterval(hujanBulan, 300);
+        }, 500);
+    }
+
+    // Inisialisasi
+    window.onload = () => {
+        window.scrollTo(0,0);
+        setTimeout(() => {
+            document.getElementById("loadingTeks").style.display = "none";
+            document.getElementById("btnLove").style.display = "block";
+        }, 1000);
+    };
+
+    document.getElementById("btnLove").onclick = () => {
+        lagu.play();
+        document.getElementById("overlayAwal").style.display = "none";
+        new TypeIt("#teksAwal", {
+            strings: ["Assalamualaikum Sayang!", "Semangat Puasanya Ya! ✨"],
+            speed: 50, waitUntilVisible: true,
+            afterComplete: function() {
+                document.getElementById("subTeks").style.display = "block";
+                document.getElementById("btnNext").style.opacity = "1";
+            }
+        }).go();
+    };
+</script>
+</body>
+</html>
