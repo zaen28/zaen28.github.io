@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nara Zaeb - Premium Hosting</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --neon-glow: 0 0 15px rgba(118, 75, 162, 0.5);
+        }
+
+        body {
+            background: #0f172a; /* Dark Navy */
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(118, 75, 162, 0.1) 0%, transparent 80%);
+            z-index: -1;
+            animation: pulse 10s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .container {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 12px;
+            padding: 12px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #764ba2;
+            box-shadow: var(--neon-glow);
+            color: white;
+        }
+
+        .btn-order {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: white;
+            transition: 0.4s;
+            text-transform: uppercase;
+        }
+
+        .btn-order:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(118, 75, 162, 0.6);
+            color: white;
+        }
+
+        .price-badge {
+            background: rgba(118, 75, 162, 0.2);
+            color: #a78bfa;
+            border: 1px solid #764ba2;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        h2 {
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="text-center mb-4">
+                <h2 class="mb-1">NARA ZAEB</h2>
+                <p class="text-secondary small">High Performance Infrastructure</p>
+            </div>
+            
+            <form id="orderForm">
+                <div class="mb-4">
+                    <label class="form-label text-secondary small">IDENTITAS PEMBELI</label>
+                    <input type="text" id="nama" class="form-control" placeholder="Nama Lengkap / Username" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-secondary small">PILIH PAKET LAYANAN</label>
+                    <select id="produk" class="form-select" required>
+                        <option value="" selected disabled>Pilih Produk...</option>
+                        <option value="VPS Special Edition (70k)">VPS Spek Terbaik (1 Bln) - 70k</option>
+                        <option value="Panel Pterodactyl (18k)">Panel Pterodactyl (1 Bln) - 18k</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-secondary small">JUMLAH ORDER</label>
+                    <input type="number" id="jumlah" class="form-control" value="1" min="1">
+                </div>
+
+                <button type="button" onclick="kirimWA()" class="btn btn-order w-100 mt-2">
+                    Checkout ke WhatsApp
+                </button>
+            </form>
+
+            <div class="mt-4 pt-3 border-top border-secondary text-center">
+                <span class="text-secondary" style="font-size: 0.7rem;">Automated System by Nara AI</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function kirimWA() {
+        const noWA = "6285711474861";
+        const nama = document.getElementById('nama').value;
+        const produk = document.getElementById('produk').value;
+        const jumlah = document.getElementById('jumlah').value;
+
+        if (!nama || !produk) {
+            alert("Lengkapi data sebelum checkout!");
+            return;
+        }
+
+        const pesan = `🚀 *NEW ORDER - NARA ZAEN*\n` +
+                      `----------------------------\n` +
+                      `👤 *Nama:* ${nama}\n` +
+                      `📦 *Produk:* ${produk}\n` +
+                      `🔢 *Jumlah:* ${jumlah}\n` +
+                      `----------------------------\n` +
+                      `Mohon segera diproses ya!`;
+
+        const url = `https://api.whatsapp.com/send?phone=${noWA}&text=${encodeURIComponent(pesan)}`;
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
